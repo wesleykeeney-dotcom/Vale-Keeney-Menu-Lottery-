@@ -1,0 +1,10 @@
+/* v0.3 phone navigation and grocery checklist */
+.tabs{scrollbar-width:thin;scroll-snap-type:x proximity;position:sticky;top:0;z-index:8;background:#100e1bf0}
+.tabs button{scroll-snap-align:start;flex-shrink:0}
+.grocery-item{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid #554369;border-radius:12px;margin:7px 0;background:#251c34}
+.grocery-item input{width:22px;height:22px;accent-color:#d6a0ff}
+.grocery-item:has(input:checked) span{text-decoration:line-through;opacity:.65}
+.grocery-dept{color:#d9b2ff;margin:22px 0 8px}
+.grocery-add{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.grocery-add input{flex:1;min-width:150px;padding:12px;border-radius:12px;border:1px solid #6a507d;background:#251c34;color:#fff}
+@media(max-width:600px){.app{padding:14px 12px 32px}.top{padding:8px 0 16px}.hero{padding:25px 20px;min-height:0}.dice-art{display:none}.tabs{gap:4px;padding:10px 0}.tabs button{font-size:13px;padding:11px 12px}.number-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
