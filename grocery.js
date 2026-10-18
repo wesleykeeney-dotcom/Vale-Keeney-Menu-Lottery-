@@ -47,3 +47,4 @@ function groceryInit(){
  groceryRender();
 }
 groceryInit();
+if(typeof pantryInit==='function')pantryInit();
