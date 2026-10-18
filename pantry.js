@@ -10,4 +10,4 @@ const list=[...names.values()].sort((a,b)=>a.localeCompare(b));const summary=nod
 for(const name of list){const label=node('label','grocery-item');const checkbox=node('input');checkbox.type='checkbox';checkbox.checked=pantryHas(name);checkbox.onchange=()=>pantrySet(name,checkbox.checked);label.append(checkbox,node('span',null,name));root.append(label)}
 }
 function pantryInit(){const add=document.getElementById('pantryAdd'),input=document.getElementById('pantryExtra');if(!add||!input)return;add.onclick=()=>{const name=input.value.trim();if(!name)return;pantrySet(name,true);input.value=''};pantryRender()}
-pantryInit();
+// Initialized after grocery.js defines SHOPPING_TEMPLATES.
