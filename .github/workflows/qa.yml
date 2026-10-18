@@ -1,0 +1,29 @@
+name: Menu Lottery QA
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check application files
+        run: |
+          test -f index.html
+          test -f app.js
+          test -f meals.js
+          test -f styles.css
+          test -f manifest.webmanifest
+          test -f sw.js
+          test -f tests/smoke.test.cjs
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check meals.js
+          node --check sw.js
+      - name: Run smoke tests
+        run: node --test tests/*.test.cjs
