@@ -80,5 +80,9 @@ const MEALS = Object.freeze([
   "Sausage Egg & Cheese Biscuits",
   "Sweet & Sour Chicken & Rice",
   "Homemade Pizza Bagels",
-  "Beef & Cheese Stuffed Shells"
+  "Beef & Cheese Stuffed Shells",
+  "Food Wars! — Gotcha! Pork Roast",
+  "Food Wars! — Transforming Furikake Rice",
+  "Food Wars! — Rainbow Terrine",
+  "Food Wars! — Soma’s Boeuf Bourguignon"
 ]);

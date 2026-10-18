@@ -8,13 +8,13 @@ const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'meals.js'), 'utf8');
 const meals = vm.runInNewContext(source + '\nMEALS;', {});
 
-test('lottery contains exactly 80 numbered options', () => {
-  assert.equal(meals.length, 80);
+test('lottery contains 84 numbered options preserving original 80', () => {
+  assert.equal(meals.length, 84);
   assert.ok(meals.every(meal => typeof meal === 'string' && meal.trim().length > 0));
 });
 
 test('all meal names are unique', () => {
-  assert.equal(new Set(meals.map(meal => meal.trim().toLowerCase())).size, 80);
+  assert.equal(new Set(meals.map(meal => meal.trim().toLowerCase())).size, 84);
 });
 
 test('historical lottery numbers remain stable', () => {
@@ -29,3 +29,6 @@ test('required app assets are present', () => {
     assert.ok(fs.existsSync(path.join(root, filename)), filename + ' missing');
   }
 });
+
+test('Food Wars additions are append-only and preserve originals',()=>{assert.equal(meals[79],'Beef & Cheese Stuffed Shells');assert.deepEqual(Array.from(meals.slice(80)),['Food Wars! — Gotcha! Pork Roast','Food Wars! — Transforming Furikake Rice','Food Wars! — Rainbow Terrine','Food Wars! — Soma’s Boeuf Bourguignon']);});
+test('Food Wars metadata flags mushroom recipes and grocery templates do not invent ingredient lists',()=>{const meta=fs.readFileSync(path.join(root,'food-wars.js'),'utf8');const grocery=fs.readFileSync(path.join(root,'grocery.js'),'utf8');assert.ok(meta.includes('80:{'));assert.ok(meta.includes('82:{'));assert.ok(meta.includes('mushrooms:true'));for(const id of [80,81,82,83])assert.ok(!grocery.includes('  '+id+':['));});
