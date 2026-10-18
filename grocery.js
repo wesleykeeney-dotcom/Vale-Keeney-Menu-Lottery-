@@ -26,12 +26,17 @@ function groceryRender(){
  const all=[...items.values()].map(x=>({...x,amount:x.amounts.join(' + ')}));
  for(const extra of groceryState.extras||[])if(extra&&typeof extra.name==='string')all.push({department:'Other',ingredient:extra.name,amount:'Manual'});
  all.sort((a,b)=>a.department.localeCompare(b.department)||a.ingredient.localeCompare(b.ingredient));
+ const onHand=all.filter(item=>typeof pantryHas==='function'&&pantryHas(item.ingredient));
+ const toBuy=all.filter(item=>!(typeof pantryHas==='function'&&pantryHas(item.ingredient)));
+ root.append(node('p','subtle',toBuy.length+' items to buy • '+onHand.length+' already on hand.'));
+
  if(!all.length)root.append(node('p','subtle','Select meals or add items to start your list.'));
  let current='';
- for(const item of all){if(item.department!==current){current=item.department;root.append(node('h4','grocery-dept',current))}
+ for(const item of toBuy){if(item.department!==current){current=item.department;root.append(node('h4','grocery-dept',current))}
   const label=node('label','grocery-item');const box=node('input');box.type='checkbox';const key=item.ingredient.toLowerCase();box.checked=groceryState.checked.includes(key);box.onchange=()=>{groceryState.checked=box.checked?[...new Set([...groceryState.checked,key])]:groceryState.checked.filter(x=>x!==key);grocerySave()};
   const info=node('span',null,item.ingredient+' — '+item.amount);label.append(box,info);root.append(label);
  }
+ if(onHand.length){root.append(node('h4','grocery-dept','Already have — pantry'));for(const item of onHand)root.append(node('p','subtle',item.ingredient+' — '+item.amount))}
 }
 function groceryInit(){
  const add=document.getElementById('groceryAdd'),input=document.getElementById('groceryExtra');
