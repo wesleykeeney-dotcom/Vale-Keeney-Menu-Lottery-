@@ -68,7 +68,7 @@ test('mushroom-containing and unverified variant recipes stay unmapped',()=>{
   for(const id of [1,8,11,17,30,31,39,49,80,81,82,83]){
     assert.equal(mapping[id],undefined,'Do not invent a household mapping for lottery #'+(id+1));
   }
-  assert.match(src,/original source-image verification/i);
+  assert.match(src,/Original image verification pending/);
   assert.doesNotMatch(src,/drive\.google\.com|docs\.google\.com|github\.com\/wesleykeeney-dotcom\/Vale-Keeney-Cooking-vault/,'private source locations are not published');
 });
 
