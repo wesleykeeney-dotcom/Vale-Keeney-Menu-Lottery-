@@ -26,6 +26,11 @@ const SHOPPING_TEMPLATES = Object.freeze({
   40:[['Meat','Beef tips or chuck roast','about 2 lb'],['Pasta','Wide egg noodles','1 bag'],['Canned & Jarred','Beef broth','1 carton'],['Canned & Jarred','Brown gravy mix','2 packets']],
   2:[['Meat','Ground beef','about 1.5 lb'],['Bakery','Slider buns','1 package'],['Dairy','Sliced cheese','1 package'],['Frozen','Frozen fries','1 bag']]
 });
+// Per-recipe quantity context is informational; optional ingredients are not auto-added to required buys.
+const SHOPPING_RECIPE_NOTES=Object.freeze({
+  3:'Pepperoni Pizza Grilled Cheese: archived quantities yield 2 sandwiches, not 5 servings. Optional garlic: 1 tsp (type unspecified), not included in required shopping.',
+  52:'Sausage & Potato Foil Packets: archived yield is unspecified; do not assume quantities cover five people.'
+});
 const GROCERY_KEY='vk-grocery-v03';
 function groceryLoad(){try{const x=JSON.parse(localStorage.getItem(GROCERY_KEY));return x&&typeof x==='object'&&Array.isArray(x.checked)?x:{checked:[],extras:[],pantry:[]}}catch{return {checked:[],extras:[],pantry:[]}}}
 let groceryState=groceryLoad();
@@ -39,6 +44,7 @@ function groceryRender(){
  const covered=ids.length-missing.length;
  const notice=node('p','subtle',!ids.length?'No dinners selected yet. Add a meal to the weekly calendar or lottery to begin.':missing.length?'Ingredient coverage: '+covered+' of '+ids.length+' dinners. Recipes not yet mapped: '+missing.map(id=>name(id)).join(', ')+'. Add verified ingredients manually; this is not a complete grocery list.':'Ingredient coverage: '+covered+' of '+ids.length+' dinners. All have household planning templates; check quantities before shopping.');
  root.append(notice);
+ for(const id of ids)if(SHOPPING_RECIPE_NOTES[id])root.append(node('p','subtle',SHOPPING_RECIPE_NOTES[id]));
  const items=new Map();
  for(const id of ids)for(const [department,ingredient,amount] of SHOPPING_TEMPLATES[id]||[]){
   const key=ingredient.toLowerCase();if(!items.has(key))items.set(key,{department,ingredient,amounts:[]});
