@@ -2,6 +2,12 @@
 // Household planning templates are estimates, not source-faithful recipe transcriptions.
 // Keyed by immutable zero-based lottery ID. Unmapped meals are explicitly reported.
 const SHOPPING_TEMPLATES = Object.freeze({
+  // Drive: Vale-Keeney Weekly Recipes, Oct 19–25, 2026.
+  // Approved household weeknight ingredient lists, not source-faithful Cooking Vault transcriptions.
+  // #1 Breakfast Tacos: optional condiments chosen per person; cook's choice is cubed ham.
+  0:[['Bakery','Street taco tortillas','8 tortillas'],['Meat','Cooked cubed ham','8 oz'],['Dairy','Eggs','6 large'],['Dairy','Shredded cheese','1 cup'],['Dairy','Butter','for skillet, as needed'],['Seasonings','Salt','to taste'],['Seasonings','Black pepper','to taste']],
+  // #6 Taco Casserole: water is a kitchen supply, not a grocery purchase; sour cream/green onions are for serving.
+  5:[['Meat','Ground beef','2 lb'],['Seasonings','Taco seasoning','2 packets'],['Canned & Jarred','Black beans','1 can (15 oz)'],['Canned & Jarred','Rotel diced tomatoes and chilies','1 can (about 10 oz)'],['Canned & Jarred','Salsa','1 1/2 cups'],['Dairy','Shredded Mexican-blend cheese','2 cups'],['Snacks','Tortilla chips','about 4 cups'],['Dairy','Sour cream','to serve'],['Produce','Green onions','to serve']],
   7:[['Pasta','Spaghetti','1 box'],['Meat','Frozen meatballs','1 bag'],['Canned & Jarred','Marinara sauce','1 jar']],
   15:[['Bakery','Mini pizza crusts','1 package'],['Dairy','Shredded mozzarella','1 bag'],['Canned & Jarred','Pizza sauce','1 jar'],['Meat','Pepperoni','1 package']],
   19:[['Bakery','Texas toast','1 loaf'],['Dairy','Eggs','1 dozen'],['Meat','Breakfast sausage','1 package']],
