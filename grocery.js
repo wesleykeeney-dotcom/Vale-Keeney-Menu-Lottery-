@@ -2,6 +2,16 @@
 // Household planning templates are estimates, not source-faithful recipe transcriptions.
 // Keyed by immutable zero-based lottery ID. Unmapped meals are explicitly reported.
 const SHOPPING_TEMPLATES = Object.freeze({
+  // Household ingredient lists from the Oct 19–25 Drive packet and the recovered private Cooking Vault.
+  // Kitchen Test Draft & Vault agree on Taco Casserole's fuller amounts; original source-image comparison remains pending.
+  // These are shopping templates, not protected source-faithful recipe transcriptions.
+  // #1 Breakfast Tacos: optional condiments chosen per person; cook's choice is cubed ham.
+  0:[['Bakery','Street taco tortillas','8 tortillas'],['Meat','Cooked cubed ham','8 oz'],['Dairy','Eggs','6 large'],['Dairy','Shredded cheese','1 cup'],['Dairy','Butter','for skillet, as needed'],['Seasonings','Salt','to taste'],['Seasonings','Black pepper','to taste']],
+  // #6 Taco Casserole: use recovered Vault + cookbook quantities for standard household shopping.
+  // The Oct 2026 weeknight packet uses ~10 oz Rotel and leaves the toppings unmeasured; that remains a separate variation.
+  // Original screenshot is NOT independently verified. Water (1/2 cup) is a kitchen supply, not a purchase.
+  // Rotel amount is total ounces: check actual can sizes instead of assuming a 14.5-oz can exists.
+  5:[['Meat','Ground beef','2 lb'],['Seasonings','Taco seasoning','2 packets'],['Canned & Jarred','Black beans','1 can (15 oz)'],['Canned & Jarred','Rotel diced tomatoes and chilies','14.5 oz total (check can size)'],['Canned & Jarred','Salsa','1 1/2 cups'],['Dairy','Shredded Mexican-blend cheese','2 cups'],['Snacks','Tortilla chips','4 cups'],['Dairy','Sour cream','1 cup'],['Produce','Green onions','2']],
   7:[['Pasta','Spaghetti','1 box'],['Meat','Frozen meatballs','1 bag'],['Canned & Jarred','Marinara sauce','1 jar']],
   15:[['Bakery','Mini pizza crusts','1 package'],['Dairy','Shredded mozzarella','1 bag'],['Canned & Jarred','Pizza sauce','1 jar'],['Meat','Pepperoni','1 package']],
   19:[['Bakery','Texas toast','1 loaf'],['Dairy','Eggs','1 dozen'],['Meat','Breakfast sausage','1 package']],

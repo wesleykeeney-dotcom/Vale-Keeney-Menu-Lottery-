@@ -32,3 +32,13 @@ test('required app assets are present', () => {
 
 test('Food Wars additions are append-only and preserve originals',()=>{assert.equal(meals[79],'Beef & Cheese Stuffed Shells');assert.deepEqual(Array.from(meals.slice(80)),['Food Wars! — Gotcha! Pork Roast','Food Wars! — Transforming Furikake Rice','Food Wars! — Rainbow Terrine','Food Wars! — Soma’s Boeuf Bourguignon']);});
 test('Food Wars metadata flags mushroom recipes and grocery templates do not invent ingredient lists',()=>{const meta=fs.readFileSync(path.join(root,'food-wars.js'),'utf8');const grocery=fs.readFileSync(path.join(root,'grocery.js'),'utf8');assert.ok(meta.includes('80:{'));assert.ok(meta.includes('82:{'));assert.ok(meta.includes('mushrooms:true'));for(const id of [80,81,82,83])assert.ok(!grocery.includes('  '+id+':['));});
+
+test('all Food Wars mushroom metadata matches protected vault ingredient disclosures',()=>{
+  const text=fs.readFileSync(path.join(root,'food-wars.js'),'utf8');
+  const meta=vm.runInNewContext(text+'\nFOOD_WARS_METADATA;', {});
+  assert.equal(meta[80].mushrooms,true,'Gotcha Pork Roast includes mushrooms');
+  assert.equal(meta[81].mushrooms,false,'Furikake has no documented mushrooms');
+  assert.equal(meta[82].mushrooms,true,'Rainbow Terrine has shiitake mushrooms');
+  assert.equal(meta[83].mushrooms,true,'Soma Boeuf Bourguignon uses white mushrooms');
+  assert.match(meta[83].note,/mushroom/i);
+});

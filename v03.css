@@ -1,4 +1,4 @@
-/* v0.3 phone navigation and grocery checklist */
+/* v0.6 phone navigation, grocery checklist and pantry recommendations */
 .tabs{scrollbar-width:thin;scroll-snap-type:x proximity;position:sticky;top:0;z-index:8;background:#100e1bf0}
 .tabs button{scroll-snap-align:start;flex-shrink:0}
 .grocery-item{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid #554369;border-radius:12px;margin:7px 0;background:#251c34}
@@ -7,4 +7,12 @@
 .grocery-dept{color:#d9b2ff;margin:22px 0 8px}
 .grocery-add{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
 .grocery-add input{flex:1;min-width:150px;padding:12px;border-radius:12px;border:1px solid #6a507d;background:#251c34;color:#fff}
-@media(max-width:600px){.app{padding:14px 12px 32px}.top{padding:8px 0 16px}.hero{padding:25px 20px;min-height:0}.dice-art{display:none}.tabs{gap:4px;padding:10px 0}.tabs button{font-size:13px;padding:11px 12px}.number-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* Ranked pantry matches: no overflow or clipped names on narrow Android screens. */
+.priority-meal{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#282136;border:1px solid #564267;border-radius:13px;padding:14px;margin:12px 0}
+.priority-details{flex:1;min-width:0;overflow-wrap:anywhere}
+.priority-details strong{font-size:14px;color:#f4e9ff}
+.priority-details .subtle{margin-top:6px}
+.priority-meal .btn{flex-shrink:0}
+.priority-meal .btn:disabled{opacity:.6;cursor:default}
+.priority-empty{padding:15px;border:1px solid #554369;border-radius:12px;color:#c7b8d5;font-size:13px}
+@media(max-width:600px){.priority-meal{align-items:stretch;flex-direction:column}.priority-meal .btn{align-self:stretch}.app{padding:14px 12px 32px}.top{padding:8px 0 16px}.hero{padding:25px 20px;min-height:0}.dice-art{display:none}.tabs{gap:4px;padding:10px 0}.tabs button{font-size:13px;padding:11px 12px}.number-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
