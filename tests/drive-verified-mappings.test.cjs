@@ -32,23 +32,24 @@ test('Breakfast Tacos preserves packet quantities and the ham/butter household c
   ])assert.ok(items.some(x=>x.ingredient===name&&x.amount===qty),name+' quantity missing');
   assert.ok(!items.some(x=>/sausage|mushrooms|raw tomatoes/i.test(x.ingredient)));
 });
-test('Taco Casserole shopping mapping preserves packet ingredient quantities',()=>{
+test('Taco Casserole standard shopping amounts agree with recovered Vault and cookbook',()=>{
   const items=normalized(5);
   for(const [name,qty] of [
     ['Ground beef','2 lb'],
     ['Taco seasoning','2 packets'],
     ['Black beans','1 can (15 oz)'],
-    ['Rotel diced tomatoes and chilies','1 can (about 10 oz)'],
+    ['Rotel diced tomatoes and chilies','14.5 oz total (check can size)'],
     ['Salsa','1 1/2 cups'],
     ['Shredded Mexican-blend cheese','2 cups'],
-    ['Tortilla chips','about 4 cups'],
-    ['Sour cream','to serve'],
-    ['Green onions','to serve']
+    ['Tortilla chips','4 cups'],
+    ['Sour cream','1 cup'],
+    ['Green onions','2']
   ])assert.ok(items.some(x=>x.ingredient===name&&x.amount===qty),name+' quantity missing');
-  assert.ok(!items.some(x=>x.ingredient==='Water'),'tap water is not a shopping purchase');
+  assert.ok(!items.some(x=>x.ingredient==='Water'),'1/2 cup tap water remains in recipe, not grocery purchase');
+  assert.ok(!items.some(x=>/about 10 oz|to serve/i.test(x.amount)), 'standard mapping cannot silently use incomplete weeknight amounts');
 });
 test('similar-name variants and original Food Wars sources remain unmapped',()=>{
   for(const id of [1,8,16,80,81,82,83])assert.equal(templates[id],undefined,'lottery #'+(id+1)+' must remain unmapped pending exact recipe check or adaptation approval');
-  assert.match(grocery,/household weeknight ingredient lists/);
+  assert.match(grocery,/private Cooking Vault/);
   assert.doesNotMatch(grocery,/drive\.google\.com|docs\.google\.com/,'do not publish private archive URLs in application code');
 });
