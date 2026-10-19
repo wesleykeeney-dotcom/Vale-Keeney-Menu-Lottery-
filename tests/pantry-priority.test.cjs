@@ -89,11 +89,11 @@ test('no pantry matches reports coverage and avoids guessing other meals', () =>
   const node = (tag,cls,text)=>({tag,cls,text,children:[],append(...xs){this.children.push(...xs)}});
   const ctx=vm.createContext({
     document:{getElementById:()=>cards},node,
-    pantryState:{items:[]},MEALS:meals,SHOPPING_TEMPLATES:templates,allIds:()=>[],state:{target:5},toggle:()=>{}
+    pantryState:{items:[]},MEALS:meals,SHOPPING_TEMPLATES:templates,SHOPPING_PARTIAL_TEMPLATES:{11:[['Bakery','Pizza dough','1 dough (for 1 loaf)']]},allIds:()=>[],state:{target:5},toggle:()=>{}
   });
   vm.runInContext(priority,ctx);
   assert.equal(cards.children.filter(x=>x.cls==='priority-meal').length,0);
-  assert.ok(cards.children.some(x=>String(x.text).includes('75 meals are not yet scored')));
+  assert.ok(cards.children.some(x=>String(x.text).includes('75 are unscored (including 1 partial recipe(s))')));
   assert.ok(cards.children.some(x=>x.cls==='priority-empty'));
 });
 
