@@ -24,6 +24,9 @@ jobs:
         run: |
           node --check app.js
           node --check meals.js
+          node --check grocery.js
+          node --check pantry.js
+          node --check food-wars.js
           node --check sw.js
       - name: Run smoke tests
         run: node --test tests/*.test.cjs
