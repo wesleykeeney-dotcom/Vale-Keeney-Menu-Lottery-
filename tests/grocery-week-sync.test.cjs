@@ -66,10 +66,10 @@ test('grocery list refreshes when tab opens and discloses unmapped ingredient co
   assert.ok(!templates[82] && !templates[83], 'Food Wars ingredients are not invented');
 });
 
-test('offline v9 includes updated scripts and catalog stays at 84', () => {
+test('offline v10 includes updated scripts and catalog stays at 84', () => {
   const sw = fs.readFileSync(path.join(root,'sw.js'),'utf8');
   const html = fs.readFileSync(path.join(root,'index.html'),'utf8');
-  assert.match(sw, /vk-lottery-v9/);
+  assert.match(sw, /vk-lottery-v10/);
   assert.match(sw, /\.\/grocery\.js/);
   assert.match(html, /84 numbered dinner choices/);
   assert.match(html, /src="food-wars\.js"/);
