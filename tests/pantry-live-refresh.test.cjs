@@ -64,9 +64,11 @@ test('Already have button immediately refreshes pantry suggestions without reloa
   const app=setup();
   app.elements.get('pantryExtra').value=' Pizza sauce ';
   app.elements.get('pantryAdd').onclick();
-  assert.equal(app.recommendations().length,1);
+  assert.equal(app.recommendations().length,2,'pizza sauce now matches Mini Pizza Night and the new grilled-cheese mapping');
   assert.equal(app.recommendations()[0].children[0].children[0].text,'Mini Pizza Night');
   assert.match(app.recommendations()[0].children[0].children[1].text,/1 of 4/);
+  assert.equal(app.recommendations()[1].children[0].children[0].text,'Pepperoni Pizza Grilled Cheese');
+  assert.match(app.recommendations()[1].children[0].children[1].text,/1 of 6/);
   assert.equal(app.elements.get('pantryExtra').value,'');
   assert.deepEqual(JSON.parse(app.storage['vk-pantry-v04']).items,['pizza sauce']);
 });
