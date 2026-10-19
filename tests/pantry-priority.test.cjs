@@ -25,7 +25,7 @@ function getRankings(available) {
 
 test('pantry matching ranks only mapped meals and never invents ingredient requirements', () => {
   const ranked = getRankings([' Breakfast Sausage ', 'PIZZA SAUCE']);
-  assert.equal(ranked.length, 7, 'only seven documented household grocery templates are scored');
+  assert.equal(ranked.length, 9, 'only nine documented household grocery templates are scored');
   assert.deepEqual(ranked.slice(0,2).map(x=>x.id), [19,15], '1/3 beats 1/4 coverage');
   assert.deepEqual(Array.from(ranked[0].have), ['Breakfast sausage']);
   assert.deepEqual(Array.from(ranked[1].have), ['Pizza sauce']);
@@ -43,7 +43,7 @@ test('ranking is stable and ignores duplicate ingredient names and malformed inp
   assert.equal(ranked[0].total,1);
   assert.equal(ranked[0].have.length,1);
   assert.equal(ranked[1].missing.length,1);
-  assert.deepEqual(getRankings([]).map(x=>x.id),[7,19,2,15,40,0,5], 'ties resolve by fewer missing items then stable ID');
+  assert.deepEqual(getRankings([]).map(x=>x.id),[7,19,2,15,40,3,0,5,52], 'ties resolve by fewer missing items then stable ID');
 });
 
 test('pantry changes and lottery actions refresh suggestions without changing weekly schedule', () => {
@@ -65,7 +65,7 @@ test('pantry changes and lottery actions refresh suggestions without changing we
   });
   vm.runInContext(priority,ctx);
   let rankedCards = cards.children.filter(x=>x.cls==='priority-meal');
-  assert.equal(rankedCards.length,2,'only positive pantry matches are recommended');
+  assert.equal(rankedCards.length,3,'only positive pantry matches are recommended');
   assert.match(rankedCards[0].children[0].children[0].text,/French Toast/);
   const firstButton=rankedCards[0].children[1];
   firstButton.onclick();
@@ -76,7 +76,7 @@ test('pantry changes and lottery actions refresh suggestions without changing we
   pantryState.items=['pizza sauce'];
   vm.runInContext('pantryPriorityRender()',ctx);
   rankedCards=cards.children.filter(x=>x.cls==='priority-meal');
-  assert.equal(rankedCards.length,1);
+  assert.equal(rankedCards.length,2);
   assert.match(rankedCards[0].children[0].children[0].text,/Mini Pizza Night/);
   state.target=1;
   vm.runInContext('pantryPriorityRender()',ctx);
@@ -93,7 +93,7 @@ test('no pantry matches reports coverage and avoids guessing other meals', () =>
   });
   vm.runInContext(priority,ctx);
   assert.equal(cards.children.filter(x=>x.cls==='priority-meal').length,0);
-  assert.ok(cards.children.some(x=>String(x.text).includes('77 meals are not yet scored')));
+  assert.ok(cards.children.some(x=>String(x.text).includes('75 meals are not yet scored')));
   assert.ok(cards.children.some(x=>x.cls==='priority-empty'));
 });
 
