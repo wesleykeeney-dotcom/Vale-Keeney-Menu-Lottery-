@@ -40,8 +40,9 @@ function pantryPriorityRender() {
   root.replaceChildren();
   const rankings = pantryMealRankings(SHOPPING_TEMPLATES, pantryState.items, MEALS.length);
   const unscored = MEALS.length - rankings.length;
+  const partialCount = typeof SHOPPING_PARTIAL_TEMPLATES==='undefined' ? 0 : Object.keys(SHOPPING_PARTIAL_TEMPLATES).length;
   root.append(node('h4','grocery-dept','Pantry-first meal suggestions'));
-  root.append(node('p','subtle',rankings.length+' of '+MEALS.length+' meals have household grocery templates. '+unscored+' meals are not yet scored and remain eligible in the regular lottery.'));
+  root.append(node('p','subtle',rankings.length+' of '+MEALS.length+' meals have full household shopping templates. '+unscored+' are unscored (including '+partialCount+' partial recipe(s)) and remain eligible in the regular lottery.'));
   root.append(node('p','subtle','Rankings compare mapped shopping items already on hand—not prices, portions, cooking readiness, or source-faithful recipes.'));
   const matched = rankings.filter(meal => meal.have.length > 0).slice(0,5);
   if (!matched.length) {

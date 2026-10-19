@@ -26,10 +26,20 @@ const SHOPPING_TEMPLATES = Object.freeze({
   40:[['Meat','Beef tips or chuck roast','about 2 lb'],['Pasta','Wide egg noodles','1 bag'],['Canned & Jarred','Beef broth','1 carton'],['Canned & Jarred','Brown gravy mix','2 packets']],
   2:[['Meat','Ground beef','about 1.5 lb'],['Bakery','Slider buns','1 package'],['Dairy','Sliced cheese','1 package'],['Frozen','Frozen fries','1 bag']]
 });
+// Partial templates include only confirmed fixed ingredients. Never advertise them as complete
+// or score them in pantry-first recommendations. Variable choices stay manual.
+const SHOPPING_PARTIAL_TEMPLATES=Object.freeze({
+  // #12 Garbage Bread: locked VK-FAM-GARBAGEBREAD-001 family formulation.
+  // Method specifies one pizza dough for one loaf, with about one pound of ground beef.
+  // Cheese and other fillings are "as desired" and MUST be added to groceries manually.
+  11:[['Bakery','Pizza dough','1 dough (for 1 loaf)'],['Meat','Ground beef','about 1 lb']]
+});
 // Per-recipe quantity context is informational; optional ingredients are not auto-added to required buys.
 const SHOPPING_RECIPE_NOTES=Object.freeze({
   3:'Pepperoni Pizza Grilled Cheese: archived quantities yield 2 sandwiches, not 5 servings. Optional garlic: 1 tsp (type unspecified), not included in required shopping.',
-  52:'Sausage & Potato Foil Packets: archived yield is unspecified; do not assume quantities cover five people.'
+  52:'Sausage & Potato Foil Packets: archived yield is unspecified; do not assume quantities cover five people.',
+  11:'Garbage Bread — PARTIAL ingredient list: one pizza dough + about 1 lb ground beef makes one loaf. Choose the cheese, fillings, and seasoning you want and add them to the grocery list manually. The family source intentionally leaves these amounts open.',
+  40:'Beef Tips & Noodles — household planning estimate only. A separately archived crockpot recipe uses cream of mushroom soup and canned mushrooms; this estimate does NOT represent that original. Verify the exact household version before cooking.'
 });
 const GROCERY_KEY='vk-grocery-v03';
 function groceryLoad(){try{const x=JSON.parse(localStorage.getItem(GROCERY_KEY));return x&&typeof x==='object'&&Array.isArray(x.checked)?x:{checked:[],extras:[],pantry:[]}}catch{return {checked:[],extras:[],pantry:[]}}}
@@ -38,15 +48,21 @@ function grocerySave(){localStorage.setItem(GROCERY_KEY,JSON.stringify(grocerySt
 function groceryWeekIds(){return [...new Set((state.schedule.length?state.schedule:allIds()).filter(validId))]}
 function groceryRender(){
  const root=document.getElementById('groceryContent');if(!root)return;root.replaceChildren();
- const ids=groceryWeekIds(),missing=ids.filter(id=>!SHOPPING_TEMPLATES[id]);
+ const ids=groceryWeekIds();
+ const partial=ids.filter(id=>!!SHOPPING_PARTIAL_TEMPLATES[id]&&!SHOPPING_TEMPLATES[id]);
+ const missing=ids.filter(id=>!SHOPPING_TEMPLATES[id]&&!SHOPPING_PARTIAL_TEMPLATES[id]);
  const source=state.schedule.length?'This week’s calendar':'current lottery selections';
  root.append(node('p','subtle','Shopping list follows '+source+'. Change scheduled dinners to update the list.'));
- const covered=ids.length-missing.length;
- const notice=node('p','subtle',!ids.length?'No dinners selected yet. Add a meal to the weekly calendar or lottery to begin.':missing.length?'Ingredient coverage: '+covered+' of '+ids.length+' dinners. Recipes not yet mapped: '+missing.map(id=>name(id)).join(', ')+'. Add verified ingredients manually; this is not a complete grocery list.':'Ingredient coverage: '+covered+' of '+ids.length+' dinners. All have household planning templates; check quantities before shopping.');
+ const covered=ids.length-missing.length-partial.length;
+ const coverage='Ingredient coverage: '+covered+' complete shopping template(s), '+partial.length+' partial, '+missing.length+' unmapped of '+ids.length+' dinner(s). ';
+ const notice=node('p','subtle',!ids.length?'No dinners selected yet. Add a meal to the weekly calendar or lottery to begin.':coverage+
+   (missing.length?'Recipes not yet mapped: '+missing.map(id=>name(id)).join(', ')+'. ':'')+
+   (partial.length?'Partial recipes: '+partial.map(id=>name(id)).join(', ')+'. Choose any variable fillings yourself and add them manually. ':'')+
+   ((missing.length||partial.length)?'This is not a complete grocery list.':'All selected meals have household planning templates; check quantities before shopping.'));
  root.append(notice);
  for(const id of ids)if(SHOPPING_RECIPE_NOTES[id])root.append(node('p','subtle',SHOPPING_RECIPE_NOTES[id]));
  const items=new Map();
- for(const id of ids)for(const [department,ingredient,amount] of SHOPPING_TEMPLATES[id]||[]){
+ for(const id of ids)for(const [department,ingredient,amount] of (SHOPPING_TEMPLATES[id]||SHOPPING_PARTIAL_TEMPLATES[id]||[])){
   const key=ingredient.toLowerCase();if(!items.has(key))items.set(key,{department,ingredient,amounts:[]});
   items.get(key).amounts.push(amount);
  }
