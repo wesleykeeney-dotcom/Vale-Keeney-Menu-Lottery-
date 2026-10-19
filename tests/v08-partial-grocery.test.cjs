@@ -60,7 +60,7 @@ test('grocery list shows fixed base shopping items AND an honest partial coverag
   document:{getElementById:id=>id==='groceryContent'?rootEl:null},
   node:element,state,SHOPPING_TEMPLATES:full,SHOPPING_PARTIAL_TEMPLATES:partial,SHOPPING_RECIPE_NOTES:notes,
   groceryWeekIds:()=>[11],groceryState:{checked:[],extras:[]},pantryHas:()=>false,name:id=>meals[id]});
- vm.runInContext(grocery.slice(a,b)+'\ngroceryRender()',ctx);
+ vm.runInContext(grocery.slice(grocery.indexOf('function groceryProgressLabel('),grocery.indexOf('function groceryWeekIds()'))+grocery.slice(a,b)+'\ngroceryRender()',ctx);
  const text=rootEl.children.map(el=>el.text||'').join(' | ');
  assert.match(text,/0 complete shopping template\(s\), 1 partial, 0 unmapped of 1 dinner/);
  assert.match(text,/This is not a complete grocery list/);
@@ -78,7 +78,7 @@ test('a fully mapped dish and one partial dish are counted separately',()=>{
   document:{getElementById:id=>id==='groceryContent'?rootEl:null},
   node:element,state:{schedule:[3,11,-1,-1,-1,-1,-1]},SHOPPING_TEMPLATES:full,SHOPPING_PARTIAL_TEMPLATES:partial,SHOPPING_RECIPE_NOTES:notes,
   groceryWeekIds:()=>[3,11],groceryState:{checked:[],extras:[]},pantryHas:()=>false,name:id=>meals[id]});
- vm.runInContext(grocery.slice(a,b)+'\ngroceryRender()',ctx);
+ vm.runInContext(grocery.slice(grocery.indexOf('function groceryProgressLabel('),grocery.indexOf('function groceryWeekIds()'))+grocery.slice(a,b)+'\ngroceryRender()',ctx);
  const coverage=rootEl.children.map(el=>el.text).find(x=>x&&x.startsWith('Ingredient coverage:'));
  assert.match(coverage,/1 complete shopping template\(s\), 1 partial, 0 unmapped of 2 dinner/);
  assert.match(coverage,/This is not a complete grocery list/);
