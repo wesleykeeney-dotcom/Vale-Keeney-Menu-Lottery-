@@ -16,7 +16,10 @@ function groceryWeekIds(){return [...new Set((state.schedule.length?state.schedu
 function groceryRender(){
  const root=document.getElementById('groceryContent');if(!root)return;root.replaceChildren();
  const ids=groceryWeekIds(),missing=ids.filter(id=>!SHOPPING_TEMPLATES[id]);
- const notice=node('p','subtle',missing.length?'Recipes not yet mapped: '+missing.map(id=>name(id)).join(', ')+'. Add these ingredients manually; this is not a complete grocery list.':'All selected dinners have household planning templates. Check quantities before shopping.');
+ const source=state.schedule.length?'This week’s calendar':'current lottery selections';
+ root.append(node('p','subtle','Shopping list follows '+source+'. Change scheduled dinners to update the list.'));
+ const covered=ids.length-missing.length;
+ const notice=node('p','subtle',!ids.length?'No dinners selected yet. Add a meal to the weekly calendar or lottery to begin.':missing.length?'Ingredient coverage: '+covered+' of '+ids.length+' dinners. Recipes not yet mapped: '+missing.map(id=>name(id)).join(', ')+'. Add verified ingredients manually; this is not a complete grocery list.':'Ingredient coverage: '+covered+' of '+ids.length+' dinners. All have household planning templates; check quantities before shopping.');
  root.append(notice);
  const items=new Map();
  for(const id of ids)for(const [department,ingredient,amount] of SHOPPING_TEMPLATES[id]||[]){
@@ -43,7 +46,6 @@ function groceryInit(){
  if(!add||!input)return;
  add.onclick=()=>{const v=input.value.trim();if(!v)return;groceryState.extras.push({name:v});input.value='';grocerySave();groceryRender()};
  document.getElementById('groceryClear').onclick=()=>{if(!confirm('Clear grocery checkmarks and manual additions?'))return;groceryState={checked:[],extras:[],pantry:[]};grocerySave();groceryRender()};
- const originalRenderWeek=renderWeek;renderWeek=function(){originalRenderWeek();groceryRender()};
  groceryRender();
 }
 groceryInit();
