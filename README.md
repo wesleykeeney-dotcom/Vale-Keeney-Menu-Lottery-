@@ -9,15 +9,15 @@ A mobile-first, static Progressive Web App for the Vale-Keeney dinner lottery. H
 
 - **Lottery:** Choose or randomly draw among 84 stable numbered dinners, reveal winners, or lock must-have meals. Numbers #1–84 are immutable.
 - **This week:** Schedule up to seven dinner slots and use leftovers/flex nights; locally stored across refreshes. Grocery shopping follows this schedule when it has been set, otherwise the current lottery picks.
-- **Groceries:** Five household ingredient templates currently exist. All other dishes explicitly report an incomplete grocery list; no unknown ingredients are fabricated.
+- **Groceries:** Seven household ingredient templates currently exist. Breakfast Tacos (#1) and Taco Casserole (#6) now have documented household shopping lists checked against the October 19–25 Drive weekly packet. All other dishes explicitly report an incomplete grocery list; no unknown ingredients are fabricated.
 - **Pantry:** Check which grocery items you already have. Those items appear in an on-hand section rather than the shopping-to-buy checklist.
 - **v0.6 feature branch only — Pantry-first suggestions:** Shows up to five meals with on-hand matches, ranked by the fraction of mapped grocery items already present. Unmapped meals are **not scored**, not considered poor matches, and remain available in the ordinary lottery. Tap *Add to lottery* to add one without automatically rewriting the weekly calendar.
 
 ### Recommendation limitations
 
-The five existing shopping templates are rough **household planning estimates**. They are not complete, audited recipes and cannot establish ingredient quantities on hand, food safety/readiness, serving-size sufficiency, price, or a reliable `$125` budget result. Two meals with different numbers of ingredients may score differently even when the same food is available. Avoid interpreting scores as readiness to cook. Future versions will add individually verified grocery mappings and separate five-person quantity estimates.
+The seven existing shopping templates are rough **household planning estimates**. They are not complete, audited recipes and cannot establish ingredient quantities on hand, food safety/readiness, serving-size sufficiency, price, or a reliable `$125` budget result. Two meals with different numbers of ingredients may score differently even when the same food is available. Avoid interpreting scores as readiness to cook. Future versions will add individually verified grocery mappings and separate five-person quantity estimates.
 
-Food Wars #81–84 have provenance-only metadata. They are **unmapped** in groceries and excluded from pantry ranking until their household templates have been independently verified. Source-faithful Cooking Vault recipes must never be copied into this public repository or silently modified.
+The archived Gotcha! Pork Roast Drive PDF attributes its formulation to Feast of Fiction, whereas current app metadata says A Taste of Anime. This provenance discrepancy needs source-archive review before changing the attribution.\n\nFood Wars #81–84 have provenance-only metadata. They are **unmapped** in groceries and excluded from pantry ranking until their household templates have been independently verified. Source-faithful Cooking Vault recipes must never be copied into this public repository or silently modified.
 
 ## Phone QA for v0.6 (after authorized deployment)
 
