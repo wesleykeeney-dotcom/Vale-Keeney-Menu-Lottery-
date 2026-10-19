@@ -32,14 +32,26 @@ const SHOPPING_PARTIAL_TEMPLATES=Object.freeze({
   // #12 Garbage Bread: locked VK-FAM-GARBAGEBREAD-001 family formulation.
   // Method specifies one pizza dough for one loaf, with about one pound of ground beef.
   // Cheese and other fillings are "as desired" and MUST be added to groceries manually.
-  11:[['Bakery','Pizza dough','1 dough (for 1 loaf)'],['Meat','Ground beef','about 1 lb']]
+  11:[['Bakery','Pizza dough','1 dough (for 1 loaf)'],['Meat','Ground beef','about 1 lb']],
+  // #18 Cowboy Casserole: exact-name recovered Vault record VK-DIN-COWBOYCASSEROLE-001.
+  // Original recipe explicitly requires 1 can cream of mushroom soup, which is withheld
+  // from household purchasing pending an approved mushroom-free replacement. DO NOT score
+  // this as a complete family recipe or silently claim the recovered source is verified.
+  17:[['Meat','Lean ground beef','1 lb'],['Produce','Onion','1 small'],['Produce','Minced garlic','1 tsp'],['Frozen','Corn','1 cup'],['Dairy','Cheddar cheese','1 cup'],['Dairy','Milk','1/2 cup'],['Dairy','Sour cream','1/2 cup'],['Seasonings','Salt','1 tsp'],['Seasonings','Black pepper','1 tsp'],['Frozen','Frozen tater tots','1 bag']],
+  // #50 Hamburger Potato Casserole: cookbook #114 contains a recovered ingredient
+  // body but the corresponding Vault record's ingredient array is empty. Lower-confidence
+  // MANUSCRIPT recovery; original image NOT independently verified. Original includes
+  // 1 can cream of mushroom soup. Shopping omits it pending an APPROVED family adaptation.
+  49:[['Produce','Potatoes','1 1/2 lb'],['Meat','Ground beef','1 lb'],['Dairy','Milk','3/4 cup'],['Dairy','Cheddar cheese','1 1/2 cups'],['Seasonings','Salt','to taste'],['Seasonings','Black pepper','to taste']]
 });
 // Per-recipe quantity context is informational; optional ingredients are not auto-added to required buys.
 const SHOPPING_RECIPE_NOTES=Object.freeze({
   3:'Pepperoni Pizza Grilled Cheese: archived quantities yield 2 sandwiches, not 5 servings. Optional garlic: 1 tsp (type unspecified), not included in required shopping.',
   52:'Sausage & Potato Foil Packets: archived yield is unspecified; do not assume quantities cover five people.',
   11:'Garbage Bread — PARTIAL ingredient list: one pizza dough + about 1 lb ground beef makes one loaf. Choose the cheese, fillings, and seasoning you want and add them to the grocery list manually. The family source intentionally leaves these amounts open.',
-  40:'Beef Tips & Noodles — household planning estimate only. A separately archived crockpot recipe uses cream of mushroom soup and canned mushrooms; this estimate does NOT represent that original. Verify the exact household version before cooking.'
+  40:'Beef Tips & Noodles — household planning estimate only. A separately archived crockpot recipe uses cream of mushroom soup and canned mushrooms; this estimate does NOT represent that original. Verify the exact household version before cooking.',
+  17:'Cowboy Casserole — PARTIAL, NOT COOK-READY. Recovered original requires 1 can cream of mushroom soup, intentionally not on this household buy list. An approved mushroom-free creamy base has NOT been selected. Choose and add a suitable approved replacement manually before cooking. Original image verification remains pending; no serving yield established.',
+  49:'Hamburger Potato Casserole — PARTIAL, NOT COOK-READY. Recovered cookbook lists 1 can cream of mushroom soup, intentionally withheld pending an approved mushroom-free household replacement. Select and add that replacement manually. The Vault ingredient record is still empty and the original source image has NOT been reverified; no serving yield established.'
 });
 const GROCERY_KEY='vk-grocery-v03';
 function groceryLoad(){try{const x=JSON.parse(localStorage.getItem(GROCERY_KEY));return x&&typeof x==='object'&&Array.isArray(x.checked)?x:{checked:[],extras:[],pantry:[]}}catch{return {checked:[],extras:[],pantry:[]}}}

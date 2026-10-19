@@ -13,10 +13,10 @@ function data(registry){const m=grocery.match(new RegExp('const '+registry+'\\s*
 const full=data('SHOPPING_TEMPLATES'),partial=data('SHOPPING_PARTIAL_TEMPLATES'),notes=data('SHOPPING_RECIPE_NOTES');
 function element(tag,cls,text){return {tag,cls,text,children:[],checked:false,type:'',append(...args){this.children.push(...args)},replaceChildren(...args){this.children=[...args]},setAttribute(k,v){this[k]=v}};}
 
-test('v0.8 protects 84 IDs, all 9 full templates and exactly one incomplete family template',()=>{
+test('v0.8 protects 84 IDs, all 9 full templates and three source-disclosed partial templates',()=>{
  assert.equal(meals.length,84);
  assert.deepEqual(Object.keys(full).map(Number).sort((a,b)=>a-b),[0,2,3,5,7,15,19,40,52]);
- assert.deepEqual(Object.keys(partial).map(Number),[11]);
+ assert.deepEqual(Object.keys(partial).map(Number).sort((a,b)=>a-b),[11,17,49]);
  assert.equal(meals[11],'Garbage Bread');
  assert.equal(full[11],undefined,'Garbage Bread is not represented as a complete recipe');
  for(const id of Object.keys(partial))assert.equal(full[id],undefined,'full and partial cannot collide');
@@ -91,5 +91,5 @@ test('source variant warning for Beef Tips does not inject mushrooms into existi
  assert.equal(notes[40]!==undefined,true);
  assert.equal(full[80],undefined,'source-faithful Food Wars remains unmapped');
  const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
- assert.match(sw,/vk-lottery-v13/);
+ assert.match(sw,/vk-lottery-v14/);
 });

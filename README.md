@@ -1,84 +1,60 @@
 # Vale-Keeney Menu Lottery
 
-A mobile-first static Progressive Web App for dinner lottery, saved weekly schedule, household grocery checklist and pantry-first suggestions. Hosted on GitHub Pages, no server or login.
+Mobile-first Progressive Web App for a stable 84-choice family dinner lottery, weekly scheduling, pantry and shopping. Hosted on GitHub Pages without a server or account.
 
-**Accepted production release:** v0.8, commit `970515b`, offline cache v12; production deployed and Garbage Bread mapping confirmed on Android.  
-**In development:** v0.9 (live grocery shopping totals). Do not consider these changes deployed before PR review, merge, GitHub Pages deployment and Android acceptance.
+**Accepted production:** v0.9 • commit `2de305c` • offline cache v13 • phone QA accepted.  
+**Under review:** v1.0 ingredient recovery and source-gated partial shopping templates, cache v14. This branch does **not** change production before an approved merge, passing deployment and Android acceptance.
 
-## v0.9: Live shopping progress (proposed)
+## Source fidelity and ingredient coverage
 
-The grocery summary now has three **separate live counts**:
+The private Vale-Keeney Cooking Vault governs recipe identity, provenance, recovered ingredient bodies and locked originals. The public app supplies a **household shopping representation** only, not source-faithful transcriptions or a cookbook. Never silently convert a variant to the governing source, invent quantities, modify a locked record, assume five-person portions, or expose private links and files.
 
-- **Remaining:** items on the current shopping checklist that have not been checked off.
-- **Checked off:** items on the current shopping checklist marked complete.
-- **Already on hand:** items removed from the shopping checklist because they are marked available in Pantry.
-
-For the Android screenshot with Mini Pizza Night plus the partial Garbage Bread core, **5 visible shopping items** (including **1 checked-off Pepperoni**) and **1 pantry item (Pizza sauce)** will display: **4 items remaining • 1 checked off • 1 already on hand.**
-
-Tapping a grocery checkbox updates the summary immediately **without rebuilding the item list** (avoids losing touch scroll/focus); checkmarks continue using the existing `vk-grocery-v03` storage. Unchecking reverses the counts, and saved checkmarks are counted after refresh. Adding or clearing manual grocery items, changing the weekly schedule, or marking something in Pantry recomputes the counts when the list is rendered. Pantry ingredients are not double-counted as checked-off purchases.
-
-Important: A lower *remaining* count **does not** mean the entire week's ingredients are known. Source-partial recipes (such as Garbage Bread) and unmapped dinners still show incomplete grocery-list warnings. No cooking quantities, shopping prices, original Cooking Vault data or meal IDs change.
-
-### Android verification after v0.9 deployment
-
-1. Refresh once to activate offline cache **v13**. Confirm prior selected dinners, pantry items, and grocery checkmarks remain.
-2. Schedule **Mini Pizza Night** and **Garbage Bread**, with **Pizza sauce** marked in Pantry. Before checking any other items, expect **5 remaining • 0 checked off • 1 on hand** if no manual items were added.
-3. Check **Pepperoni**. Expect **4 remaining • 1 checked off • 1 on hand**, immediately without refreshing.
-4. Uncheck Pepperoni. Expect **5 remaining • 0 checked off • 1 on hand**.
-5. Check Pepperoni again, refresh, and confirm the saved checkmark still yields **4/1/1**. Add a manual item; remaining should increase by one. Check it and confirm one item moves from remaining to checked-off.
-6. Confirm **Garbage Bread stays labeled partial**, unscored in Pantry-first; verify 84 lottery IDs, 9 full ingredient templates, 1 partial, and 74 unmapped dinners are unchanged.
-
-## Recipe mapping policy
-
-The **private Vale-Keeney Cooking Vault** is the recipe source of truth; the public app includes only documented **household shopping requirements and caveats**, never protected source methods. Locked formulations remain untouched. Identical names do not automatically establish identical methods or ingredient versions; name-similar recipes require review. Missing quantities stay missing.
-
-| Coverage | Production v0.7 | v0.8 proposed |
+| Coverage state | Accepted v0.9 | Proposed v1.0 |
 |---|---:|---:|
-| Fully represented household shopping templates | 9 | 9 |
-| Partial base templates (not full recipes) | 0 | 1 |
-| Unmapped meals | 75 | 74 |
-| Total immutable lottery meal IDs | 84 | 84 |
-| Eligible for pantry-first scoring | 9 | 9 |
+| Household shopping templates (full requirements *as mapped*) | 9 | 9 |
+| Partial, explicitly incomplete ingredient lists | 1 | 3 |
+| Completely unmapped lottery meals | 74 | 72 |
+| Meals scored for pantry-first recommendations | 9 | 9 |
+| Immutable lottery identities | 84 | 84 |
 
-A **partial** recipe has verified core shopping ingredients but intentionally undefined choices. It is not counted as fully mapped or scored in pantry recommendations; its incomplete status remains visible in the grocery list. A meal lacking both full and partial templates remains unmapped.
+"Full" here means **the household shopping template is represented**, not independently source-image verified or sufficient to feed a household. Recipes with unknown or unapproved essential ingredients remain **partial** or unmapped and are never scored as ready to cook. The existing nine household templates retain their prior caveats.
 
-### v0.8: #12 Garbage Bread — locked family formulation, intentionally partial
+### New v1.0 partials (source-gated, not approved adaptations)
 
-Private Vault ID: `VK-FAM-GARBAGEBREAD-001`. Archive status: `family_original`, **locked**, source `verified_against_source: true`. Yield: **one loaf**.
+**#18 Cowboy Casserole** uses the exact-name private Vault entry `VK-DIN-COWBOYCASSEROLE-001` (recovered ingredients; original image verification pending). The archived source lists **1 lb lean ground beef, 1 small onion, 1 tsp minced garlic, 1 cup corn, 1 can cream of mushroom soup, 1 cup cheddar, ½ cup milk, ½ cup sour cream, 1 tsp salt, 1 tsp pepper and 1 bag frozen tater tots**. The household partial grocery list **withholds the mushroom soup**, retains the ten other documented ingredients and warns that an **approved mushroom-free creamy base has not been selected**. It must be chosen and added manually; the displayed list is **not cook-ready**.
 
-- **Confirmed shopping base:** one pizza dough (the preparation method explicitly specifies one), about **1 lb ground beef**.
-- **Intentionally variable:** cheese, fillings and desired seasonings. The archive does not define amounts; add your chosen extras manually to groceries.
-- The pantry section lists the fixed base ingredients. Pantry-first does **not** rank Garbage Bread as complete or infer the fillings from another recipe.
-- The grocery section counts the meal as **partial**, displays the core ingredients and the missing-choice warning even when all scheduled meals have some shopping representation.
+**#50 Hamburger Potato Casserole** has an exact-name private Vault record `VK-DIN-HAMBURGERPOTATO-CASSEROLE-001`, but **its structured ingredient list remains empty**. The uploaded 161-recipe Kitchen Test Draft (#114) contains a recovered lower-confidence ingredient body: **1½ lb potatoes, 1 lb ground beef, 1 can cream of mushroom soup, ¾ cup milk, 1½ cups cheddar, salt and pepper**. The new partial household list has the recovered non-mushroom items only. It explicitly warns that the archived mushroom soup is withheld, a substitute has not been approved, and original image verification is pending. The Vault record is **not automatically rewritten or certified**.
 
-### Other source-fidelity and family considerations
+**#12 Garbage Bread** remains a protected family original: one pizza dough plus about 1 lb ground beef for one loaf; chosen cheese and fillings are manual and the partial is never scored as complete.
 
-- **#41 Beef Tips & Noodles:** existing household template remains an unverified mushroom-free planning estimate. An older supplied screenshot of **Crockpot beef tips & noodles** explicitly contains both **cream of mushroom soup** and **canned mushrooms**. These are not interchangeable. The app now warns of this divergence without changing the household grocery template or source record.
-- **#18 Cowboy Casserole:** archived original contains cream of mushroom soup. No approved mushroom-free formulation yet; stay unmapped.
-- **#9 Garlic Butter Steak Bites, #32 Creamy Beef & Shells, #40 Taco Spaghetti, #50 Hamburger Potato Casserole:** current corresponding Vault records have no verified ingredient body. Do not infer from similar-name dishes.
-- **#31 Pizza Burgers:** the recoverable Vault record is **Slow Cooker Pepperoni Pizza Burgers** (8-burger version). Different title/preparation; no blanket mapping until the variant is approved.
-- **#26 Baked Chicken Parmesan:** Vault family record is explicitly a **Pork-Rind Crust** variant; don't silently map that to general baked chicken Parmesan.
-- **Food Wars #81–84:** locked, source-faithful archive, not assigned household grocery templates. Their documented mushroom warnings must remain accurate.
-- **#4 Pepperoni Pizza Grilled Cheese:** archived quantities yield only two sandwiches, and optional garlic stays outside required purchases.
-- **#53 Sausage & Potato Foil Packets:** yield not documented; no five-person scaling.
+For any v1.0 partial: a selected dinner contributes known ingredients to the shopping checklist, **but the grocery coverage report states "partial" and warns that the list is incomplete**, even if all shown ingredients have been purchased. Pantry items remain marked by ingredient name without quantity guarantees.
 
-There is also a pending provenance discrepancy for the Gotcha! Pork Roast attribution between the recovered Drive document and display metadata. Don't change the governing citation without a source review.
+### Existing guards
 
-## Application behavior and mobile acceptance
+- **#4 Pepperoni Pizza Grilled Cheese**: recovered yield **two sandwiches**, optional garlic excluded from required purchases.
+- **#6 Taco Casserole**: reconciled recovered shopping quantities include **14.5 oz total Rotel**, 1 cup sour cream, two green onions, four cups tortilla chips; weekly convenience variant remains separate, original image still unverified.
+- **#41 Beef Tips & Noodles**: current household template is not identical to an archived mushroom-containing crockpot version. Source conflict is disclosed.
+- **#53 Sausage & Potato Foil Packets**: documented quantities, yield unknown, not scaled to five.
+- **#9 Garlic Butter Steak Bites, #32 Creamy Beef & Shells, #40 Taco Spaghetti**: exact-name Vault ingredient bodies are empty; do not fabricate or conflate with similar dishes.
+- **#2 Chicken Bacon Ranch Pasta** vs archived Pasta Bake, **#26 Baked Chicken Parmesan** vs pork-rind family version, **#31 Pizza Burgers** vs slow-cooker pepperoni pizza burgers: distinct formulations until household adoption is explicitly decided.
+- **Food Wars #81–84**: protected source originals remain unmapped in the public household shopping system. Mushroom warnings remain accurate.
+- **Gotcha! Pork Roast** attribution discrepancy remains pending source review.
 
-1. Open the production URL after approved deployment and refresh once for offline cache **v12**.
-2. Schedule **#12 Garbage Bread**. Groceries must show pizza dough, about 1 lb ground beef, and an explicit **PARTIAL/incomplete** warning asking you to choose and add fillings and cheese manually.
-3. In Pantry, find and mark **Pizza dough** as on hand. Groceries should remove it from items to buy, but Garbage Bread must **not** appear as a ranked complete pantry meal.
-4. Schedule a fully mapped meal alongside Garbage Bread; groceries must distinguish **1 complete + 1 partial** rather than claiming the shopping list is complete.
-5. Schedule **#41 Beef Tips & Noodles**; Groceries should display the unverified-template vs mushroom-containing source warning without adding mushroom products.
-6. Verify old saved menus, local pantry changes, nine full templates, 84 meal identities and immediate checkbox refresh still work. No locked Food Wars ingredients are exposed.
+See `docs/v1.0-source-review.md` for the audit/priority register and evidence limits.
 
-## Limitations and storage
+## Acceptance tests for v1.0 (after an authorized deployment)
 
-The pantry tracks ingredient **names**, not quantities. "On hand" does not mean enough to feed the family. The app does not compute a reliable $125 weekly cost or scale recipes automatically to five diners. Standard Taco Casserole shopping still uses recovered Vault/cookbook quantities (14.5 oz total Rotel, 1 cup sour cream, two green onions, four cups tortilla chips); source-image verification is pending.
+1. Refresh the live app once to load offline cache **v14**; confirm your prior selections, saved menu, pantry, grocery checkmarks and live shopping counts are preserved.
+2. Schedule **#18 Cowboy Casserole** and **#50 Hamburger Potato Casserole**. Groceries should display their recovered non-mushroom core ingredients and prominent **PARTIAL, NOT COOK-READY** warnings. The warnings must explicitly explain that the source included mushroom soup and a household replacement still needs approval.
+3. Confirm neither a mushroom soup product nor an invented replacement was silently added as a shopping item.
+4. Confirm these dinners **do not appear as complete ranked Pantry recommendations** even when all known ingredients are marked on hand.
+5. Schedule #12 Garbage Bread alongside them; the coverage report should show **three partial** recipes and keep variable ingredients unresolved.
+6. Confirm the shopping progress summary still updates on checkbox clicks and doesn't count on-hand pantry items as purchased. Full/partial/unmapped totals, 84 meal numbers and the original source warnings must survive refresh/offline reopening.
 
-The unchanged browser storage keys are `vk-dinner-lottery-v1`, `vk-grocery-v03`, and `vk-pantry-v04`. Clearing browser data loses saved choices; export a backup first. Private recipe texts and household inventory must never be committed to this public repository.
+## Storage and limits
 
-## Local developer tests
+Storage keys remain `vk-dinner-lottery-v1`, `vk-grocery-v03`, `vk-pantry-v04`. Local browser storage preserves selections; clearing browser data erases it, so export a lottery backup first. The app doesn't know pantry quantities, serving sufficiency, grocery prices, or a reliable $125 budget. Partial recipes need manual ingredient review before cooking.
 
-Use Node.js 22 and `node --test tests/*.test.cjs` for regression QA. Serve static files from `python -m http.server 8080` (service workers do not work reliably under `file://`). CI checks syntax and all tests for PRs and main pushes. Update offline cache on client asset changes.
+## Development
+
+Node.js 22: `node --test tests/*.test.cjs`. CI also runs JavaScript syntax checks on pull requests and `main`. Serve locally with `python -m http.server 8080`; service workers do not work reliably via `file://`. Change the offline cache identifier whenever client assets change.
