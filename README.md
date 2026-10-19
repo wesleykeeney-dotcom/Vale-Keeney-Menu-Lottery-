@@ -2,8 +2,31 @@
 
 A mobile-first static Progressive Web App for dinner lottery, saved weekly schedule, household grocery checklist and pantry-first suggestions. Hosted on GitHub Pages, no server or login.
 
-**Accepted production release:** v0.7, commit `5d8eaf7`, offline cache v11; Android acceptance passed.  
-**In development:** v0.8 (partial recipe grocery support). Do not consider these changes deployed before PR approval, merge, GitHub Pages deployment and Android test.
+**Accepted production release:** v0.8, commit `970515b`, offline cache v12; production deployed and Garbage Bread mapping confirmed on Android.  
+**In development:** v0.9 (live grocery shopping totals). Do not consider these changes deployed before PR review, merge, GitHub Pages deployment and Android acceptance.
+
+## v0.9: Live shopping progress (proposed)
+
+The grocery summary now has three **separate live counts**:
+
+- **Remaining:** items on the current shopping checklist that have not been checked off.
+- **Checked off:** items on the current shopping checklist marked complete.
+- **Already on hand:** items removed from the shopping checklist because they are marked available in Pantry.
+
+For the Android screenshot with Mini Pizza Night plus the partial Garbage Bread core, **5 visible shopping items** (including **1 checked-off Pepperoni**) and **1 pantry item (Pizza sauce)** will display: **4 items remaining • 1 checked off • 1 already on hand.**
+
+Tapping a grocery checkbox updates the summary immediately **without rebuilding the item list** (avoids losing touch scroll/focus); checkmarks continue using the existing `vk-grocery-v03` storage. Unchecking reverses the counts, and saved checkmarks are counted after refresh. Adding or clearing manual grocery items, changing the weekly schedule, or marking something in Pantry recomputes the counts when the list is rendered. Pantry ingredients are not double-counted as checked-off purchases.
+
+Important: A lower *remaining* count **does not** mean the entire week's ingredients are known. Source-partial recipes (such as Garbage Bread) and unmapped dinners still show incomplete grocery-list warnings. No cooking quantities, shopping prices, original Cooking Vault data or meal IDs change.
+
+### Android verification after v0.9 deployment
+
+1. Refresh once to activate offline cache **v13**. Confirm prior selected dinners, pantry items, and grocery checkmarks remain.
+2. Schedule **Mini Pizza Night** and **Garbage Bread**, with **Pizza sauce** marked in Pantry. Before checking any other items, expect **5 remaining • 0 checked off • 1 on hand** if no manual items were added.
+3. Check **Pepperoni**. Expect **4 remaining • 1 checked off • 1 on hand**, immediately without refreshing.
+4. Uncheck Pepperoni. Expect **5 remaining • 0 checked off • 1 on hand**.
+5. Check Pepperoni again, refresh, and confirm the saved checkmark still yields **4/1/1**. Add a manual item; remaining should increase by one. Check it and confirm one item moves from remaining to checked-off.
+6. Confirm **Garbage Bread stays labeled partial**, unscored in Pantry-first; verify 84 lottery IDs, 9 full ingredient templates, 1 partial, and 74 unmapped dinners are unchanged.
 
 ## Recipe mapping policy
 

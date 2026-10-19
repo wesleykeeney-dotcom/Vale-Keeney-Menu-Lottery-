@@ -45,6 +45,14 @@ const GROCERY_KEY='vk-grocery-v03';
 function groceryLoad(){try{const x=JSON.parse(localStorage.getItem(GROCERY_KEY));return x&&typeof x==='object'&&Array.isArray(x.checked)?x:{checked:[],extras:[],pantry:[]}}catch{return {checked:[],extras:[],pantry:[]}}}
 let groceryState=groceryLoad();
 function grocerySave(){localStorage.setItem(GROCERY_KEY,JSON.stringify(groceryState))}
+// A checked grocery item is still on the shopping list, but no longer needs buying.
+// Pantry items are counted separately; checked items are not removed or marked as pantry.
+function groceryProgressLabel(toBuy,checked,pantryCount){
+ const done=new Set((Array.isArray(checked)?checked:[]).filter(x=>typeof x==='string').map(x=>x.toLowerCase()));
+ const checkedOff=toBuy.filter(item=>done.has(item.ingredient.toLowerCase())).length;
+ const remaining=toBuy.length-checkedOff;
+ return remaining+' item'+(remaining===1?'':'s')+' remaining • '+checkedOff+' checked off • '+pantryCount+' already on hand.';
+}
 function groceryWeekIds(){return [...new Set((state.schedule.length?state.schedule:allIds()).filter(validId))]}
 function groceryRender(){
  const root=document.getElementById('groceryContent');if(!root)return;root.replaceChildren();
@@ -71,12 +79,20 @@ function groceryRender(){
  all.sort((a,b)=>a.department.localeCompare(b.department)||a.ingredient.localeCompare(b.ingredient));
  const onHand=all.filter(item=>typeof pantryHas==='function'&&pantryHas(item.ingredient));
  const toBuy=all.filter(item=>!(typeof pantryHas==='function'&&pantryHas(item.ingredient)));
- root.append(node('p','subtle',toBuy.length+' items to buy • '+onHand.length+' already on hand.'));
+ const summary=node('p','subtle',groceryProgressLabel(toBuy,groceryState.checked,onHand.length));
+ summary.setAttribute('role','status');
+ summary.setAttribute('aria-live','polite');
+ root.append(summary);
 
  if(!all.length)root.append(node('p','subtle','Select meals or add items to start your list.'));
  let current='';
  for(const item of toBuy){if(item.department!==current){current=item.department;root.append(node('h4','grocery-dept',current))}
-  const label=node('label','grocery-item');const box=node('input');box.type='checkbox';const key=item.ingredient.toLowerCase();box.checked=groceryState.checked.includes(key);box.onchange=()=>{groceryState.checked=box.checked?[...new Set([...groceryState.checked,key])]:groceryState.checked.filter(x=>x!==key);grocerySave()};
+  const label=node('label','grocery-item');const box=node('input');box.type='checkbox';const key=item.ingredient.toLowerCase();box.checked=groceryState.checked.includes(key);box.onchange=()=>{
+   groceryState.checked=box.checked?[...new Set([...groceryState.checked,key])]:groceryState.checked.filter(x=>x!==key);
+   grocerySave();
+   // Update the summary immediately without redrawing the checkbox list or losing mobile scroll/focus.
+   summary.textContent=groceryProgressLabel(toBuy,groceryState.checked,onHand.length);
+  };
   const info=node('span',null,item.ingredient+' — '+item.amount);label.append(box,info);root.append(label);
  }
  if(onHand.length){root.append(node('h4','grocery-dept','Already have — pantry'));for(const item of onHand)root.append(node('p','subtle',item.ingredient+' — '+item.amount))}
