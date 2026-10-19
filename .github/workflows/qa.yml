@@ -26,6 +26,7 @@ jobs:
           node --check meals.js
           node --check grocery.js
           node --check pantry.js
+          node --check pantry-priority.js
           node --check food-wars.js
           node --check sw.js
       - name: Run smoke tests
