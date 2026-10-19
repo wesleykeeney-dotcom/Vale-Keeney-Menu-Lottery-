@@ -12,11 +12,24 @@ const SHOPPING_TEMPLATES = Object.freeze({
   // Original screenshot is NOT independently verified. Water (1/2 cup) is a kitchen supply, not a purchase.
   // Rotel amount is total ounces: check actual can sizes instead of assuming a 14.5-oz can exists.
   5:[['Meat','Ground beef','2 lb'],['Seasonings','Taco seasoning','2 packets'],['Canned & Jarred','Black beans','1 can (15 oz)'],['Canned & Jarred','Rotel diced tomatoes and chilies','14.5 oz total (check can size)'],['Canned & Jarred','Salsa','1 1/2 cups'],['Dairy','Shredded Mexican-blend cheese','2 cups'],['Snacks','Tortilla chips','4 cups'],['Dairy','Sour cream','1 cup'],['Produce','Green onions','2']],
+  // #4 Pepperoni Pizza Grilled Cheese, recovered Vault record VK-DIN-PIZZAGRILLEDCHEESE-001.
+  // Archive yield 2 sandwiches; uses the source's pizza-sauce OR marinara option (pizza sauce chosen for household shopping).
+  // Original archive screenshot not independently reverified. Optional 1 tsp garlic is excluded from required purchases.
+  3:[['Bakery','Bread','4 slices'],['Meat','Pepperoni','8 slices'],['Dairy','Shredded mozzarella','1 cup'],['Canned & Jarred','Pizza sauce','2 Tbsp'],['Dairy','Butter','2 Tbsp'],['Seasonings','Oregano','1 tsp']],
+  // #53 Sausage & Potato Foil Packets, recovered Vault record VK-DIN-SAUSAGEPOTATO-FOILPACKETS-001.
+  // Original image verification pending; split "salt and black pepper to taste" for grocery checklist only.
+  // Yield/serving count not documented; do not scale to five people automatically.
+  52:[['Meat','Smoked sausage','1 lb'],['Produce','Baby potatoes','1 1/2 lb'],['Produce','Red bell pepper','1'],['Produce','Green bell pepper','1'],['Produce','Onion','1 small'],['Oils','Olive oil','3 Tbsp'],['Seasonings','Garlic powder','2 tsp'],['Seasonings','Italian seasoning','1 tsp'],['Seasonings','Paprika','1 tsp'],['Seasonings','Salt','to taste'],['Seasonings','Black pepper','to taste']],
   7:[['Pasta','Spaghetti','1 box'],['Meat','Frozen meatballs','1 bag'],['Canned & Jarred','Marinara sauce','1 jar']],
   15:[['Bakery','Mini pizza crusts','1 package'],['Dairy','Shredded mozzarella','1 bag'],['Canned & Jarred','Pizza sauce','1 jar'],['Meat','Pepperoni','1 package']],
   19:[['Bakery','Texas toast','1 loaf'],['Dairy','Eggs','1 dozen'],['Meat','Breakfast sausage','1 package']],
   40:[['Meat','Beef tips or chuck roast','about 2 lb'],['Pasta','Wide egg noodles','1 bag'],['Canned & Jarred','Beef broth','1 carton'],['Canned & Jarred','Brown gravy mix','2 packets']],
   2:[['Meat','Ground beef','about 1.5 lb'],['Bakery','Slider buns','1 package'],['Dairy','Sliced cheese','1 package'],['Frozen','Frozen fries','1 bag']]
+});
+// Per-recipe quantity context is informational; optional ingredients are not auto-added to required buys.
+const SHOPPING_RECIPE_NOTES=Object.freeze({
+  3:'Pepperoni Pizza Grilled Cheese: archived quantities yield 2 sandwiches, not 5 servings. Optional garlic: 1 tsp (type unspecified), not included in required shopping.',
+  52:'Sausage & Potato Foil Packets: archived yield is unspecified; do not assume quantities cover five people.'
 });
 const GROCERY_KEY='vk-grocery-v03';
 function groceryLoad(){try{const x=JSON.parse(localStorage.getItem(GROCERY_KEY));return x&&typeof x==='object'&&Array.isArray(x.checked)?x:{checked:[],extras:[],pantry:[]}}catch{return {checked:[],extras:[],pantry:[]}}}
@@ -31,6 +44,7 @@ function groceryRender(){
  const covered=ids.length-missing.length;
  const notice=node('p','subtle',!ids.length?'No dinners selected yet. Add a meal to the weekly calendar or lottery to begin.':missing.length?'Ingredient coverage: '+covered+' of '+ids.length+' dinners. Recipes not yet mapped: '+missing.map(id=>name(id)).join(', ')+'. Add verified ingredients manually; this is not a complete grocery list.':'Ingredient coverage: '+covered+' of '+ids.length+' dinners. All have household planning templates; check quantities before shopping.');
  root.append(notice);
+ for(const id of ids)if(SHOPPING_RECIPE_NOTES[id])root.append(node('p','subtle',SHOPPING_RECIPE_NOTES[id]));
  const items=new Map();
  for(const id of ids)for(const [department,ingredient,amount] of SHOPPING_TEMPLATES[id]||[]){
   const key=ingredient.toLowerCase();if(!items.has(key))items.set(key,{department,ingredient,amounts:[]});

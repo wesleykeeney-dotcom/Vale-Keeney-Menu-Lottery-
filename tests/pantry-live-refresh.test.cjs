@@ -64,9 +64,11 @@ test('Already have button immediately refreshes pantry suggestions without reloa
   const app=setup();
   app.elements.get('pantryExtra').value=' Pizza sauce ';
   app.elements.get('pantryAdd').onclick();
-  assert.equal(app.recommendations().length,1);
+  assert.equal(app.recommendations().length,2,'pizza sauce now matches Mini Pizza Night and the new grilled-cheese mapping');
   assert.equal(app.recommendations()[0].children[0].children[0].text,'Mini Pizza Night');
   assert.match(app.recommendations()[0].children[0].children[1].text,/1 of 4/);
+  assert.equal(app.recommendations()[1].children[0].children[0].text,'Pepperoni Pizza Grilled Cheese');
+  assert.match(app.recommendations()[1].children[0].children[1].text,/1 of 6/);
   assert.equal(app.elements.get('pantryExtra').value,'');
   assert.deepEqual(JSON.parse(app.storage['vk-pantry-v04']).items,['pizza sauce']);
 });
@@ -84,7 +86,7 @@ test('a grocery rendering error cannot block saved pantry changes or live recomm
 test('refresh fix preserves source boundaries, 84 meal IDs and offline version',()=>{
   assert.equal(meals.length,84);
   const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
-  assert.match(sw,/vk-lottery-v10/);
+  assert.match(sw,/vk-lottery-v11/);
   assert.match(sw,/\.\/pantry-priority\.js/);
   assert.match(pantrySource,/pantrySave\(\);if\(typeof pantryPriorityRender==='function'\)pantryPriorityRender\(\);pantryRender\(\);/);
   for(const id of [80,81,82,83])assert.equal(templates[id],undefined,'protected Food Wars source recipe #'+(id+1)+' stays unmapped');

@@ -12,12 +12,14 @@ assert.ok(match,'shopping template registry');
 const templates=vm.runInNewContext('('+match[1]+')', {});
 const normalized=id=>(templates[id]||[]).map(([section,ingredient,amount])=>({section,ingredient,amount}));
 
-test('Drive weekly packet maps only exact-name household meals at lottery IDs #1 and #6',()=>{
+test('household and recovered Vault mappings preserve exact lottery identity',()=>{
   assert.equal(meals[0],'Breakfast Tacos');
   assert.equal(meals[5],'Taco Casserole');
-  assert.deepEqual(Object.keys(templates).map(Number).sort((a,b)=>a-b),[0,2,5,7,15,19,40]);
+  assert.deepEqual(Object.keys(templates).map(Number).sort((a,b)=>a-b),[0,2,3,5,7,15,19,40,52]);
   assert.equal(normalized(0).length,7);
   assert.equal(normalized(5).length,9);
+  assert.equal(meals[3],'Pepperoni Pizza Grilled Cheese');
+  assert.equal(meals[52],'Sausage & Potato Foil Packets');
 });
 test('Breakfast Tacos preserves packet quantities and the ham/butter household choices',()=>{
   const items=normalized(0);

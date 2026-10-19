@@ -1,46 +1,64 @@
 # Vale-Keeney Menu Lottery
 
-A mobile-first, static Progressive Web App for the Vale-Keeney dinner lottery. Hosted on GitHub Pages; no sign-in, back end, or paid services.
+Mobile-first static Progressive Web App for the Vale-Keeney family dinner lottery, hosted on GitHub Pages. No login or back-end service.
 
-**Production:** v0.5.1 (84 numbered meals, working weekly calendar and pantry/grocery synchronization).  
-**Under development:** v0.6 pantry-first recommendations in PR #7. This branch is not the production app until the PR is merged and GitHub Pages deployment passes.
+- **Production:** v0.6.1, accepted Android phone QA, offline cache v10.
+- **Development:** v0.7 grocery mapping expansion. No v0.7 changes reach production until the PR is merged, Pages deployment succeeds, and Android phone QA passes.
 
-## How it works
+## Core workflow
 
-- **Lottery:** Choose or randomly draw among 84 stable numbered dinners, reveal winners, or lock must-have meals. Numbers #1–84 are immutable.
-- **This week:** Schedule up to seven dinner slots and use leftovers/flex nights; locally stored across refreshes. Grocery shopping follows this schedule when it has been set, otherwise the current lottery picks.
-- **Groceries:** Seven household ingredient templates currently exist. Breakfast Tacos (#1) follows the documented October 19–25 Drive weeknight packet. Taco Casserole (#6) uses the fuller quantities corroborated by the recovered private Cooking Vault and kitchen-test cookbook (Rotel 14.5 oz total, sour cream 1 cup, 2 green onions, tortilla chips 4 cups); the weekly packet's ~10 oz Rotel version remains a separate household variation. Original archived source-image verification is still pending. All other dishes explicitly report an incomplete grocery list; no unknown ingredients are fabricated.
-- **Pantry:** Check which grocery items you already have. Those items appear in an on-hand section rather than the shopping-to-buy checklist.
-- **v0.6 feature branch only — Pantry-first suggestions:** Shows up to five meals with on-hand matches, ranked by the fraction of mapped grocery items already present. Unmapped meals are **not scored**, not considered poor matches, and remain available in the ordinary lottery. Tap *Add to lottery* to add one without automatically rewriting the weekly calendar.
+- **Lottery:** 84 numbered meal identities. Mystery picks, locks, and dinner counts preserve their original IDs (#1–84).
+- **This Week:** Pick five dinners and use remaining nights for leftovers/flex; saved locally.
+- **Groceries:** Shopping list follows the saved weekly calendar (or current lottery picks when no schedule exists). Unmapped dinners are explicitly flagged as incomplete, never assigned invented ingredients.
+- **Pantry:** Items marked as on hand are excluded from items to buy. Recommendations update on the same tap without refreshing.
+- **Pantry-first:** Score mapped meals by **fraction of ingredient names already on hand**, display what's needed, and optionally add a meal to the lottery without rewriting the weekly calendar. This is not portion-aware or inventory-quantity-aware.
 
-### Recommendation limitations
+## Source/provenance policy
 
-The seven existing shopping templates are rough **household planning estimates**.
+**The private Vale-Keeney Cooking Vault is the source of truth.** Its source-faithful and locked recipe records stay unchanged and outside this public app. Grocery templates are a separate **household shopping representation**, not original source transcriptions or approval to alter source recipes.
 
-For #6 Taco Casserole, the recovered recipe lists 1 (14.5 oz) can Rotel, but the shopping list states **14.5 oz total (check can size)**; use enough product to measure the recovered amount. The recipe's 1/2 cup water is not added to the buy list. Other common recipe quantities remain unchanged. This is not five-person scaling. They are not complete, audited recipes and cannot establish ingredient quantities on hand, food safety/readiness, serving-size sufficiency, price, or a reliable `$125` budget result. Two meals with different numbers of ingredients may score differently even when the same food is available. Avoid interpreting scores as readiness to cook. Future versions will add individually verified grocery mappings and separate five-person quantity estimates.
+The v0.7 branch contains **9 shopping templates of 84 dinner choices**; **75 remain unscored**. Quality of evidence varies by template:
 
-The archived Gotcha! Pork Roast Drive PDF attributes its formulation to Feast of Fiction, whereas current app metadata says A Taste of Anime. This provenance discrepancy needs source-archive review before changing the attribution.\n\nFood Wars #81–84 have provenance-only metadata. They are **unmapped** in groceries and excluded from pantry ranking until their household templates have been independently verified. Source-faithful Cooking Vault recipes must never be copied into this public repository or silently modified.
+| Lottery # | Meal | Household mapping status |
+|---|---|---|
+| 1 | Breakfast Tacos | Documented in October 19–25, 2026 household Drive weekly packet |
+| 3 | Homemade Cheeseburger Sliders | Legacy household planning estimate; recipe-specific source audit outstanding |
+| 4 | Pepperoni Pizza Grilled Cheese | Recovered Cooking Vault recipe body; original source-image verification pending |
+| 6 | Taco Casserole | Fuller quantities agree across recovered Cooking Vault and cookbook; original source-image verification pending; October weekly packet is a separate variation |
+| 8 | Spaghetti & Meatballs | Legacy household planning estimate; source audit outstanding |
+| 16 | Mini Pizza Night | Legacy household planning estimate; source audit outstanding |
+| 20 | French Toast & Sausage | Legacy household planning estimate; source audit outstanding |
+| 41 | Beef Tips & Noodles | Legacy household planning estimate; source audit outstanding |
+| 53 | Sausage & Potato Foil Packets | Recovered Cooking Vault recipe body; original source-image verification pending |
 
-## Phone QA for v0.6 (after authorized deployment)
+### v0.7 additions: precise ingredient boundaries
 
-1. Verify all 84 lottery numbers remain and existing weekly menu and pantry values survive reload.
-2. Go to Pantry: mark `Breakfast sausage` as on hand; `French Toast & Sausage` should be a suggested match with **1 of 3** mapped items on hand.
-3. Mark `Pizza sauce` as on hand; `Mini Pizza Night` should appear with **1 of 4** mapped items on hand.
-4. Remove `Breakfast sausage`; its recommendation should disappear if no other mapped items are on hand for that dish.
-5. Tap `+ Add to lottery` on a suggestion; it must respect the dinner limit and must not silently overwrite the saved weekly schedule.
-6. Visit Groceries: any dish not yet added to the calendar must **not** change that week's shopping list. Place the dish on the calendar to refresh groceries.
-7. Confirm all four Food Wars dishes remain selectable, show unmapped warnings, and are not given invented ingredient scores.
-8. Close and reopen the app (and test offline after initial successful loading). Verify saved choices and recommendations still render.
+- **#4 Pepperoni Pizza Grilled Cheese:** The recovered archive lists **4 slices bread, 8 slices pepperoni, 1 cup mozzarella, 2 Tbsp marinara or pizza sauce, 2 Tbsp butter, 1 tsp oregano, and optional 1 tsp garlic (form unspecified)**, yielding **2 sandwiches**. Household shopping chooses the archive's **pizza sauce** alternative. Optional garlic is disclosed separately, not required for pantry coverage or automatic shopping. **Do not assume this feeds five people.**
+- **#53 Sausage & Potato Foil Packets:** The recovered archive lists **1 lb smoked sausage, 1½ lb baby potatoes, 1 red bell pepper, 1 green bell pepper, 1 small onion, 3 Tbsp olive oil, 2 tsp garlic powder, 1 tsp dried Italian seasoning, 1 tsp paprika, and salt/black pepper to taste**. The grocery list splits salt and pepper into two pantry items only for practical shopping. **No serving yield is documented and no five-person scaling has been applied.**
+- **#6 Taco Casserole:** For standard household shopping, use **14.5 oz total Rotel, 1 cup sour cream, 2 green onions, 4 cups tortilla chips**; other quantities stay as recovered. The October weekly packet used about 10 oz Rotel without measured toppings; preserve that separately rather than silently rewriting the archived standard. The recipe's ½ cup water is a kitchen supply and is not a buy item.
 
-## Data compatibility and privacy
+**Not mapped yet:** #18 Cowboy Casserole contains cream of mushroom soup in its recovered source. No mushroom-free household formulation has been approved. #9 Garlic Butter Steak Bites is not equivalent to the archived Steak & Potatoes recipe, and its own recipe body is incomplete. #12 Garbage Bread deliberately leaves fillings variable. #81–84 Food Wars recipes remain locked source-faithful records without public household ingredient templates.
 
-- Keeps the v0.1 lottery storage key `vk-dinner-lottery-v1`, v0.3 grocery key `vk-grocery-v03`, and v0.4 pantry key `vk-pantry-v04`.
-- Saved data lives in the same device/browser. Backups contain lottery state, not private recipe bodies; pantry inventory is stored separately.
-- Clearing browser storage removes saved choices. Export a lottery backup before clearing data.
-- Public repository code must contain only generic meal names, approved metadata, UI and tests. Never commit private Cooking Vault text, family details, receipts or real household inventory exports.
+## Acceptance checklist for v0.7 (after deployment)
 
-## Developer QA
+1. Refresh once to load offline cache **v11**, confirm 84 lottery positions and saved menus/pantry remain.
+2. In **This Week**, schedule **#4 Pepperoni Pizza Grilled Cheese**. Open Groceries and check the six mapped required items plus the two-sandwich yield and optional-garlic disclosure. No five-person multiplier should appear.
+3. Schedule **#53 Sausage & Potato Foil Packets**. Verify listed quantities, with salt and pepper separate; yield must be disclosed as unknown.
+4. In Pantry, mark **Pizza sauce** on hand and confirm #4 appears as a match without refreshing. Uncheck it and confirm the match updates.
+5. Verify no ingredient list is invented for Cowboy Casserole, Garlic Butter Steak Bites, or any Food Wars dish.
+6. Add a suggestion to the lottery and verify that the saved weekly calendar and grocery list do not change unless the calendar is edited.
+7. Refresh/close/reopen and verify saved data and shopping list remain intact.
 
-Run `node --test tests/*.test.cjs` using Node.js 22. GitHub Actions runs syntax checks and the full suite on pull requests and main-branch pushes. Offline service worker cache increments on each deployment touching client assets.
+## Privacy, data compatibility and limitations
 
-For local interactive testing, run `python -m http.server 8080` and open `http://localhost:8080`; `file://` URLs do not reliably support service workers.
+Keep these localStorage keys unchanged: `vk-dinner-lottery-v1`, `vk-grocery-v03`, and `vk-pantry-v04`. Clearing browser storage removes saved state. Export a lottery backup before clearing data. Never commit private Cooking Vault text, household inventories, receipts, or private Google Drive URLs to the public repo.
+
+A checked pantry ingredient means its **name** is available, not that enough quantity is on hand. Existing templates are planning estimates until their underlying original source images are independently checked. The app does **not** yet compute accurate servings, five-person quantities, prices, or the $125 budget.
+
+The Gotcha! Pork Roast attribution differs between recovered Drive material (Feast of Fiction) and existing app metadata (A Taste of Anime). Keep this discrepancy open for provenance review.
+
+## Developer checks
+
+Run `node --test tests/*.test.cjs` with Node.js 22. GitHub Actions runs JavaScript syntax checks and the full test suite on pull requests and main-branch pushes. Each production client-file update must bump the offline service-worker cache.
+
+For local browser testing, run `python -m http.server 8080` and open `http://localhost:8080`.
