@@ -1,6 +1,6 @@
 # First Full-Recipe Candidate — Taco Casserole Source Review
 
-**Status:** SOURCE REVIEW OPEN — NOT APPROVED FOR PUBLICATION  
+**Status:** HOUSEHOLD MANUSCRIPT VERSION APPROVED FOR PUBLIC-WEB PUBLICATION; ORIGINAL IMAGE VERIFICATION REMAINS OPEN  
 **Date:** 2026-10-19  
 **Lot​​tery choice:** #6 (zero-based ID 5), "Taco Casserole"  
 **Private Vault identity:** VK-DIN-TACO-CASSEROLE-001  
@@ -29,19 +29,28 @@ The existing public household grocery template contains **nine purchase categori
 
 The Vault describes three high-level steps (brown/season beef; combine and layer with beans, Rotel, salsa, chips and cheese; bake, then finish with sour cream/green onions). The kitchen-test manuscript includes **an oven setting of 375°F and approximately 20 minutes baking**. The structured Vault method **does not contain those oven/time values**.
 
-These details may represent a recovered manuscript rendition, but **without comparing the governing original screenshot**, they must not be silently promoted into a purported exact original transcription. This review does not overwrite the private Vault record and does not publish the recovered full method in the app.
+The owner **explicitly approved publication of the recovered household manuscript version, including cooking instructions, to the public app**. The 375°F and approximately 20-minute bake are preserved as **manuscript instructions**, not certified historical-original text. The private Vault original is not modified and the original image remains unverified.
 
-## Required decisions before a cookable public release
+## Approved household publication (separate from the original)
 
-1. Identify and review the original historical Taco Casserole screenshot if available; record ingredient, oven and method comparisons, and document discrepancies.
-2. Decide whether the publishable candidate is (a) a **source-verified original**, only when checked against the image, or (b) a **separately labeled household manuscript version**, explicitly approved as an adaptation; do not mislabel one as the other.
-3. Obtain **explicit approval to distribute the selected version's full ingredients and cooking instructions on public GitHub Pages**. Permission to inspect sources or develop UI does not in itself authorize publication.
-4. Establish the stable published `recipeId`, `recipeVersionId`, `publicationId`, approved `lotteryIds:[5]`, source/completeness statuses and exact ingredient quantities.
-5. Put all displayed recipe ingredient requirements and grocery/pantry purchase rows on that **same published recipe version**. Treat water as a declared kitchen supply, not a hidden alteration. Keep missing yield null.
-6. Add source- and quantity-specific test fixtures, run CI, obtain approval to merge, verify GitHub Pages, and complete Android cooking+shopping acceptance.
+- **Owner authorization:** explicit confirmation to publish the recovered Taco Casserole household manuscript formulation, including method, in the public Vale-Keeney Menu Lottery. **This does not approve an unverified original as source-faithful.**
+- **Underlying private source identity:** `VK-DIN-TACO-CASSEROLE-001`; no edits made to that protected record.
+- **Household recipe version:** `VK-HH-TACO-CASSEROLE-MANUSCRIPT-001`; distinct from the archived original.
+- **Public publication ID:** `vk-pub-taco-casserole-manuscript-001`, authorized as `approved-for-public-web` for lottery ID **5** (visible #6).
+- **Source disclosure:** "Recovered Kitchen Test Draft recipe #109 (legacy #160). The historical original screenshot has NOT been independently verified."
+- **Ingredients and method:** ten manuscript ingredients and three ordered manuscript method steps, including 375°F and about 20 minutes.
+- **Water:** source-required ingredient, ½ cup, shown on recipe; marked `supplyOnly` for grocery checklist.
+- **Shopping:** nine required purchase items generated from the *same recipe version* as the card, replacing an older household-planning estimate where names or quantities differ.
+- **Yield:** undocumented. No five-serving claim, no automatic scaling.
+- **Optional chip note:** original manuscript's crisp-chip suggestion presented as a tip, not a fourth required step.
+- **Packaging caution:** the manuscript specifies a 14.5 oz can of Rotel; the shopper must check actual packages. No assumption of exact product availability or equivalent can size.
 
-## Engineering preparation completed on recipe-viewer branch
+## Remaining original-source QA and release gates
 
-A shared recipe-publication resolver and derived shopping rows now allow future approved recipe publications to **replace**, rather than compete with, a legacy household template for the same lottery number. Required rows are created from the same ingredient names and quantities the recipe card displays. Optional/supply-only ingredients are excluded from automatic purchases but remain documented on the recipe card. Tests use **synthetic fixtures only**. The actual public publication and link registries remain empty.
+1. Recover and independently compare the governing historical Taco Casserole screenshot before labeling **the original** source verified. The household manuscript version may remain labeled recovered meanwhile.
+2. Preserve the original vs household manuscript distinction; do not silently replace the Vault method or change oven temperature/timing in the source record.
+3. Confirm new recipe labels in Pantry, because previously stored generic "Salsa" and "Rotel diced tomatoes and chilies" entries are **not automatically considered equivalent** to "Chunky salsa" and "Rotel". Pantry data is retained, but users should review it.
+4. PR CI, separate explicit **merge/release approval**, successful GitHub Pages deployment and Android testing must all pass before calling the new recipe feature a live accepted release.
+5. Coordinate release order with the separate unfinished ingredient-recovery PR #12, which uses a different cache version.
 
-**This document is an audit summary and approval checklist, not an approved recipe method or permission to publish one.**
+**This document records a specific public HOUSEHOLD manuscript publication approval, not verification of the original historical image or permission to release other archived recipes.**
