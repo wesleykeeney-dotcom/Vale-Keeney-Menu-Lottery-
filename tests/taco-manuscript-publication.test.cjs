@@ -133,7 +133,6 @@ test('pantry state and live shopping progress still work with published ingredie
  const grocery=app.groceries();
  assert.match(grocery,/8 items remaining • 0 checked off • 1 already on hand/);
  assert.match(grocery,/Already have — pantry/);
- assert.doesNotMatch(grocery,/Chunky salsa — 1 1\/2 cups[\s\S]*?\n(?:\S|$)/); // coverage of on-hand addressed in DOM below
  const rows=app.dom.groceryContent.children.filter(x=>x.cls==='grocery-item');
  assert.equal(rows.length,8);
  assert.ok(!rows.some(x=>x.children[1].textContent.startsWith('Chunky salsa —')));
