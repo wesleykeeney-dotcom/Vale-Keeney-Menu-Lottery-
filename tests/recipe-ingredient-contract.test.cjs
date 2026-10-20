@@ -38,8 +38,8 @@ function environment({record=testPublication(),linked=true,schedule=[5,-1,-1,-1,
   publicFixtures:fixtures,
   publicLinks:linked?{5:{publicationId:'fixture-pub-6',recipeVersionId:'fixture-version-6'}}:{}
  });
- const links=read('recipe-links.js').replace('const RECIPE_LINKS=Object.freeze({});','const RECIPE_LINKS=Object.freeze(publicLinks);');
- const published=read('recipe-publications.js').replace('const RECIPE_PUBLICATIONS=Object.freeze({});','const RECIPE_PUBLICATIONS=Object.freeze(publicFixtures);');
+ const links=read('recipe-links.js').replace(/const RECIPE_LINKS=Object\.freeze\(\{[\s\S]*?\n\}\);/,'const RECIPE_LINKS=Object.freeze(publicLinks);');
+ const published=read('recipe-publications.js').replace(/const RECIPE_PUBLICATIONS=Object\.freeze\(\{[\s\S]*?\n\}\);/,'const RECIPE_PUBLICATIONS=Object.freeze(publicFixtures);');
  assert.notEqual(links,read('recipe-links.js'),'synthetic link fixture must load');
  assert.notEqual(published,read('recipe-publications.js'),'synthetic publication fixture must load');
  for(const source of [read('meals.js'),links,published,read('pantry.js'),read('grocery.js'),read('pantry-priority.js'),read('recipe-viewer.js')]){
@@ -89,11 +89,13 @@ test('an approved public recipe lacking a grocery department cannot silently rep
  assert.match(groceries,/Ground beef — 2 lb/);
  assert.doesNotMatch(groceries,/Carrots — 2/);
 });
-test('the actual public registry contains no unapproved private Taco Casserole method',()=>{
+test('the public registry contains precisely one owner-approved household version, not an authenticated Vault reference',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.equal(Object.keys(publications).length,0);
- assert.equal(Object.keys(links).length,0);
+ assert.deepEqual(Object.keys(publications),['vk-pub-taco-casserole-manuscript-001']);
+ assert.deepEqual(Object.keys(links),['5']);
+ assert.match(publications[links[5].publicationId].sourceStatus,/NOT been independently verified/);
+ assert.match(publications[links[5].publicationId].versionType,/household manuscript/);
  const pages=read('index.html');
  assert.ok(pages.indexOf('src="recipe-links.js"')<pages.indexOf('src="recipe-publications.js"'));
  assert.ok(pages.indexOf('src="recipe-publications.js"')<pages.indexOf('src="grocery.js"'));
