@@ -11,10 +11,18 @@ These are **design and development requirements**, not a claim that a recipe vie
 
 A mobile-first static Progressive Web App for dinner lottery, saved weekly schedule, household grocery checklist and pantry-first suggestions. Hosted on GitHub Pages, no server or login.
 
-**Deployed production:** v1.0, merged PR #14 at commit `d69000f`, offline cache **v15**; post-merge automated QA **79 passed** and GitHub Pages deployment successful. The owner approved the release; **individual Android recipe-viewer acceptance steps have not been independently confirmed**. Prior accepted v0.9 Android shopping-count checks remain historical.  
-**In development:** v1.1 [source-gated recipe expansion review](docs/v1.1-recipe-expansion-review.md), supported by a [metadata-only candidate queue](docs/v1.1-recipe-expansion-queue.json). The owner-approved **Pepperoni Pizza Grilled Cheese #4 household manuscript recipe is now implemented on draft PR #15**, with two-sandwich yield, seven ingredients, three documented steps and a persistent pizza-sauce-or-marinara selection shared by recipe view, Groceries and Pantry. **The original image is not source-verified.** This development branch targets offline cache **v16**; production remains v1.0/v15 until separately authorized merge, Pages deployment and Android acceptance. The coupon finder and membership wallet are roadmap items, not deployed capabilities.
+**Deployed production:** v1.1, merged PR #15 at commit `af8e4f1`, offline cache **v16**. Post-merge automated QA **88/88 passed** and GitHub Pages deployment succeeded. **Android user reported that the sauce changed in the recipe but not in Groceries**; this is a confirmed unscheduled-meal scope issue, so v1.1 mobile acceptance remains open.  
+**In development:** v1.1.1 grocery-scope hotfix (offline cache **v17**); explicitly view one recipe's shopping list without changing the saved calendar, or return to weekly shopping. Includes regression tests for the previously missing *not scheduled* condition and a visible build identifier. The coupon finder and membership wallet are roadmap items, not deployed capabilities.
 
-## v1.1 recipe expansion — draft, awaiting release approval
+## v1.1.1 unscheduled recipe shopping fix — draft, not yet released
+
+**Cause:** In deployed v1.1, selecting sauce changes the recipe and its stored preference, but the Groceries view correctly lists **only the scheduled weekly dinners** (or, when no calendar is saved, current lottery selections). Opening a recipe from Meal Library never adds it to the saved weekly menu. The earlier tests scheduled #4 explicitly, so the unscheduled case was missed.
+
+**Resolution in this patch:** A reviewed recipe shows whether it belongs to the current grocery scope, then offers **Shop this recipe**. This opens a **temporary single-recipe** grocery list containing the exact selected ingredient version (pizza sauce or marinara) without touching the saved weekly menu, lottery, pantry, or previous checked-off shopping items. An obvious **Show weekly groceries** action returns to the normal calendar-derived list. Weekly manual additions are not mixed into the single-recipe preview. Sauce changes for *scheduled* meals still update weekly Groceries automatically. The active shopping scope is in-memory only, with no new persistent data keys.
+
+**Android acceptance after a separately authorized merge:** Verify visible **v1.1.1** label and cache v17; open #4 from Meal Library while #6 remains on the calendar, switch to marinara, tap **Shop this recipe**, confirm the six documented purchase items including **Marinara sauce — 2 Tbsp**. Tap **Show weekly groceries** and verify the original week's list is restored. Schedule #4 explicitly and verify a sauce change updates normal weekly Groceries. Confirm original 84 lottery numbers and saved pantry/checkmarks remain intact.
+
+## v1.1 recipe expansion — deployed, with Android scope issue under correction
 
 The new approved **Pepperoni Pizza Grilled Cheese (#4)** household manuscript appears alongside existing Taco Casserole (#6) in the draft recipe viewer. Documented yield: **two sandwiches**. The seven source-backed ingredient lines include optional **1 tsp garlic powder**, which appears on the recipe card but is **not** auto-added to shopping.
 
