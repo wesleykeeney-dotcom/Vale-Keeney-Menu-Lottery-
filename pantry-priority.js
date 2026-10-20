@@ -38,7 +38,7 @@ function pantryPriorityRender() {
   const root = document.getElementById('pantrySuggestions');
   if (!root || typeof SHOPPING_TEMPLATES === 'undefined' || typeof pantryState === 'undefined') return;
   root.replaceChildren();
-  const rankings = pantryMealRankings(SHOPPING_TEMPLATES, pantryState.items, MEALS.length);
+  const rankings = pantryMealRankings(typeof completeShoppingTemplates==='function'?completeShoppingTemplates():SHOPPING_TEMPLATES, pantryState.items, MEALS.length);
   const unscored = MEALS.length - rankings.length;
   const partialCount = typeof SHOPPING_PARTIAL_TEMPLATES==='undefined' ? 0 : Object.keys(SHOPPING_PARTIAL_TEMPLATES).length;
   root.append(node('h4','grocery-dept','Pantry-first meal suggestions'));
