@@ -23,6 +23,7 @@ function recipeViewRender(id){
   add('p','subtle','Approved public recipe version: '+record.recipeVersionId+' • '+record.versionType);
   if(record.sourceStatus)add('p','subtle','Evidence: '+record.sourceStatus);
   if(record.yieldText)add('p','subtle','Documented yield: '+record.yieldText);
+  else add('p','subtle','Serving yield not documented; do not assume these quantities feed five.');
   const ingredients=Array.isArray(record.ingredients)?record.ingredients:[];
   const steps=Array.isArray(record.steps)?record.steps:[];
   const validIngredients=ingredients.length>0&&ingredients.every(x=>x&&typeof x.name==='string'&&x.name.trim()&&typeof x.amount==='string'&&x.amount.trim());
@@ -31,13 +32,16 @@ function recipeViewRender(id){
   if(ingredients.length){
    add('h4','grocery-dept','Published recipe ingredients');
    const ul=node('ul','recipe-ingredients');
-   for(const x of ingredients)ul.append(node('li',null,(x.name||'Unknown ingredient')+' — '+(x.amount||'Quantity not documented')+(x.optional?' (optional)':'')+(x.supplyOnly?' (kitchen supply — not automatically purchased)':'')));
+   for(const x of ingredients)ul.append(node('li',null,(x.name||'Unknown ingredient')+' — '+(x.amount||'Quantity not documented')+(x.preparation?' ('+x.preparation+')':'')+(x.optional?' (optional)':'')+(x.supplyOnly?' (kitchen supply — not automatically purchased)':'')));
    root.append(ul);
   }
   if(ready){
    add('h4','grocery-dept','Documented cooking instructions');
    const ol=node('ol','recipe-steps');for(const step of steps)ol.append(node('li',null,step));root.append(ol);
   }else add('p','recipe-caution','Not cooking-ready: ingredients, approved substitutions or method are incomplete. No steps are generated.');
+  if(typeof record.notes==='string'&&record.notes)add('p','subtle',record.notes);
+  if(typeof record.shoppingNote==='string'&&record.shoppingNote)add('p','recipe-caution',record.shoppingNote);
+  if(typeof record.sourceNote==='string'&&record.sourceNote)add('p','subtle',record.sourceNote);
  }else{
   add('p','recipe-caution','Recipe not yet linked. No reviewed cooking method is approved for publication for this meal. No cooking instructions are generated.');
   const preview=shoppingPreviewForLottery(id);
