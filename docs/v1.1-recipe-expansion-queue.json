@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Review-only manifest for future recipe publication; no cooking instructions or private recipe ingredients are exported.",
+  "productionBaseline": {
+    "acceptedMergeCommit": "d69000f41dd2cd7800b518cc1d482b3b86398113",
+    "approvedCookbookLotteryIds": [
+      5
+    ],
+    "lotteryCount": 84
+  },
+  "candidates": [
+    {
+      "lotteryId": 3,
+      "displayNumber": 4,
+      "title": "Pepperoni Pizza Grilled Cheese",
+      "vaultRecipeId": "VK-DIN-PIZZAGRILLEDCHEESE-001",
+      "manuscriptEntry": 90,
+      "manuscriptStatus": "archived_source_transcription_restored",
+      "vaultStatus": "source_preserved_transcription_pending",
+      "originalImageVerified": false,
+      "documentedYield": "2 sandwiches",
+      "ingredients": "recoverable",
+      "method": "recoverable_detailed_manuscript",
+      "status": "pending_specific_publication_approval",
+      "unresolved": [
+        "Manuscript identifies optional garlic powder; Vault short description identifies optional garlic without specifying form.",
+        "Manuscript method contains assembly details not present in the Vault summary.",
+        "Source image/external provenance not independently verified.",
+        "Public household shopping currently selects pizza sauce from documented marinara-or-pizza-sauce alternative."
+      ],
+      "nextGate": "Review exact household manuscript variant, verify grocery labels and amounts, then seek explicit public-web publication authorization."
+    },
+    {
+      "lotteryId": 52,
+      "displayNumber": 53,
+      "title": "Sausage & Potato Foil Packets",
+      "vaultRecipeId": "VK-DIN-SAUSAGEPOTATO-FOILPACKETS-001",
+      "manuscriptEntry": 140,
+      "manuscriptStatus": "source_body_pending_final_source_faithful_replacement",
+      "vaultStatus": "source_preserved_transcription_pending",
+      "originalImageVerified": false,
+      "documentedYield": null,
+      "ingredients": "recovered_vault_only",
+      "method": "incomplete_without_documented_time_temperature",
+      "status": "source_recovery_required",
+      "unresolved": [
+        "Kitchen-test manuscript retains identity but withholds generated body pending verification.",
+        "Vault method is high-level; time and temperature are not documented.",
+        "Salt/pepper quantity intentionally unquantified; don't invent a purchase amount.",
+        "Yield unknown; never auto-scale to five."
+      ],
+      "nextGate": "Recover governing source image or get approval for a documented separate household method, without inventing time, temperature or yield."
+    },
+    {
+      "lotteryId": 11,
+      "displayNumber": 12,
+      "title": "Garbage Bread",
+      "vaultRecipeId": "VK-FAM-GARBAGEBREAD-001",
+      "manuscriptEntry": 99,
+      "manuscriptStatus": "protected_governing_family_recipe",
+      "vaultStatus": "family_original_locked",
+      "originalImageVerified": true,
+      "documentedYield": "1 loaf",
+      "ingredients": "intentionally_variable",
+      "method": "documented_but_variable_fillings_and_unspecified_temperature",
+      "status": "household_choices_required",
+      "unresolved": [
+        "Cheese/fillings amounts intentionally negotiable.",
+        "Cooking temperature/time not established as a numeric standard.",
+        "Must never alter locked family formulation or infer specific fillings."
+      ],
+      "nextGate": "Owner selects a separately approved meal-night configuration or keeps protected family recipe intentionally partial."
+    },
+    {
+      "lotteryId": 17,
+      "displayNumber": 18,
+      "title": "Cowboy Casserole",
+      "vaultRecipeId": "VK-DIN-COWBOYCASSEROLE-001",
+      "manuscriptEntry": 110,
+      "manuscriptStatus": "source_body_pending_final_source_faithful_replacement",
+      "vaultStatus": "recovered_ingredient_record_image_pending",
+      "originalImageVerified": false,
+      "documentedYield": null,
+      "ingredients": "partial_household_shopping_only",
+      "method": "not_cook_ready_for_household",
+      "status": "approved_mushroom_free_variant_required",
+      "unresolved": [
+        "Governing original includes cream of mushroom soup.",
+        "No mushroom-free replacement approved for a separate household version.",
+        "No inferred substitutions or original image verification."
+      ],
+      "nextGate": "Review an exact approved alternative separately; preserve original and keep existing partial shopping warning."
+    },
+    {
+      "lotteryId": 49,
+      "displayNumber": 50,
+      "title": "Hamburger Potato Casserole",
+      "vaultRecipeId": "VK-DIN-HAMBURGERPOTATO-CASSEROLE-001",
+      "manuscriptEntry": 114,
+      "manuscriptStatus": "source_body_pending_final_source_faithful_replacement",
+      "vaultStatus": "vault_ingredient_array_empty",
+      "originalImageVerified": false,
+      "documentedYield": null,
+      "ingredients": "partial_lower_confidence_manuscript",
+      "method": "not_cook_ready_for_household",
+      "status": "source_and_adaptation_required",
+      "unresolved": [
+        "Vault record lacks verified ingredient array.",
+        "Recovered cookbook version includes cream of mushroom soup.",
+        "No approved mushroom-free substitution or source image verification."
+      ],
+      "nextGate": "Recover source image and seek distinct household adaptation approval before full publication."
+    }
+  ]
+}
