@@ -94,6 +94,36 @@ function approvedRecipeForLottery(id){
     (typeof item.department==='string'&&item.department.trim()))))return null;
  return record;
 }
+// Nonsecret per-version household option. This is NOT a retailer/account credential.
+const RECIPE_OPTION_KEY='vk-recipe-options-v01';
+function recipeOptionStorage(){
+ try{
+  if(typeof localStorage==='undefined')return {};
+  const x=JSON.parse(localStorage.getItem(RECIPE_OPTION_KEY));
+  return x&&typeof x==='object'&&!Array.isArray(x)?x:{};
+ }catch{return {}}
+}
+function recipeSauceChoiceForLottery(id){
+ const r=approvedRecipeForLottery(id);
+ if(!r||!r.sauceOptions||!Array.isArray(r.sauceOptions.choices))return null;
+ const saved=recipeOptionStorage()[r.recipeVersionId];
+ return r.sauceOptions.choices.includes(saved)?saved:r.sauceOptions.default;
+}
+function recipeSetSauceChoiceForLottery(id,choice){
+ const r=approvedRecipeForLottery(id);
+ if(!r||!r.sauceOptions||!r.sauceOptions.choices.includes(choice)||
+    typeof localStorage==='undefined')return false;
+ try{
+  const saved=recipeOptionStorage();
+  saved[r.recipeVersionId]=choice;
+  localStorage.setItem(RECIPE_OPTION_KEY,JSON.stringify(saved));
+  return true;
+ }catch{return false}
+}
+function recipeIngredientNameForLottery(id,ingredient){
+ return ingredient.sauceChoice===true?
+    (recipeSauceChoiceForLottery(id)||ingredient.name):ingredient.name;
+}
 // Required shopping rows are derived from EXACTLY the same approved recipe/version
 // and recorded amount displayed in the recipe card. No shopping-only quantity guesses.
 function publishedShoppingRowsForLottery(id){
@@ -101,7 +131,7 @@ function publishedShoppingRowsForLottery(id){
  if(!r)return null;
  const required=r.ingredients.filter(item=>item.optional!==true&&item.supplyOnly!==true);
  if(!required.length)return null;
- return required.map(item=>[item.department,item.name,item.amount]);
+ return required.map(item=>[item.department,recipeIngredientNameForLottery(id,item),item.amount]);
 }
 
 // Catalog used by pantry suggestions and pantry ingredient controls. A reviewed
