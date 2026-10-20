@@ -31,7 +31,7 @@ function recipeViewRender(id){
   if(ingredients.length){
    add('h4','grocery-dept','Published recipe ingredients');
    const ul=node('ul','recipe-ingredients');
-   for(const x of ingredients)ul.append(node('li',null,(x.name||'Unknown ingredient')+' — '+(x.amount||'Quantity not documented')+(x.optional?' (optional)':'')));
+   for(const x of ingredients)ul.append(node('li',null,(x.name||'Unknown ingredient')+' — '+(x.amount||'Quantity not documented')+(x.optional?' (optional)':'')+(x.supplyOnly?' (kitchen supply — not automatically purchased)':'')));
    root.append(ul);
   }
   if(ready){
@@ -49,10 +49,10 @@ function recipeViewRender(id){
    root.append(ul);
   }else add('p','subtle','No reviewed ingredients or household shopping requirements are available.');
  }
- if(typeof SHOPPING_RECIPE_NOTES!=='undefined'&&SHOPPING_RECIPE_NOTES[id])add('p','recipe-caution',SHOPPING_RECIPE_NOTES[id]);
+ if(!record&&typeof SHOPPING_RECIPE_NOTES!=='undefined'&&SHOPPING_RECIPE_NOTES[id])add('p','recipe-caution',SHOPPING_RECIPE_NOTES[id]);
  if(typeof foodWarsMeta==='function'){
   const meta=foodWarsMeta(id);
-  if(meta)add('p','recipe-caution','Original-source notice: '+meta.note+(meta.mushrooms?' Contains mushrooms.':'')+' No source method is published here.');
+  if(meta)add('p','recipe-caution','Original-source notice: '+meta.note+(meta.mushrooms?' Contains mushrooms.':'')+(record?' Review the published version named above.':' No source method is published here.'));
  }
  add('p','subtle','Groceries follow your saved weekly menu or current lottery picks. Opening a recipe does not change your calendar.');
 }
