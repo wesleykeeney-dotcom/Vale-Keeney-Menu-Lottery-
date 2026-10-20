@@ -21,14 +21,20 @@
       "documentedYield": "2 sandwiches",
       "ingredients": "recoverable",
       "method": "recoverable_detailed_manuscript",
-      "status": "pending_specific_publication_approval",
+      "status": "owner_approved_pending_publication_implementation",
       "unresolved": [
         "Manuscript identifies optional garlic powder; Vault short description identifies optional garlic without specifying form.",
         "Manuscript method contains assembly details not present in the Vault summary.",
         "Source image/external provenance not independently verified.",
         "Public household shopping currently selects pizza sauce from documented marinara-or-pizza-sauce alternative."
       ],
-      "nextGate": "Review exact household manuscript variant, verify grocery labels and amounts, then seek explicit public-web publication authorization."
+      "nextGate": "Implement public recipe publication registry and verified version link, then run CI; do not merge/deploy before separate authorization.",
+      "approval": {
+        "scope": "Separate recovered household manuscript, exact documented ingredients and cooking method, 2-sandwich yield, optional garlic powder, marinara-or-pizza-sauce choice",
+        "ownerAuthorized": true,
+        "originalSourceImageVerified": false,
+        "releaseMergeAuthorized": false
+      }
     },
     {
       "lotteryId": 52,
