@@ -58,8 +58,8 @@ test('publicly approved Taco Casserole is a distinct household manuscript linked
  assert.equal(app.get('approvedRecipeForLottery(83)'),null,'protected Food Wars remains unlinked');
  assert.equal(app.get('MEALS.length'),84);
  assert.equal(app.get('MEALS[5]'),'Taco Casserole');
- assert.equal(Object.keys(app.get('RECIPE_PUBLICATIONS')).length,1);
- assert.equal(Object.keys(app.get('RECIPE_LINKS')).length,1);
+ assert.equal(Object.keys(app.get('RECIPE_PUBLICATIONS')).length,2);
+ assert.equal(Object.keys(app.get('RECIPE_LINKS')).length,2);
 });
 
 test('manuscript amounts and recipe preparation annotations are preserved line for line',()=>{
