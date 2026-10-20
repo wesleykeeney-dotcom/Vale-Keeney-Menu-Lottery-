@@ -7,6 +7,7 @@ const vm=require('node:vm');
 const root=path.join(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const viewer=read('recipe-viewer.js');
+const publicationsSource=read('recipe-publications.js');
 const meals=vm.runInNewContext(read('meals.js')+'\nMEALS;');
 const grocery=read('grocery.js');
 const getRegistry=name=>{
@@ -31,7 +32,7 @@ function setup({links={},publications={},shoppingTemplates=shopping,partialTempl
   document:{getElementById:id=>dom[id]||null},
   node:element,
   MEALS:meals,
-  RECIPE_PUBLICATIONS:publications,
+  mockPublications:publications,
   SHOPPING_TEMPLATES:shoppingTemplates,
   SHOPPING_PARTIAL_TEMPLATES:partialTemplates,
   SHOPPING_RECIPE_NOTES:notes,
@@ -39,7 +40,7 @@ function setup({links={},publications={},shoppingTemplates=shopping,partialTempl
   switchTab:id=>opened.push(id),
   foodWarsMeta:foodWarsMeta||(()=>null)
  });
- vm.runInContext(viewer,ctx);
+ vm.runInContext(publicationsSource.replace('const RECIPE_PUBLICATIONS=Object.freeze({});','const RECIPE_PUBLICATIONS=Object.freeze(mockPublications);')+'\n'+viewer,ctx);
  const render=id=>vm.runInContext('recipeViewRender('+id+')',ctx);
  const open=(id,origin)=>vm.runInContext('recipeOpen('+id+','+JSON.stringify(origin)+')',ctx);
  const text=()=>{const traverse=e=>[e.textContent||'',...e.children.flatMap(traverse)];return dom.recipeContent.children.flatMap(traverse).join('\n')};
@@ -51,7 +52,7 @@ function fixture(overrides={}){
   publicationAuthorization:'approved-for-public-web',lotteryIds:[5],
   title:'Test-only fixture',versionType:'approved-household',sourceStatus:'test fixture',
   ingredientStatus:'complete',methodStatus:'complete',householdSubstitutionsResolved:true,
-  ingredients:[{name:'Fixture ingredient',amount:'1 test unit'}],
+  ingredients:[{name:'Fixture ingredient',amount:'1 test unit',department:'Test department'}],
   steps:['Fixture step A.','Fixture step B.'],yieldText:'Test yield',
   ...overrides
  };
