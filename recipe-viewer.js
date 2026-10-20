@@ -61,6 +61,17 @@ function recipeViewRender(id){
   if(typeof record.notes==='string'&&record.notes)add('p','subtle',record.notes);
   if(typeof record.shoppingNote==='string'&&record.shoppingNote)add('p','recipe-caution',record.shoppingNote);
   if(typeof record.sourceNote==='string'&&record.sourceNote)add('p','subtle',record.sourceNote);
+  if(typeof groceryWeekIds==='function'&&typeof groceryShowRecipe==='function'){
+   const included=groceryWeekIds().includes(id);
+   add('p','subtle',included
+    ?'This meal is included in your current weekly shopping list. Sauce changes update its grocery requirements.'
+    :'This meal is not in your current weekly shopping list. Changing its sauce will not add it to your calendar.');
+   const shop=node('button','btn primary','🛒 Shop this recipe');
+   shop.type='button';
+   shop.setAttribute('aria-label','Shop ingredients for '+record.title+' without changing weekly menu');
+   shop.onclick=()=>groceryShowRecipe(id);
+   root.append(shop);
+  }
  }else{
   add('p','recipe-caution','Recipe not yet linked. No reviewed cooking method is approved for publication for this meal. No cooking instructions are generated.');
   const preview=shoppingPreviewForLottery(id);
