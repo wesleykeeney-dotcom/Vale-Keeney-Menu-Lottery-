@@ -67,12 +67,14 @@ test('#53 original-image evidence cannot silently erase paprika or fabricate ins
  assert.equal(p.sourceIngredientLines,9);
  assert.equal(p.vaultIngredientLines,10);
  assert.match(p.quantityDiscrepancy,/1 tsp paprika absent/);
- assert.equal(image.evidenceStatus,'vault_pr20_report_pending_review');
- assert.equal(image.visibleCoverage,'ingredient_list_and_headline_only');
+ assert.equal(image.evidenceStatus,'original_image_directly_inspected_fingerprint_confirmed');
+ assert.match(image.visibleCoverage,/six_historical_recipe_ingredient_lists.*no_method_steps/);
  assert.equal(p.reportedSourceYield,'Serves 6');
  assert.equal(p.reportedSourceHeadline,'35 minutes');
  assert.equal(p.fullOriginalMethodAvailable,false);
  assert.equal(p.canonicalYieldUpdated,false);
+ assert.equal(p.originalImageInspectedDirectly,true);
+ assert.equal(p.ingredientImageMatchesVaultExcludingPaprika,true);
  assert.match(p.nextGate,/recover method or obtain separate household-version approval/i);
  assert.equal(links[52],undefined);
 });
@@ -120,4 +122,54 @@ test('protected public publications remain exactly the two authorized household 
  assert.equal(links[17],undefined);
  assert.equal(links[49],undefined);
  for(const id of [80,81,82,83])assert.equal(links[id],undefined,'protected Food Wars original requires separate gate');
+});
+
+test('six-record historical screenshot reconciliation matches source-count evidence and is never a recipe publication',()=>{
+ const batch=queue.historicalSourceComparisonBatch;
+ assert.equal(batch.batchId,'phase-v1.2-original-image-191-195-with-190');
+ assert.equal(batch.originalImageEvidenceId,'vault-191-original-image');
+ assert.equal(batch.imageSha256,'a4fd5048f4d596984c2c1fe08abf76ae7b72ee94a9f3aefe90dc51b480184d41');
+ assert.equal(batch.directSourceImageCompared,true);
+ assert.equal(batch.originalMethodStepsVisible,false);
+ assert.equal(batch.canonicalRecordEdits,0);
+ assert.equal(batch.publicationApprovals,0);
+ assert.equal(batch.comparisons.length,6);
+ assert.deepEqual(Array.from(batch.comparisons,x=>x.historicalNumber),[190,191,192,193,194,195]);
+ const counts=batch.comparisons.reduce((r,x)=>({
+  historicalRecipes:r.historicalRecipes+1,
+  sourceIngredientRows:r.sourceIngredientRows+x.sourceIngredientRows,
+  vaultIngredientRows:r.vaultIngredientRows+x.vaultIngredientRows,
+  matchedIngredientRows:r.matchedIngredientRows+x.matchedRows,
+  sourceRowsMissingFromVault:r.sourceRowsMissingFromVault+x.sourceIngredientRows-x.matchedRows,
+  vaultRowsNotInSource:r.vaultRowsNotInSource+x.vaultIngredientRows-x.matchedRows
+ }),{historicalRecipes:0,sourceIngredientRows:0,vaultIngredientRows:0,matchedIngredientRows:0,sourceRowsMissingFromVault:0,vaultRowsNotInSource:0});
+ assert.deepEqual(counts,batch.counts);
+ assert.deepEqual(counts,{historicalRecipes:6,sourceIngredientRows:53,vaultIngredientRows:44,matchedIngredientRows:43,sourceRowsMissingFromVault:10,vaultRowsNotInSource:1});
+ for(const record of batch.comparisons){
+  assert.match(record.canonicalRecipeId,/^VK-DIN-/);
+  assert.equal(record.sourceYield,'Serves 6');
+  assert.equal(record.sourceMethodVisible,false);
+  assert.equal(record.canonicalYieldUpdated,false);
+  assert.equal(links[record.historicalNumber],undefined,'historical IDs are not lottery links');
+  assert.ok(record.nextGate.length>15);
+  for(const forbidden of ['ingredients','sourceIngredientEntries','steps','method','sourceBytes','sourceFileUrl','sourceImageBase64'])
+   assert.equal(Object.hasOwn(record,forbidden),false,'public evidence should be metadata-only');
+ }
+});
+
+test('historical source discrepancies are precise, separate from unverified methods and require approval',()=>{
+ const rows=queue.historicalSourceComparisonBatch.comparisons;
+ const pork=rows.find(x=>x.historicalNumber===193),paprika=rows.find(x=>x.historicalNumber===191),salisbury=rows.find(x=>x.historicalNumber===190);
+ assert.equal(paprika.discrepancyCode,'VAULT_EXTRA_PAPRIKA_1_TSP');
+ assert.match(paprika.nextGate,/paprika/i);
+ assert.equal(salisbury.sourceIngredientRows,10);
+ assert.equal(salisbury.vaultIngredientRows,0);
+ assert.equal(salisbury.discrepancyCode,'CANONICAL_INGREDIENT_BODY_EMPTY');
+ assert.match(pork.nextGate,/Country Fried Pork/);
+ for(const r of rows.filter(x=>x.historicalNumber>=192))assert.equal(r.discrepancyCode,null);
+ assert.match(rows.find(x=>x.historicalNumber===195).nextGate,/LOW setting/);
+ assert.equal(queue.policy.originalSourceBytesPublished,false);
+ assert.equal(queue.policy.recipeMethodsPublished,false);
+ assert.equal(queue.policy.recipePublicationsCreated,false);
+ assert.equal(queue.policy.approvalRequiredForSourceCorrections,true);
 });
