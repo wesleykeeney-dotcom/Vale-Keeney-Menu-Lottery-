@@ -27,3 +27,8 @@
 .recipe-caution{border:1px solid #8565a0;border-radius:12px;background:#34233f;padding:13px;color:#f6ddff;line-height:1.5;margin:14px 0}
 #recipeBack{min-height:44px;margin:8px 0 18px}
 @media(max-width:600px){.recipe-open-btn{display:block;margin:8px 0 0;width:100%;text-align:center}.library-row{flex-wrap:wrap}.week-row .recipe-open-btn{width:100%}}
+
+/* Source-backed sauce choice, displayed before the documented ingredient list. */
+.recipe-option{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:14px 0;color:#f0ddff}
+.recipe-choice-select{min-height:44px;padding:10px 12px;background:#30213e;color:#f0ddff;border:1px solid #855fa1;border-radius:9px;max-width:100%}
+.recipe-choice-select:focus-visible{outline:3px solid #e6bbff;outline-offset:3px}
