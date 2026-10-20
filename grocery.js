@@ -69,22 +69,31 @@ function groceryWeekIds(){return [...new Set((state.schedule.length?state.schedu
 // Explicit one-recipe shopping scope; never silently schedules the meal or
 // rewrites the user's weekly menu. Scope is in-memory and can be dismissed.
 let groceryPreviewRecipeId=null;
+// Preview checkmarks are ephemeral and must never modify the saved weekly checklist.
+let groceryPreviewChecked=new Set();
 function groceryShowRecipe(id){
  if(!validId(id)||typeof publishedShoppingRowsForLottery!=='function'||
     !publishedShoppingRowsForLottery(id))return false;
  groceryPreviewRecipeId=id;
+ groceryPreviewChecked=new Set();
  groceryRender();
  if(typeof switchTab==='function')switchTab('grocery');
  return true;
 }
 function groceryReturnToWeekly(){
  groceryPreviewRecipeId=null;
+ groceryPreviewChecked=new Set();
  groceryRender();
 }
 function groceryRender(){
  const root=document.getElementById('groceryContent');if(!root)return;root.replaceChildren();
  const scopeRecipe=typeof groceryPreviewRecipeId!=='undefined'&&groceryPreviewRecipeId!==null&&validId(groceryPreviewRecipeId)?groceryPreviewRecipeId:null;
  const ids=scopeRecipe===null?groceryWeekIds():[scopeRecipe];
+ // Weekly edit controls remain visible but disabled while previewing a recipe.
+ for(const controlId of ['groceryAdd','groceryClear','groceryExtra']){
+  const control=document.getElementById(controlId);
+  if(control)control.disabled=scopeRecipe!==null;
+ }
  // Approved publication requirements always supersede a historical household
  // planning template, so the recipe card and shopping list use one version.
  const published=new Map(ids.map(id=>[id,typeof publishedShoppingRowsForLottery==='function'?publishedShoppingRowsForLottery(id):null]));
@@ -94,7 +103,7 @@ function groceryRender(){
  if(scopeRecipe===null){
   root.append(node('p','subtle','Shopping list follows '+source+'. Change scheduled dinners to update the list.'));
  }else{
-  root.append(node('p','recipe-caution','Shopping just for '+name(scopeRecipe)+' (recipe #'+(scopeRecipe+1)+'). Your weekly calendar and lottery picks are unchanged.'));
+  root.append(node('p','recipe-caution','Shopping just for '+name(scopeRecipe)+' (recipe #'+(scopeRecipe+1)+'). Your weekly calendar, lottery picks, manual additions and saved checkmarks are unchanged. Preview checkmarks are temporary; return to weekly groceries to edit your saved list.'));
   const weekly=node('button','btn ghost','← Show weekly groceries');
   weekly.type='button';
   weekly.setAttribute('aria-label','Return to the weekly grocery list');
@@ -119,7 +128,8 @@ function groceryRender(){
  all.sort((a,b)=>a.department.localeCompare(b.department)||a.ingredient.localeCompare(b.ingredient));
  const onHand=all.filter(item=>typeof pantryHas==='function'&&pantryHas(item.ingredient));
  const toBuy=all.filter(item=>!(typeof pantryHas==='function'&&pantryHas(item.ingredient)));
- const summary=node('p','subtle',groceryProgressLabel(toBuy,groceryState.checked,onHand.length));
+ const currentChecked=scopeRecipe===null?groceryState.checked:[...groceryPreviewChecked];
+ const summary=node('p','subtle',groceryProgressLabel(toBuy,currentChecked,onHand.length));
  summary.setAttribute('role','status');
  summary.setAttribute('aria-live','polite');
  root.append(summary);
@@ -127,11 +137,18 @@ function groceryRender(){
  if(!all.length)root.append(node('p','subtle','Select meals or add items to start your list.'));
  let current='';
  for(const item of toBuy){if(item.department!==current){current=item.department;root.append(node('h4','grocery-dept',current))}
-  const label=node('label','grocery-item');const box=node('input');box.type='checkbox';const key=item.ingredient.toLowerCase();box.checked=groceryState.checked.includes(key);box.onchange=()=>{
-   groceryState.checked=box.checked?[...new Set([...groceryState.checked,key])]:groceryState.checked.filter(x=>x!==key);
-   grocerySave();
-   // Update the summary immediately without redrawing the checkbox list or losing mobile scroll/focus.
-   summary.textContent=groceryProgressLabel(toBuy,groceryState.checked,onHand.length);
+  const label=node('label','grocery-item');const box=node('input');box.type='checkbox';const key=item.ingredient.toLowerCase();
+  box.checked=scopeRecipe===null?groceryState.checked.includes(key):groceryPreviewChecked.has(key);
+  box.onchange=()=>{
+   if(scopeRecipe===null){
+    groceryState.checked=box.checked?[...new Set([...groceryState.checked,key])]:groceryState.checked.filter(x=>x!==key);
+    grocerySave();
+   }else{
+    if(box.checked)groceryPreviewChecked.add(key);
+    else groceryPreviewChecked.delete(key);
+   }
+   // Update progress without redrawing checkboxes or losing mobile scroll/focus.
+   summary.textContent=groceryProgressLabel(toBuy,scopeRecipe===null?groceryState.checked:[...groceryPreviewChecked],onHand.length);
   };
   const info=node('span',null,item.ingredient+' — '+item.amount);label.append(box,info);root.append(label);
  }
@@ -140,8 +157,8 @@ function groceryRender(){
 function groceryInit(){
  const add=document.getElementById('groceryAdd'),input=document.getElementById('groceryExtra');
  if(!add||!input)return;
- add.onclick=()=>{const v=input.value.trim();if(!v)return;groceryState.extras.push({name:v});input.value='';grocerySave();groceryRender()};
- document.getElementById('groceryClear').onclick=()=>{if(!confirm('Clear grocery checkmarks and manual additions?'))return;groceryState={checked:[],extras:[],pantry:[]};grocerySave();groceryRender()};
+ add.onclick=()=>{if(groceryPreviewRecipeId!==null)return;const v=input.value.trim();if(!v)return;groceryState.extras.push({name:v});input.value='';grocerySave();groceryRender()};
+ document.getElementById('groceryClear').onclick=()=>{if(groceryPreviewRecipeId!==null)return;if(!confirm('Clear grocery checkmarks and manual additions?'))return;groceryState={checked:[],extras:[],pantry:[]};grocerySave();groceryRender()};
  groceryRender();
 }
 groceryInit();
