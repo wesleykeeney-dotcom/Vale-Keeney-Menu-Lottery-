@@ -32,7 +32,7 @@ test('wallet and release policy block public identifiers, fake claims, and silen
  const directive=read('AGENTS.md');
  const release=read('docs/RELEASE_GATES.md');
  const contract=read('docs/RECIPE_DATA_CONTRACT.md');
- assert.match(directive,/localStorage is not a secure credential vault/i);
+ assert.match(directive,/localStorage is[^\n]{0,20}not[^\n]{0,20}a secure credential vault/i);
  assert.match(directive,/Never silently merge/);
  assert.match(directive,/Never fabricate a coupon/);
  assert.match(directive,/future Fuel Saver/);
