@@ -10,6 +10,7 @@ Governing instructions: `AGENTS.md`, `docs/PRODUCT_VISION.md`, `docs/RECIPE_DATA
 - The renderer supports a future explicitly linked publication ID and immutable recipe version ID; a reviewed publication must be approved for public web display and associated with the correct lottery ID.
 - Only a complete approved method plus complete ingredients and resolved substitutions may display ordered cooking steps. Missing source information is never generated or filled from a different title.
 - Tests include entirely **synthetic fixtures** to prove the approval gate, not actual meal methods.
+- A shared publication resolver now drives **recipe view, Groceries and Pantry** with the same reviewed version's ingredient names/amounts. It replaces a legacy planning estimate only when the explicit recipe/version/publication authorization and complete categorized-ingredient gates pass. Optional and kitchen-supply items are not auto-purchased.
 
 ## Checklist before publishing the first real recipe
 
@@ -32,4 +33,4 @@ Governing instructions: `AGENTS.md`, `docs/PRODUCT_VISION.md`, `docs/RECIPE_DATA
 
 ## Product status distinction
 
-This milestone creates a **working navigation and honest recipe-status viewer**, *not yet a cookable recipe library*. The next approved engineering slice is the **same-version ingredient adapter**, followed by user-authorized publication and Android cooking-view acceptance of the first real recipe.
+This milestone creates a **working navigation, honest recipe-status viewer, and same-version ingredient adapter**, *not yet a cookable recipe library*. The next approved engineering slice is **source verification and user-authorized public publication of a specific recipe version**, followed by Android cooking-view acceptance. [First candidate: Taco Casserole #6](TACO_CASSEROLE_SOURCE_REVIEW.md).
