@@ -37,6 +37,25 @@ Important: A lower *remaining* count **does not** mean the entire week's ingredi
 5. Check Pepperoni again, refresh, and confirm the saved checkmark still yields **4/1/1**. Add a manual item; remaining should increase by one. Check it and confirm one item moves from remaining to checked-off.
 6. Confirm **Garbage Bread stays labeled partial**, unscored in Pantry-first; verify 84 lottery IDs, 9 full ingredient templates, 1 partial, and 74 unmapped dinners are unchanged.
 
+## Recipe viewer foundation (development branch; not yet released)
+
+A new **View recipe** control is available from revealed lottery winners, the weekly dinner calendar, and the meal library. The detail screen displays the immutable lottery number and meal title; for existing public shopping templates it displays the already-published household shopping requirements with an explicit warning that **planning quantities are not a complete cooking recipe**. Partial templates stay partial and unmapped meals say their ingredients are unavailable. It displays the existing Food Wars source warnings without publishing the original source method.
+
+**No cooking method has been published yet.** Both `recipe-links.js` and `recipe-publications.js` intentionally contain empty registries. The viewer has a future-facing **approval-gated** recipe version contract; documented instructions only render after an explicitly reviewed, permitted public publication links to the exact lottery ID and version, with complete method, ingredient and substitution status. Sample method steps exist only in Node test fixtures, not in the actual app.
+
+**Important remaining dependency:** Before the first public recipe publication is linked, the ingredient engine must be reconciled so the recipe card and Groceries use the **same recipeVersionId and ingredient amounts**. This feature branch does not claim that coupling is complete or that the public app can cook any of the 84 recipes today.
+
+### Android acceptance after authorized release
+
+1. Refresh once after GitHub Pages deploys offline cache **v15**.
+2. Reveal any lottery winners and select **View recipe**; confirm the correct meal and lottery number display, and **Back** returns to Lottery.
+3. Schedule **#6 Taco Casserole** and open it from **This Week**; view its already-public household grocery amounts and the explicit **method not yet linked** notice, then return without modifying the saved calendar.
+4. From **Meal library**, open **#12 Garbage Bread**; confirm **partial** shopping requirements and its unresolved filling choices, with no made-up cooking steps.
+5. Open an unmapped option (including Food Wars #84) and confirm it shows missing published ingredients and source warnings instead of invented steps.
+6. Confirm Pantry/Groceries still update instantly, current saved selections persist, the original 84 numbers are unchanged and offline reload works.
+
+See [Recipe Publication Gate](docs/RECIPE_VIEWER_PUBLICATION_GATE.md) for the source authorization and ingredient-consistency gates required before adding full recipes.
+
 ## Recipe mapping policy
 
 The **private Vale-Keeney Cooking Vault** is the recipe source of truth; the public app includes only documented **household shopping requirements and caveats**, never protected source methods. Locked formulations remain untouched. Identical names do not automatically establish identical methods or ingredient versions; name-similar recipes require review. Missing quantities stay missing.
