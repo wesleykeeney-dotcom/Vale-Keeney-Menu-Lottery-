@@ -73,7 +73,7 @@ test('mushroom-containing and unverified variant recipes stay unmapped',()=>{
 });
 
 test('quantity notes are displayed for selected meals without altering required pantry ranking',()=>{
-  assert.match(src,/for\(const id of ids\)if\(SHOPPING_RECIPE_NOTES\[id\]\)/);
+  assert.match(src,/for\(const id of ids\)if\(!published\.get\(id\)&&SHOPPING_RECIPE_NOTES\[id\]\)/);
   assert.match(src,/not included in required shopping/);
   const priority=fs.readFileSync(path.join(root,'pantry-priority.js'),'utf8');
   const context=vm.createContext({});
