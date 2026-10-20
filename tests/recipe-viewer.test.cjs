@@ -176,5 +176,5 @@ test('only the approved household manuscript is publicly linked; assets and offl
  }
  assert.match(html,/id="recipeContent"/);
  assert.match(html,/id="recipeTitle" tabindex="-1"/);
- assert.match(sw,/vk-lottery-v15/);
+ assert.match(sw,/vk-lottery-v16/);
 });
