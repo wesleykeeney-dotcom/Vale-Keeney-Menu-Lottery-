@@ -71,7 +71,7 @@ test('approved Taco Casserole #6 and its legacy shopping state are protected fro
  assert.equal(pubs[links[5].publicationId].recipeVersionId,links[5].recipeVersionId);
  assert.equal(pubs[links[5].publicationId].publicationAuthorization,'approved-for-public-web');
  assert.equal(mealNames[5],'Taco Casserole');
- assert.match(read('sw.js'),/vk-lottery-v16/,'new recipe and sauce selector require a cache update');
+ assert.match(read('sw.js'),/vk-lottery-v17/,'new recipe and sauce selector require a cache update');
 });
 
 test('review documentation is linked and does not certify a historical original',()=>{
