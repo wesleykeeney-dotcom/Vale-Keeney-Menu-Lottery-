@@ -12,7 +12,8 @@ function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3]}={}){
    append(...args){this.children.push(...args)},replaceChildren(...args){this.children=[...args]},
    setAttribute(key,val){this[key]=val},focus(){}});
  const dom={recipeTitle:node('h3'),recipeContent:node('div'),recipeBack:node('button'),
-   groceryContent:node('div'),pantryContent:node('div'),pantrySuggestions:node('div')};
+   groceryContent:node('div'),groceryAdd:node('button'),groceryExtra:node('input'),groceryClear:node('button'),
+   pantryContent:node('div'),pantrySuggestions:node('div')};
  const state={schedule:[...schedule]};
  const ctx=vm.createContext({node,state,document:{getElementById:id=>dom[id]||null},
   localStorage:{getItem:key=>storage[key]??null,setItem:(key,val)=>{storage[key]=val}},
@@ -82,4 +83,39 @@ test('no recipe preview can be opened for unmapped, partial or invalid lottery I
  for(const id of [-1,84,11,17,52,83])assert.equal(a.run('groceryShowRecipe('+id+')'),false);
  assert.equal(a.run('groceryPreviewRecipeId'),null);
  assert.match(read('sw.js'),/vk-lottery-v17/);
+});
+
+test('recipe preview checkmarks, Add, and Clear never alter saved weekly grocery state',()=>{
+ const a=mockApp();
+ a.run('groceryState.checked.push("rotel");groceryState.extras.push({name:"Weekly manual extra"});grocerySave()');
+ const weeklyStateBefore=a.storage['vk-grocery-v03'];
+ a.recipe();
+ a.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent)).onclick();
+ for(const id of ['groceryAdd','groceryClear','groceryExtra'])
+  assert.equal(a.dom[id].disabled,true,id+' must be disabled in recipe preview');
+ const bread=a.dom.groceryContent.children.find(x=>x.cls==='grocery-item'&&/Bread —/.test(x.children[1].textContent));
+ assert.ok(bread,'source-backed recipe item should be checkable in temporary preview');
+ bread.children[0].checked=true;bread.children[0].onchange();
+ assert.match(a.textFor(a.dom.groceryContent),/Preview checkmarks are temporary/);
+ assert.equal(a.run('groceryPreviewChecked.has("bread")'),true);
+ const progress=a.dom.groceryContent.children.find(x=>x.role==='status');
+ assert.match(progress.textContent,/1 checked off/);
+ a.dom.groceryExtra.value='Preview must not add to weekly list';
+ a.dom.groceryAdd.onclick();
+ a.dom.groceryClear.onclick();
+ a.run('groceryRender()');
+ assert.equal(a.storage['vk-grocery-v03'],weeklyStateBefore,'preview operations must never persist weekly edits');
+ const breadAfter=a.dom.groceryContent.children.find(x=>x.cls==='grocery-item'&&/Bread —/.test(x.children[1].textContent));
+ assert.equal(breadAfter.children[0].checked,true,'ephemeral preview checkbox survives UI redraw');
+ a.run('groceryReturnToWeekly()');
+ for(const id of ['groceryAdd','groceryClear','groceryExtra'])
+  assert.equal(a.dom[id].disabled,false,id+' must return to weekly edit mode');
+ const weekly=a.textFor(a.dom.groceryContent);
+ assert.match(weekly,/Weekly manual extra/);
+ assert.doesNotMatch(weekly,/Preview must not add|Bread — 4 slices/);
+ const rotel=a.dom.groceryContent.children.find(x=>x.cls==='grocery-item'&&/Rotel —/.test(x.children[1].textContent));
+ assert.ok(rotel);
+ assert.equal(rotel.children[0].checked,true,'original saved weekly checkbox remains selected');
+ assert.equal(a.storage['vk-grocery-v03'],weeklyStateBefore);
+ assert.equal(a.run('groceryPreviewChecked.size'),0,'return clears temporary checkmarks');
 });
