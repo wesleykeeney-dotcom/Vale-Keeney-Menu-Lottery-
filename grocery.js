@@ -57,8 +57,11 @@ function groceryWeekIds(){return [...new Set((state.schedule.length?state.schedu
 function groceryRender(){
  const root=document.getElementById('groceryContent');if(!root)return;root.replaceChildren();
  const ids=groceryWeekIds();
- const partial=ids.filter(id=>!!SHOPPING_PARTIAL_TEMPLATES[id]&&!SHOPPING_TEMPLATES[id]);
- const missing=ids.filter(id=>!SHOPPING_TEMPLATES[id]&&!SHOPPING_PARTIAL_TEMPLATES[id]);
+ // Approved publication requirements always supersede a historical household
+ // planning template, so the recipe card and shopping list use one version.
+ const published=new Map(ids.map(id=>[id,typeof publishedShoppingRowsForLottery==='function'?publishedShoppingRowsForLottery(id):null]));
+ const partial=ids.filter(id=>!published.get(id)&&!!SHOPPING_PARTIAL_TEMPLATES[id]&&!SHOPPING_TEMPLATES[id]);
+ const missing=ids.filter(id=>!published.get(id)&&!SHOPPING_TEMPLATES[id]&&!SHOPPING_PARTIAL_TEMPLATES[id]);
  const source=state.schedule.length?'This week’s calendar':'current lottery selections';
  root.append(node('p','subtle','Shopping list follows '+source+'. Change scheduled dinners to update the list.'));
  const covered=ids.length-missing.length-partial.length;
@@ -70,7 +73,7 @@ function groceryRender(){
  root.append(notice);
  for(const id of ids)if(SHOPPING_RECIPE_NOTES[id])root.append(node('p','subtle',SHOPPING_RECIPE_NOTES[id]));
  const items=new Map();
- for(const id of ids)for(const [department,ingredient,amount] of (SHOPPING_TEMPLATES[id]||SHOPPING_PARTIAL_TEMPLATES[id]||[])){
+ for(const id of ids)for(const [department,ingredient,amount] of (published.get(id)||SHOPPING_TEMPLATES[id]||SHOPPING_PARTIAL_TEMPLATES[id]||[])){
   const key=ingredient.toLowerCase();if(!items.has(key))items.set(key,{department,ingredient,amounts:[]});
   items.get(key).amounts.push(amount);
  }
