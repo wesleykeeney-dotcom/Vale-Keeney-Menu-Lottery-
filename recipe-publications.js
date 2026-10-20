@@ -33,3 +33,16 @@ function publishedShoppingRowsForLottery(id){
  if(!required.length)return null;
  return required.map(item=>[item.department,item.name,item.amount]);
 }
+
+// Catalog used by pantry suggestions and pantry ingredient controls. A reviewed
+// publication replaces any older shopping estimate for that SAME lottery number.
+// This helper is called after grocery.js defines SHOPPING_TEMPLATES.
+function completeShoppingTemplates(){
+ const result=typeof SHOPPING_TEMPLATES==='undefined'?{}:{...SHOPPING_TEMPLATES};
+ if(typeof MEALS==='undefined')return result;
+ for(let id=0;id<MEALS.length;id++){
+  const rows=publishedShoppingRowsForLottery(id);
+  if(rows)result[id]=rows;
+ }
+ return result;
+}
