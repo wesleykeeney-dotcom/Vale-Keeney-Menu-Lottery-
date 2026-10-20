@@ -1,11 +1,20 @@
 # Vale-Keeney Menu Lottery
 
+## Governing application development directive
+
+**[Master Application Development Directive v1.1 (AGENTS.md)](AGENTS.md)** governs Codex, ChatGPT and human development of this repository. The intended product is a **family interactive cookbook and menu lottery integrated with pantry, groceries, digital coupons, retailer deal comparison and securely handled loyalty memberships**—not merely a dinner randomizer.
+
+Supporting references: [Product Vision](docs/PRODUCT_VISION.md) · [Recipe and Savings Data Contract](docs/RECIPE_DATA_CONTRACT.md) · [QA and Release Gates](docs/RELEASE_GATES.md).
+
+These are **design and development requirements**, not a claim that a recipe viewer, coupon finder, digital wallet, retailer integrations or price optimizer are currently implemented. The authoritative source-faithful recipe archive stays private and must not be copied into this public repo without a reviewed publication authorization.
+
+
 A mobile-first static Progressive Web App for dinner lottery, saved weekly schedule, household grocery checklist and pantry-first suggestions. Hosted on GitHub Pages, no server or login.
 
-**Accepted production release:** v0.8, commit `970515b`, offline cache v12; production deployed and Garbage Bread mapping confirmed on Android.  
-**In development:** v0.9 (live grocery shopping totals). Do not consider these changes deployed before PR review, merge, GitHub Pages deployment and Android acceptance.
+**Accepted production release:** v0.9, commit `2de305c`, offline cache v13; Android shopping-count acceptance confirmed.  
+**In development:** v1.0 source-gated recipe-mapping work in independent draft PR #12. Neither that work nor the full interactive recipe/coupon wallet is in production yet.
 
-## v0.9: Live shopping progress (proposed)
+## v0.9: Live shopping progress (released)
 
 The grocery summary now has three **separate live counts**:
 
@@ -19,7 +28,7 @@ Tapping a grocery checkbox updates the summary immediately **without rebuilding 
 
 Important: A lower *remaining* count **does not** mean the entire week's ingredients are known. Source-partial recipes (such as Garbage Bread) and unmapped dinners still show incomplete grocery-list warnings. No cooking quantities, shopping prices, original Cooking Vault data or meal IDs change.
 
-### Android verification after v0.9 deployment
+### v0.9 Android acceptance procedure (previously passed)
 
 1. Refresh once to activate offline cache **v13**. Confirm prior selected dinners, pantry items, and grocery checkmarks remain.
 2. Schedule **Mini Pizza Night** and **Garbage Bread**, with **Pizza sauce** marked in Pantry. Before checking any other items, expect **5 remaining • 0 checked off • 1 on hand** if no manual items were added.
@@ -32,7 +41,7 @@ Important: A lower *remaining* count **does not** mean the entire week's ingredi
 
 The **private Vale-Keeney Cooking Vault** is the recipe source of truth; the public app includes only documented **household shopping requirements and caveats**, never protected source methods. Locked formulations remain untouched. Identical names do not automatically establish identical methods or ingredient versions; name-similar recipes require review. Missing quantities stay missing.
 
-| Coverage | Production v0.7 | v0.8 proposed |
+| Historical coverage | v0.7 baseline | v0.8 released |
 |---|---:|---:|
 | Fully represented household shopping templates | 9 | 9 |
 | Partial base templates (not full recipes) | 0 | 1 |
