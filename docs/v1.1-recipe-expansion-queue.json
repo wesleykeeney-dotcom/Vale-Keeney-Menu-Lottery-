@@ -21,19 +21,32 @@
       "documentedYield": "2 sandwiches",
       "ingredients": "recoverable",
       "method": "recoverable_detailed_manuscript",
-      "status": "owner_approved_pending_publication_implementation",
+      "status": "implemented_pending_release_approval",
       "unresolved": [
         "Manuscript identifies optional garlic powder; Vault short description identifies optional garlic without specifying form.",
         "Manuscript method contains assembly details not present in the Vault summary.",
         "Source image/external provenance not independently verified.",
         "Public household shopping currently selects pizza sauce from documented marinara-or-pizza-sauce alternative."
       ],
-      "nextGate": "Implement public recipe publication registry and verified version link, then run CI; do not merge/deploy before separate authorization.",
+      "nextGate": "Review PR automated tests, obtain distinct merge authorization, confirm Pages deployment and Android acceptance.",
       "approval": {
         "scope": "Separate recovered household manuscript, exact documented ingredients and cooking method, 2-sandwich yield, optional garlic powder, marinara-or-pizza-sauce choice",
         "ownerAuthorized": true,
         "originalSourceImageVerified": false,
         "releaseMergeAuthorized": false
+      },
+      "implementation": {
+        "publicationId": "vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001",
+        "recipeVersionId": "VK-HH-PIZZAGRILLEDCHEESE-MANUSCRIPT-001",
+        "linkedToLottery": 3,
+        "documentedSauceAlternatives": [
+          "Pizza sauce",
+          "Marinara sauce"
+        ],
+        "defaultShoppingSauce": "Pizza sauce",
+        "selectionStorageKey": "vk-recipe-options-v01",
+        "approvedHouseholdManuscript": true,
+        "sourceOriginalUnchanged": true
       }
     },
     {
