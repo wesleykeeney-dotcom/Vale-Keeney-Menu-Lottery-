@@ -106,5 +106,5 @@ test('unmapped schedule and empty shopping list report zeros honestly',()=>{
  assert.match(app.coverage().textContent,/This is not a complete grocery list/);
  assert.equal(meals.length,84);
  const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
- assert.match(sw,/vk-lottery-v13/);
+ assert.match(sw,/vk-lottery-v15/);
 });
