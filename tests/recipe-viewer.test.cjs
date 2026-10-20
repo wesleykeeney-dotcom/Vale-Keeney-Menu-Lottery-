@@ -124,7 +124,13 @@ test('incomplete public test fixture never displays partial instructions as comp
   const app=setup({links:{5:{publicationId:'public-fixture-1',recipeVersionId:'fixture-version-1'}},
     publications:{'public-fixture-1':fixture(changes)}});
   app.render(5);
-  assert.match(app.text(),/Not cooking-ready/);
+  if(changes.methodStatus==='partial'||Array.isArray(changes.steps)){
+   assert.match(app.text(),/Not cooking-ready/);
+  }else{
+   // Incomplete ingredients or unresolved household substitutions prevent
+   // publication linkage entirely, not merely the cooking-mode display.
+   assert.match(app.text(),/Recipe not yet linked/);
+  }
   assert.doesNotMatch(app.text(),/Documented cooking instructions/);
  }
 });
