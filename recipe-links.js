@@ -2,6 +2,11 @@
 // Catalog linkage is deliberately opt-in. A title match does not establish a verified source recipe.
 // Populate only after a Cooking Vault record has been reviewed and approved.
 const RECIPE_LINKS=Object.freeze({
+ // Lottery #4: owner-approved household manuscript, original image not verified.
+ 3:Object.freeze({
+  publicationId:'vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001',
+  recipeVersionId:'VK-HH-PIZZAGRILLEDCHEESE-MANUSCRIPT-001'
+ }),
  // Lottery #6, distinct approved HOUSEHOLD MANUSCRIPT variant (not the unverified original).
  5:Object.freeze({
   publicationId:'vk-pub-taco-casserole-manuscript-001',
