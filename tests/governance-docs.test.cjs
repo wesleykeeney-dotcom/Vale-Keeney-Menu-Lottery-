@@ -15,7 +15,7 @@ test('governing directive and its three companion documents exist and are discov
  for(const p of docs.slice(1))assert.ok(directive.includes(p),'directive links '+p);
 });
 
-test('instructions protect recipe identity and don't promise unbuilt coupon functionality',()=>{
+test("instructions protect recipe identity and do not promise unbuilt coupon functionality",()=>{
  const directive=read('AGENTS.md');
  const product=read('docs/PRODUCT_VISION.md');
  const contract=read('docs/RECIPE_DATA_CONTRACT.md');
