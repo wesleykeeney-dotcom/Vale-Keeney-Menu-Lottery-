@@ -83,7 +83,7 @@ function groceryRender(){
    (partial.length?'Partial recipes: '+partial.map(id=>name(id)).join(', ')+'. Choose any variable fillings yourself and add them manually. ':'')+
    ((missing.length||partial.length)?'This is not a complete grocery list.':'All selected meals have household planning templates; check quantities before shopping.'));
  root.append(notice);
- for(const id of ids)if(SHOPPING_RECIPE_NOTES[id])root.append(node('p','subtle',SHOPPING_RECIPE_NOTES[id]));
+ for(const id of ids)if(!published.get(id)&&SHOPPING_RECIPE_NOTES[id])root.append(node('p','subtle',SHOPPING_RECIPE_NOTES[id]));
  const items=new Map();
  for(const id of ids)for(const [department,ingredient,amount] of (published.get(id)||SHOPPING_TEMPLATES[id]||SHOPPING_PARTIAL_TEMPLATES[id]||[])){
   const key=ingredient.toLowerCase();if(!items.has(key))items.set(key,{department,ingredient,amounts:[]});
