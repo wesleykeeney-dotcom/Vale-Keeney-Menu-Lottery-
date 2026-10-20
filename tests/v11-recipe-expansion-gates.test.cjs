@@ -47,7 +47,7 @@ test('the next full-recipe candidate #4 has its original-vs-manuscript discrepan
  assert.match(c.unresolved.join(' '),/garlic powder.*garlic/);
  assert.match(c.unresolved.join(' '),/marinara-or-pizza-sauce/);
  assert.match(c.unresolved.join(' '),/source image/i);
- assert.equal(links[3],undefined);
+ assert.equal(links[3].recipeVersionId,'VK-HH-PIZZAGRILLEDCHEESE-MANUSCRIPT-001');
 });
 
 test('source-incomplete candidates remain blocked and cannot masquerade as cook-ready',()=>{
@@ -63,12 +63,12 @@ test('source-incomplete candidates remain blocked and cannot masquerade as cook-
 });
 
 test('approved Taco Casserole #6 and its legacy shopping state are protected from a review-only PR',()=>{
- assert.deepEqual(Object.keys(links),['5']);
- assert.deepEqual(Object.keys(pubs),['vk-pub-taco-casserole-manuscript-001']);
+ assert.deepEqual(Object.keys(links),['3','5']);
+ assert.deepEqual(Object.keys(pubs),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-taco-casserole-manuscript-001']);
  assert.equal(pubs[links[5].publicationId].recipeVersionId,links[5].recipeVersionId);
  assert.equal(pubs[links[5].publicationId].publicationAuthorization,'approved-for-public-web');
  assert.equal(mealNames[5],'Taco Casserole');
- assert.match(read('sw.js'),/vk-lottery-v15/,'docs-only should not bump the offline cache');
+ assert.match(read('sw.js'),/vk-lottery-v16/,'new recipe and sauce selector require a cache update');
 });
 
 test('review documentation is linked and does not certify a historical original',()=>{
