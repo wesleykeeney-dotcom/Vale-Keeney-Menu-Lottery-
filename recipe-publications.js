@@ -1,6 +1,7 @@
 'use strict';
 // Public recipe publication registry. Remains empty until a specific source version
 // receives explicit owner approval for public web distribution.
+// Owner-approved v1.1 publications must remain distinct from protected Vault originals.
 const RECIPE_PUBLICATIONS=Object.freeze({
  'vk-pub-taco-casserole-manuscript-001':Object.freeze({
   publicationId:'vk-pub-taco-casserole-manuscript-001',
