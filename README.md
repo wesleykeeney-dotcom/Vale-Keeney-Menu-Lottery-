@@ -43,7 +43,7 @@ A new **View recipe** control is available from revealed lottery winners, the we
 
 **No cooking method has been published yet.** Both `recipe-links.js` and `recipe-publications.js` intentionally contain empty registries. The viewer has a future-facing **approval-gated** recipe version contract; documented instructions only render after an explicitly reviewed, permitted public publication links to the exact lottery ID and version, with complete method, ingredient and substitution status. Sample method steps exist only in Node test fixtures, not in the actual app.
 
-**Important remaining dependency:** Before the first public recipe publication is linked, the ingredient engine must be reconciled so the recipe card and Groceries use the **same recipeVersionId and ingredient amounts**. This feature branch does not claim that coupling is complete or that the public app can cook any of the 84 recipes today.
+**Version-consistent shopping foundation added:** Once an explicitly authorized public recipe is linked, its same-version required ingredient names and quantities override historical household shopping estimates in **recipe view, Groceries, and Pantry**. Optional and kitchen-supply ingredients remain visible on the recipe card but are not automatically purchased. Tests use synthetic records; **no real cooking method or source recipe has been published**. See [Taco Casserole source review](docs/TACO_CASSEROLE_SOURCE_REVIEW.md) for the first candidate and pending historical-image/publication approvals.
 
 ### Android acceptance after authorized release
 
