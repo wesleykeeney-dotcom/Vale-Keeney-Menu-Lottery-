@@ -47,6 +47,8 @@ The same approved version now drives the **recipe card, nine required shopping p
 
 **Other 83 meals remain unlinked to cooking instructions.** Where public household planning templates exist, the recipe screen shows their ingredient estimates with an explicit "not yet linked" warning; partial and unmapped meals remain incomplete. No Food Wars protected source method is published.
 
+**Combined v1.0 mapping coverage (draft):** 9 complete household shopping templates (**one, Taco Casserole, now has an approved household cooking method**), 3 partial core shopping lists (#12 Garbage Bread, #18 Cowboy Casserole, #50 Hamburger Potato Casserole), and 72 unmapped lottery choices. The two newly recovered casserole partials explicitly warn about original mushroom soup being withheld pending an approved household replacement; neither is cooking-ready or pantry-ranked. See [Source Review & Mapping Queue](docs/v1.0-source-review.md). This branch incorporates the source-gated development from separately open PR #12, avoiding a conflicting cache version; do not independently merge both branches without an integration review.
+
 ### Android acceptance after authorized merge and deployment
 
 1. Refresh once to load offline cache **v15**; confirm existing weekly menus, grocery checkmarks, and pantry selections remain.
