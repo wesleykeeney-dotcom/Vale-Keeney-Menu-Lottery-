@@ -66,16 +66,41 @@ function groceryProgressLabel(toBuy,checked,pantryCount){
  return remaining+' item'+(remaining===1?'':'s')+' remaining • '+checkedOff+' checked off • '+pantryCount+' already on hand.';
 }
 function groceryWeekIds(){return [...new Set((state.schedule.length?state.schedule:allIds()).filter(validId))]}
+// Explicit one-recipe shopping scope; never silently schedules the meal or
+// rewrites the user's weekly menu. Scope is in-memory and can be dismissed.
+let groceryPreviewRecipeId=null;
+function groceryShowRecipe(id){
+ if(!validId(id)||typeof publishedShoppingRowsForLottery!=='function'||
+    !publishedShoppingRowsForLottery(id))return false;
+ groceryPreviewRecipeId=id;
+ groceryRender();
+ if(typeof switchTab==='function')switchTab('grocery');
+ return true;
+}
+function groceryReturnToWeekly(){
+ groceryPreviewRecipeId=null;
+ groceryRender();
+}
 function groceryRender(){
  const root=document.getElementById('groceryContent');if(!root)return;root.replaceChildren();
- const ids=groceryWeekIds();
+ const scopeRecipe=groceryPreviewRecipeId!==null&&validId(groceryPreviewRecipeId)?groceryPreviewRecipeId:null;
+ const ids=scopeRecipe===null?groceryWeekIds():[scopeRecipe];
  // Approved publication requirements always supersede a historical household
  // planning template, so the recipe card and shopping list use one version.
  const published=new Map(ids.map(id=>[id,typeof publishedShoppingRowsForLottery==='function'?publishedShoppingRowsForLottery(id):null]));
  const partial=ids.filter(id=>!published.get(id)&&!!SHOPPING_PARTIAL_TEMPLATES[id]&&!SHOPPING_TEMPLATES[id]);
  const missing=ids.filter(id=>!published.get(id)&&!SHOPPING_TEMPLATES[id]&&!SHOPPING_PARTIAL_TEMPLATES[id]);
  const source=state.schedule.length?'This week’s calendar':'current lottery selections';
- root.append(node('p','subtle','Shopping list follows '+source+'. Change scheduled dinners to update the list.'));
+ if(scopeRecipe===null){
+  root.append(node('p','subtle','Shopping list follows '+source+'. Change scheduled dinners to update the list.'));
+ }else{
+  root.append(node('p','recipe-caution','Shopping just for '+name(scopeRecipe)+' (recipe #'+(scopeRecipe+1)+'). Your weekly calendar and lottery picks are unchanged.'));
+  const weekly=node('button','btn ghost','← Show weekly groceries');
+  weekly.type='button';
+  weekly.setAttribute('aria-label','Return to the weekly grocery list');
+  weekly.onclick=groceryReturnToWeekly;
+  root.append(weekly);
+ }
  const covered=ids.length-missing.length-partial.length;
  const coverage='Ingredient coverage: '+covered+' complete shopping template(s), '+partial.length+' partial, '+missing.length+' unmapped of '+ids.length+' dinner(s). ';
  const notice=node('p','subtle',!ids.length?'No dinners selected yet. Add a meal to the weekly calendar or lottery to begin.':coverage+
@@ -90,7 +115,7 @@ function groceryRender(){
   items.get(key).amounts.push(amount);
  }
  const all=[...items.values()].map(x=>({...x,amount:x.amounts.join(' + ')}));
- for(const extra of groceryState.extras||[])if(extra&&typeof extra.name==='string')all.push({department:'Other',ingredient:extra.name,amount:'Manual'});
+ if(scopeRecipe===null)for(const extra of groceryState.extras||[])if(extra&&typeof extra.name==='string')all.push({department:'Other',ingredient:extra.name,amount:'Manual'});
  all.sort((a,b)=>a.department.localeCompare(b.department)||a.ingredient.localeCompare(b.ingredient));
  const onHand=all.filter(item=>typeof pantryHas==='function'&&pantryHas(item.ingredient));
  const toBuy=all.filter(item=>!(typeof pantryHas==='function'&&pantryHas(item.ingredient)));
