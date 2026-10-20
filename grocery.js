@@ -83,7 +83,7 @@ function groceryReturnToWeekly(){
 }
 function groceryRender(){
  const root=document.getElementById('groceryContent');if(!root)return;root.replaceChildren();
- const scopeRecipe=groceryPreviewRecipeId!==null&&validId(groceryPreviewRecipeId)?groceryPreviewRecipeId:null;
+ const scopeRecipe=typeof groceryPreviewRecipeId!=='undefined'&&groceryPreviewRecipeId!==null&&validId(groceryPreviewRecipeId)?groceryPreviewRecipeId:null;
  const ids=scopeRecipe===null?groceryWeekIds():[scopeRecipe];
  // Approved publication requirements always supersede a historical household
  // planning template, so the recipe card and shopping list use one version.
