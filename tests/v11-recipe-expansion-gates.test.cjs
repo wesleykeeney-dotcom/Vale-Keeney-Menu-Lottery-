@@ -74,7 +74,7 @@ test('review documentation is linked and does not certify a historical original'
  assert.match(review,/Pepperoni Pizza Grilled Cheese/);
  assert.match(review,/two sandwiches/i);
  assert.match(review,/Sausage & Potato Foil Packets/);
- assert.match(review,/no original source-image/i);
+ assert.match(review,/no authoritative source image positively matched/i);
  assert.match(review,/source-faithful replacement/i);
  assert.match(review,/explicit.*publication/i);
  assert.match(review,/v1\.1-recipe-expansion-queue\.json/);
