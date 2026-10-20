@@ -39,7 +39,10 @@ test('the next full-recipe candidate #4 has its original-vs-manuscript discrepan
  assert.equal(c.vaultRecipeId,'VK-DIN-PIZZAGRILLEDCHEESE-001');
  assert.equal(c.manuscriptEntry,90);
  assert.equal(c.documentedYield,'2 sandwiches');
- assert.equal(c.status,'owner_approved_pending_publication_implementation');
+ assert.equal(c.status,'implemented_pending_release_approval');
+ assert.equal(c.implementation.linkedToLottery,3);
+ assert.equal(c.implementation.defaultShoppingSauce,'Pizza sauce');
+ assert.equal(c.implementation.selectionStorageKey,'vk-recipe-options-v01');
  assert.equal(c.approval.ownerAuthorized,true);
  assert.equal(c.approval.originalSourceImageVerified,false);
  assert.equal(c.approval.releaseMergeAuthorized,false);
