@@ -11,8 +11,8 @@ These are **design and development requirements**, not a claim that a recipe vie
 
 A mobile-first static Progressive Web App for dinner lottery, saved weekly schedule, household grocery checklist and pantry-first suggestions. Hosted on GitHub Pages, no server or login.
 
-**Accepted production release:** v0.9, commit `2de305c`, offline cache v13; Android shopping-count acceptance confirmed.  
-**In development:** v1.0 source-gated recipe-mapping work in independent draft PR #12. Neither that work nor the full interactive recipe/coupon wallet is in production yet.
+**Deployed production:** v1.0, merged PR #14 at commit `d69000f`, offline cache **v15**; post-merge automated QA **79 passed** and GitHub Pages deployment successful. The owner approved the release; **individual Android recipe-viewer acceptance steps have not been independently confirmed**. Prior accepted v0.9 Android shopping-count checks remain historical.  
+**In development:** v1.1 [source-gated recipe expansion review](docs/v1.1-recipe-expansion-review.md), supported by a [metadata-only candidate queue](docs/v1.1-recipe-expansion-queue.json). Next publication candidate is #4 Pepperoni Pizza Grilled Cheese, **pending distinct public-web authorization**. The coupon finder and membership wallet are roadmap items, not deployed capabilities.
 
 ## v0.9: Live shopping progress (released)
 
