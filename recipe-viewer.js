@@ -1,16 +1,13 @@
 'use strict';
 // Only explicit, publication-approved links can unlock cooking instructions.
 let recipeReturnTab='library';
-function approvedRecipeForLottery(id){
- if(!Number.isInteger(id)||id<0||id>=MEALS.length||typeof recipeLinkFor!=='function')return null;
- const link=recipeLinkFor(id);
- if(!link||typeof link.publicationId!=='string'||typeof link.recipeVersionId!=='string')return null;
- const record=RECIPE_PUBLICATIONS[link.publicationId];
- return record&&record.publicationAuthorization==='approved-for-public-web'&&
-  record.publicationId===link.publicationId&&record.recipeVersionId===link.recipeVersionId&&
-  Array.isArray(record.lotteryIds)&&record.lotteryIds.includes(id)&&record.recipeId&&record.title?record:null;
-}
 function shoppingPreviewForLottery(id){
+ // Published versions take precedence over legacy planning templates; both views
+ // display the same approved ingredient names and source quantities.
+ if(typeof publishedShoppingRowsForLottery==='function'){
+  const rows=publishedShoppingRowsForLottery(id);
+  if(rows)return {kind:'published',rows};
+ }
  if(typeof SHOPPING_TEMPLATES!=='undefined'&&SHOPPING_TEMPLATES[id])return {kind:'planning',rows:SHOPPING_TEMPLATES[id]};
  if(typeof SHOPPING_PARTIAL_TEMPLATES!=='undefined'&&SHOPPING_PARTIAL_TEMPLATES[id])return {kind:'partial',rows:SHOPPING_PARTIAL_TEMPLATES[id]};
  return {kind:'unmapped',rows:[]};
