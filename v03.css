@@ -16,3 +16,14 @@
 .priority-meal .btn:disabled{opacity:.6;cursor:default}
 .priority-empty{padding:15px;border:1px solid #554369;border-radius:12px;color:#c7b8d5;font-size:13px}
 @media(max-width:600px){.priority-meal{align-items:stretch;flex-direction:column}.priority-meal .btn{align-self:stretch}.app{padding:14px 12px 32px}.top{padding:8px 0 16px}.hero{padding:25px 20px;min-height:0}.dice-art{display:none}.tabs{gap:4px;padding:10px 0}.tabs button{font-size:13px;padding:11px 12px}.number-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* Recipe status screen: safe planning preview until an approved public recipe is linked. */
+.recipe-open-btn{margin-left:10px;margin-top:6px;min-height:40px;padding:8px 11px;border:1px solid #855fa1;border-radius:9px;background:#30213e;color:#f0ddff;cursor:pointer;white-space:normal}
+.recipe-open-btn:focus-visible,#recipeBack:focus-visible{outline:3px solid #e6bbff;outline-offset:3px}
+#recipeTitle:focus{outline:none}
+#recipeContent{overflow-wrap:anywhere}
+.recipe-ingredients,.recipe-steps{padding-left:22px;line-height:1.7}
+.recipe-ingredients li,.recipe-steps li{padding:4px 0}
+.recipe-caution{border:1px solid #8565a0;border-radius:12px;background:#34233f;padding:13px;color:#f6ddff;line-height:1.5;margin:14px 0}
+#recipeBack{min-height:44px;margin:8px 0 18px}
+@media(max-width:600px){.recipe-open-btn{display:block;margin:8px 0 0;width:100%;text-align:center}.library-row{flex-wrap:wrap}.week-row .recipe-open-btn{width:100%}}

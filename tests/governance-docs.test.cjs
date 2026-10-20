@@ -46,5 +46,5 @@ test('document-only governance change cannot alter runtime service-worker or lot
  const meals=read('meals.js');
  const n=[...meals.matchAll(/^\s*"([^"]+)"[,\r\n]/gm)].length;
  assert.equal(n,84,'lottery remains 84 options');
- assert.match(read('sw.js'),/vk-lottery-v13/,'unchanged production runtime cache for this doc-only change');
+ assert.match(read('sw.js'),/vk-lottery-v15/,'unchanged production runtime cache for this doc-only change');
 });

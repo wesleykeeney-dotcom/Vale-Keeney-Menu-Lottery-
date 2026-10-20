@@ -37,6 +37,30 @@ Important: A lower *remaining* count **does not** mean the entire week's ingredi
 5. Check Pepperoni again, refresh, and confirm the saved checkmark still yields **4/1/1**. Add a manual item; remaining should increase by one. Check it and confirm one item moves from remaining to checked-off.
 6. Confirm **Garbage Bread stays labeled partial**, unscored in Pantry-first; verify 84 lottery IDs, 9 full ingredient templates, 1 partial, and 74 unmapped dinners are unchanged.
 
+## Recipe viewer foundation and Taco Casserole household publication (draft PR; not yet live)
+
+A **View recipe** control opens the meal-specific recipe card from revealed lottery winners, the weekly menu or the meal library. The card shows the immutable lottery number and original name, and **Back** returns without changing the saved schedule.
+
+**#6 Taco Casserole is the first owner-approved public household manuscript recipe.** Its separate `recipeVersionId` (`VK-HH-TACO-CASSEROLE-MANUSCRIPT-001`) preserves the ten documented ingredients (including ½ cup water) and three manuscript cooking steps: 375°F oven, beef and seasoning preparation, layering, and approximately 20-minute baking. **This is NOT a source-image-verified transcription of the historical original**; the private Vault source remains unaltered, original screenshot verification remains pending, and the serving yield is undocumented. The publication includes the recorded crisp-chip tip and the warning that a 14.5-oz Rotel can may require checking actual package sizes.
+
+The same approved version now drives the **recipe card, nine required shopping products, and Pantry labels**. Water is displayed on the recipe as a kitchen supply and is not automatically purchased. `recipe-publications.js` contains the single explicitly approved manuscript publication, and `recipe-links.js` links only immutable lottery ID 5. Existing pantry items stored under less-specific ingredient names (e.g. "Salsa" rather than "Chunky salsa") are not automatically interpreted as equivalent; check them again in Pantry after deployment. Existing storage keys and contents are not cleared.
+
+**Other 83 meals remain unlinked to cooking instructions.** Where public household planning templates exist, the recipe screen shows their ingredient estimates with an explicit "not yet linked" warning; partial and unmapped meals remain incomplete. No Food Wars protected source method is published.
+
+**Combined v1.0 mapping coverage (draft):** 9 complete household shopping templates (**one, Taco Casserole, now has an approved household cooking method**), 3 partial core shopping lists (#12 Garbage Bread, #18 Cowboy Casserole, #50 Hamburger Potato Casserole), and 72 unmapped lottery choices. The two newly recovered casserole partials explicitly warn about original mushroom soup being withheld pending an approved household replacement; neither is cooking-ready or pantry-ranked. See [Source Review & Mapping Queue](docs/v1.0-source-review.md). This branch incorporates the source-gated development from separately open PR #12, avoiding a conflicting cache version; do not independently merge both branches without an integration review.
+
+### Android acceptance after authorized merge and deployment
+
+1. Refresh once to load offline cache **v15**; confirm existing weekly menus, grocery checkmarks, and pantry selections remain.
+2. Reveal Taco Casserole **lottery #6** and tap **View recipe**; confirm the label **approved household manuscript (not source-verified original)** and the documented ingredients, three steps, 375°F and approximately 20 minutes.
+3. Confirm **serving yield not documented**. Water appears in the recipe as **1/2 cup** but not in the automatic grocery shopping list; the remaining **nine** ingredients use the same names and amounts in recipe and Groceries.
+4. From the weekly menu, open #6 and then **Back**; confirm its scheduling is unchanged. Check Pantry's revised labels including **Chunky salsa** and **Rotel**, which may differ from the former planning estimate.
+5. Check off one needed item and verify the Groceries remaining/checked-off numbers update immediately and survive refresh.
+6. Open **#12 Garbage Bread** and an unmapped Food Wars meal; both still display honest limitations and no invented method.
+7. Verify 84 lotto IDs, no private Vault reference links or original screenshot certification, and successful offline reopening.
+
+See [Taco Casserole source review and publication decision](docs/TACO_CASSEROLE_SOURCE_REVIEW.md) and [Recipe Publication Gate](docs/RECIPE_VIEWER_PUBLICATION_GATE.md). **This version remains a draft until explicit merge approval, GitHub Pages deployment, and Android acceptance.**
+
 ## Recipe mapping policy
 
 The **private Vale-Keeney Cooking Vault** is the recipe source of truth; the public app includes only documented **household shopping requirements and caveats**, never protected source methods. Locked formulations remain untouched. Identical names do not automatically establish identical methods or ingredient versions; name-similar recipes require review. Missing quantities stay missing.
