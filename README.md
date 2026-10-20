@@ -11,8 +11,18 @@ These are **design and development requirements**, not a claim that a recipe vie
 
 A mobile-first static Progressive Web App for dinner lottery, saved weekly schedule, household grocery checklist and pantry-first suggestions. Hosted on GitHub Pages, no server or login.
 
-**Accepted production release:** v0.9, commit `2de305c`, offline cache v13; Android shopping-count acceptance confirmed.  
-**In development:** v1.0 source-gated recipe-mapping work in independent draft PR #12. Neither that work nor the full interactive recipe/coupon wallet is in production yet.
+**Deployed production:** v1.0, merged PR #14 at commit `d69000f`, offline cache **v15**; post-merge automated QA **79 passed** and GitHub Pages deployment successful. The owner approved the release; **individual Android recipe-viewer acceptance steps have not been independently confirmed**. Prior accepted v0.9 Android shopping-count checks remain historical.  
+**In development:** v1.1 [source-gated recipe expansion review](docs/v1.1-recipe-expansion-review.md), supported by a [metadata-only candidate queue](docs/v1.1-recipe-expansion-queue.json). The owner-approved **Pepperoni Pizza Grilled Cheese #4 household manuscript recipe is now implemented on draft PR #15**, with two-sandwich yield, seven ingredients, three documented steps and a persistent pizza-sauce-or-marinara selection shared by recipe view, Groceries and Pantry. **The original image is not source-verified.** This development branch targets offline cache **v16**; production remains v1.0/v15 until separately authorized merge, Pages deployment and Android acceptance. The coupon finder and membership wallet are roadmap items, not deployed capabilities.
+
+## v1.1 recipe expansion — draft, awaiting release approval
+
+The new approved **Pepperoni Pizza Grilled Cheese (#4)** household manuscript appears alongside existing Taco Casserole (#6) in the draft recipe viewer. Documented yield: **two sandwiches**. The seven source-backed ingredient lines include optional **1 tsp garlic powder**, which appears on the recipe card but is **not** auto-added to shopping.
+
+A **Sauce choice** selector defaults to **Pizza sauce** or can select **Marinara sauce**; the selection is saved locally under the nonsecret `vk-recipe-options-v01` key and updates the **recipe ingredient, Groceries, and Pantry** together. The three documented cooking steps remain aligned to either sauce, including **3–4 minutes per side over medium heat**. No ingredients are scaled to five servings and no historical-original source fidelity is claimed. Other 82 lottery recipes still have no authorized public full cooking method; #12, #18 and #50 remain partial.
+
+**After separate merge/deploy authorization:** refresh Android once to activate offline cache **v16**, open #4 from Lottery / This Week / Library, confirm the exact two-sandwich recipe, switch the sauce in the recipe card and verify the matching grocery and pantry label, check optional garlic is absent from required groceries, refresh and confirm sauce choice persists without erasing weekly menu, pantry or grocery checkmarks. Also confirm #6 Taco Casserole and incomplete source warnings remain unchanged.
+
+[Recipe expansion source review](docs/v1.1-recipe-expansion-review.md) · [Candidate review queue](docs/v1.1-recipe-expansion-queue.json)
 
 ## v0.9: Live shopping progress (released)
 

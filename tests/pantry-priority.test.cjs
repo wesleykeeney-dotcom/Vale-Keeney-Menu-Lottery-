@@ -105,7 +105,7 @@ test('pantry-first feature loads after templates and remains wired into refreshe
   assert.ok(html.indexOf('src="pantry.js"')<html.indexOf('src="grocery.js"'));
   assert.ok(html.indexOf('src="grocery.js"')<html.indexOf('src="pantry-priority.js"'));
   assert.match(html,/id="pantrySuggestions"/);
-  assert.match(sw,/vk-lottery-v15/);
+  assert.match(sw,/vk-lottery-v16/);
   assert.match(sw,/\.\/pantry-priority\.js/);
   assert.match(app,/typeof pantryPriorityRender==='function'\)pantryPriorityRender\(\)/);
   assert.match(pantry,/typeof pantryPriorityRender==='function'\)pantryPriorityRender\(\)/);

@@ -91,5 +91,5 @@ test('source variant warning for Beef Tips does not inject mushrooms into existi
  assert.equal(notes[40]!==undefined,true);
  assert.equal(full[80],undefined,'source-faithful Food Wars remains unmapped');
  const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
- assert.match(sw,/vk-lottery-v15/);
+ assert.match(sw,/vk-lottery-v16/);
 });

@@ -29,10 +29,29 @@ function recipeViewRender(id){
   const validIngredients=ingredients.length>0&&ingredients.every(x=>x&&typeof x.name==='string'&&x.name.trim()&&typeof x.amount==='string'&&x.amount.trim());
   const validSteps=steps.length>0&&steps.every(x=>typeof x==='string'&&x.trim());
   const ready=record.ingredientStatus==='complete'&&record.methodStatus==='complete'&&record.householdSubstitutionsResolved!==false&&validIngredients&&validSteps;
+  if(record.sauceOptions&&typeof recipeSauceChoiceForLottery==='function'){
+   const label=node('label','recipe-option','Sauce choice: ');
+   const choice=node('select','recipe-choice-select');
+   choice.setAttribute('aria-label','Sauce choice for '+record.title);
+   for(const item of record.sauceOptions.choices){
+    const option=node('option',null,item);option.value=item;
+    choice.append(option);
+   }
+   choice.value=recipeSauceChoiceForLottery(id);
+   choice.onchange=()=>{
+    if(recipeSetSauceChoiceForLottery(id,choice.value)){
+     recipeViewRender(id);
+     if(typeof groceryRender==='function')groceryRender();
+     if(typeof pantryRender==='function')pantryRender();
+     if(typeof pantryPriorityRender==='function')pantryPriorityRender();
+    }
+   };
+   label.append(choice);root.append(label);
+  }
   if(ingredients.length){
    add('h4','grocery-dept','Published recipe ingredients');
    const ul=node('ul','recipe-ingredients');
-   for(const x of ingredients)ul.append(node('li',null,(x.name||'Unknown ingredient')+' — '+(x.amount||'Quantity not documented')+(x.preparation?' ('+x.preparation+')':'')+(x.optional?' (optional)':'')+(x.supplyOnly?' (kitchen supply — not automatically purchased)':'')));
+   for(const x of ingredients)ul.append(node('li',null,(typeof recipeIngredientNameForLottery==='function'?recipeIngredientNameForLottery(id,x):x.name||'Unknown ingredient')+' — '+(x.amount||'Quantity not documented')+(x.preparation?' ('+x.preparation+')':'')+(x.optional?' (optional)':'')+(x.supplyOnly?' (kitchen supply — not automatically purchased)':'')));
    root.append(ul);
   }
   if(ready){

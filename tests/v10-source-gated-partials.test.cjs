@@ -101,5 +101,5 @@ test('new mapping notes do not expose private Vault URLs, ingredient methods, or
  assert.match(grocery,/Original image verification remains pending/);
  assert.match(grocery,/no serving yield established/);
  const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
- assert.match(sw,/vk-lottery-v15/);
+ assert.match(sw,/vk-lottery-v16/);
 });

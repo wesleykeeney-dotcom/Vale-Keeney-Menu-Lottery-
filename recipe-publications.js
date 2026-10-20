@@ -1,7 +1,39 @@
 'use strict';
 // Public recipe publication registry. Remains empty until a specific source version
 // receives explicit owner approval for public web distribution.
+// Owner-approved v1.1 publications must remain distinct from protected Vault originals.
 const RECIPE_PUBLICATIONS=Object.freeze({
+ 'vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001':Object.freeze({
+  publicationId:'vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001',
+  recipeId:'VK-DIN-PIZZAGRILLEDCHEESE-001',
+  recipeVersionId:'VK-HH-PIZZAGRILLEDCHEESE-MANUSCRIPT-001',
+  publicationAuthorization:'approved-for-public-web',
+  lotteryIds:[3],
+  title:'Pepperoni Pizza Grilled Cheese',
+  versionType:'approved household manuscript (not source-verified original)',
+  sourceStatus:'Kitchen Test Draft recipe #90 (legacy #90, alias #112); historical original source image NOT independently verified.',
+  ingredientStatus:'complete',methodStatus:'complete',householdSubstitutionsResolved:true,
+  yieldText:'2 sandwiches',
+  // Explicitly documented alternative, not a speculative ingredient substitution.
+  sauceOptions:Object.freeze({default:'Pizza sauce',choices:Object.freeze(['Pizza sauce','Marinara sauce'])}),
+  ingredients:Object.freeze([
+   {name:'Bread',amount:'4 slices',department:'Bakery'},
+   {name:'Pepperoni',amount:'8 slices',department:'Meat'},
+   {name:'Shredded mozzarella',amount:'1 cup',department:'Dairy'},
+   {name:'Pizza sauce',amount:'2 Tbsp',department:'Canned & Jarred',sauceChoice:true},
+   {name:'Butter',amount:'2 Tbsp',department:'Dairy',preparation:'softened'},
+   {name:'Dried oregano',amount:'1 tsp',department:'Seasonings'},
+   {name:'Garlic powder',amount:'1 tsp',department:'Seasonings',optional:true}
+  ]),
+  steps:Object.freeze([
+   'Butter one side of each bread slice.',
+   'On the unbuttered sides of two slices, spread 1 Tbsp of your chosen pizza sauce or marinara per sandwich. Add half the mozzarella, 4 pepperoni slices per sandwich, oregano and optional garlic powder, then the remaining mozzarella. Close with buttered sides outward.',
+   'Cook in a skillet or on a griddle over medium heat for 3–4 minutes per side until golden and the cheese is melted. Serve with extra sauce if desired.'
+  ]),
+  notes:'Choose pizza sauce or marinara: both are documented alternatives. Garlic powder (1 tsp) is optional and is not added to the shopping list automatically. Extra sauce for serving has no documented quantity.',
+  shoppingNote:'Documented yield: 2 sandwiches, not five servings. Six required grocery lines are derived from this approved household manuscript version; no automatic scaling.',
+  sourceNote:'Owner authorized public distribution of the recovered household manuscript variant. The private original recipe and its unverified historical source remain untouched.'
+ }),
  'vk-pub-taco-casserole-manuscript-001':Object.freeze({
   publicationId:'vk-pub-taco-casserole-manuscript-001',
   recipeId:'VK-DIN-TACO-CASSEROLE-001',
@@ -62,6 +94,36 @@ function approvedRecipeForLottery(id){
     (typeof item.department==='string'&&item.department.trim()))))return null;
  return record;
 }
+// Nonsecret per-version household option. This is NOT a retailer/account credential.
+const RECIPE_OPTION_KEY='vk-recipe-options-v01';
+function recipeOptionStorage(){
+ try{
+  if(typeof localStorage==='undefined')return {};
+  const x=JSON.parse(localStorage.getItem(RECIPE_OPTION_KEY));
+  return x&&typeof x==='object'&&!Array.isArray(x)?x:{};
+ }catch{return {}}
+}
+function recipeSauceChoiceForLottery(id){
+ const r=approvedRecipeForLottery(id);
+ if(!r||!r.sauceOptions||!Array.isArray(r.sauceOptions.choices))return null;
+ const saved=recipeOptionStorage()[r.recipeVersionId];
+ return r.sauceOptions.choices.includes(saved)?saved:r.sauceOptions.default;
+}
+function recipeSetSauceChoiceForLottery(id,choice){
+ const r=approvedRecipeForLottery(id);
+ if(!r||!r.sauceOptions||!r.sauceOptions.choices.includes(choice)||
+    typeof localStorage==='undefined')return false;
+ try{
+  const saved=recipeOptionStorage();
+  saved[r.recipeVersionId]=choice;
+  localStorage.setItem(RECIPE_OPTION_KEY,JSON.stringify(saved));
+  return true;
+ }catch{return false}
+}
+function recipeIngredientNameForLottery(id,ingredient){
+ return ingredient.sauceChoice===true?
+    (recipeSauceChoiceForLottery(id)||ingredient.name):ingredient.name;
+}
 // Required shopping rows are derived from EXACTLY the same approved recipe/version
 // and recorded amount displayed in the recipe card. No shopping-only quantity guesses.
 function publishedShoppingRowsForLottery(id){
@@ -69,7 +131,7 @@ function publishedShoppingRowsForLottery(id){
  if(!r)return null;
  const required=r.ingredients.filter(item=>item.optional!==true&&item.supplyOnly!==true);
  if(!required.length)return null;
- return required.map(item=>[item.department,item.name,item.amount]);
+ return required.map(item=>[item.department,recipeIngredientNameForLottery(id,item),item.amount]);
 }
 
 // Catalog used by pantry suggestions and pantry ingredient controls. A reviewed
