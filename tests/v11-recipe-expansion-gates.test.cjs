@@ -39,7 +39,10 @@ test('the next full-recipe candidate #4 has its original-vs-manuscript discrepan
  assert.equal(c.vaultRecipeId,'VK-DIN-PIZZAGRILLEDCHEESE-001');
  assert.equal(c.manuscriptEntry,90);
  assert.equal(c.documentedYield,'2 sandwiches');
- assert.equal(c.status,'pending_specific_publication_approval');
+ assert.equal(c.status,'owner_approved_pending_publication_implementation');
+ assert.equal(c.approval.ownerAuthorized,true);
+ assert.equal(c.approval.originalSourceImageVerified,false);
+ assert.equal(c.approval.releaseMergeAuthorized,false);
  assert.equal(c.originalImageVerified,false);
  assert.match(c.unresolved.join(' '),/garlic powder.*garlic/);
  assert.match(c.unresolved.join(' '),/marinara-or-pizza-sauce/);
@@ -70,12 +73,12 @@ test('approved Taco Casserole #6 and its legacy shopping state are protected fro
 
 test('review documentation is linked and does not certify a historical original',()=>{
  const review=read('docs/v1.1-recipe-expansion-review.md');
- assert.match(review,/NO NEW PUBLIC RECIPE PERMISSION GRANTED/);
+ assert.match(review,/OWNER APPROVAL GIVEN FOR #4 HOUSEHOLD MANUSCRIPT PUBLICATION/);
  assert.match(review,/Pepperoni Pizza Grilled Cheese/);
  assert.match(review,/two sandwiches/i);
  assert.match(review,/Sausage & Potato Foil Packets/);
  assert.match(review,/no authoritative source image positively matched/i);
  assert.match(review,/source-faithful replacement/i);
- assert.match(review,/explicit.*publication/i);
+ assert.match(review,/public.*publication/i);
  assert.match(review,/v1\.1-recipe-expansion-queue\.json/);
 });
