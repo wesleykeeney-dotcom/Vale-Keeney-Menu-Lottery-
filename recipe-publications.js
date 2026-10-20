@@ -3,6 +3,37 @@
 // receives explicit owner approval for public web distribution.
 // Owner-approved v1.1 publications must remain distinct from protected Vault originals.
 const RECIPE_PUBLICATIONS=Object.freeze({
+ 'vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001':Object.freeze({
+  publicationId:'vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001',
+  recipeId:'VK-DIN-PIZZAGRILLEDCHEESE-001',
+  recipeVersionId:'VK-HH-PIZZAGRILLEDCHEESE-MANUSCRIPT-001',
+  publicationAuthorization:'approved-for-public-web',
+  lotteryIds:[3],
+  title:'Pepperoni Pizza Grilled Cheese',
+  versionType:'approved household manuscript (not source-verified original)',
+  sourceStatus:'Kitchen Test Draft recipe #90 (legacy #90, alias #112); historical original source image NOT independently verified.',
+  ingredientStatus:'complete',methodStatus:'complete',householdSubstitutionsResolved:true,
+  yieldText:'2 sandwiches',
+  // Explicitly documented alternative, not a speculative ingredient substitution.
+  sauceOptions:Object.freeze({default:'Pizza sauce',choices:Object.freeze(['Pizza sauce','Marinara sauce'])}),
+  ingredients:Object.freeze([
+   {name:'Bread',amount:'4 slices',department:'Bakery'},
+   {name:'Pepperoni',amount:'8 slices',department:'Meat'},
+   {name:'Shredded mozzarella',amount:'1 cup',department:'Dairy'},
+   {name:'Pizza sauce',amount:'2 Tbsp',department:'Canned & Jarred',sauceChoice:true},
+   {name:'Butter',amount:'2 Tbsp',department:'Dairy',preparation:'softened'},
+   {name:'Dried oregano',amount:'1 tsp',department:'Seasonings'},
+   {name:'Garlic powder',amount:'1 tsp',department:'Seasonings',optional:true}
+  ]),
+  steps:Object.freeze([
+   'Butter one side of each bread slice.',
+   'On the unbuttered sides of two slices, spread 1 Tbsp of your chosen pizza sauce or marinara per sandwich. Add half the mozzarella, 4 pepperoni slices per sandwich, oregano and optional garlic powder, then the remaining mozzarella. Close with buttered sides outward.',
+   'Cook in a skillet or on a griddle over medium heat for 3–4 minutes per side until golden and the cheese is melted. Serve with extra sauce if desired.'
+  ]),
+  notes:'Choose pizza sauce or marinara: both are documented alternatives. Garlic powder (1 tsp) is optional and is not added to the shopping list automatically. Extra sauce for serving has no documented quantity.',
+  shoppingNote:'Documented yield: 2 sandwiches, not five servings. Six required grocery lines are derived from this approved household manuscript version; no automatic scaling.',
+  sourceNote:'Owner authorized public distribution of the recovered household manuscript variant. The private original recipe and its unverified historical source remain untouched.'
+ }),
  'vk-pub-taco-casserole-manuscript-001':Object.freeze({
   publicationId:'vk-pub-taco-casserole-manuscript-001',
   recipeId:'VK-DIN-TACO-CASSEROLE-001',
