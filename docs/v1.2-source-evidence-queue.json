@@ -18,10 +18,13 @@
       "filename": "FB_IMG_1790376440139.jpg",
       "sha256": "a4fd5048f4d596984c2c1fe08abf76ae7b72ee94a9f3aefe90dc51b480184d41",
       "title": "Sausage & Potato Foil Packets",
-      "evidenceStatus": "vault_pr20_report_pending_review",
-      "visibleCoverage": "ingredient_list_and_headline_only",
+      "evidenceStatus": "original_image_directly_inspected_fingerprint_confirmed",
+      "visibleCoverage": "six_historical_recipe_ingredient_lists_yield_and_cook_time_captions_no_method_steps",
       "sourceBytesIncluded": false,
-      "originalToVaultComparisonApproved": false
+      "originalToVaultComparisonApproved": false,
+      "directImageComparisonDate": "2026-10-20",
+      "sourceImageSource": "connected_private_drive",
+      "sourceMethodTextPresent": false
     },
     {
       "evidenceId": "archived-beef-tips-crockpot",
@@ -144,7 +147,10 @@
       "cookReady": false,
       "sourceVerificationApproved": false,
       "publicPublicationApproved": false,
-      "nextGate": "Review exact original source and paprika conflict; recover method or obtain separate household-version approval"
+      "nextGate": "Review exact original source and paprika conflict; recover method or obtain separate household-version approval",
+      "originalImageInspectedDirectly": true,
+      "ingredientImageMatchesVaultExcludingPaprika": true,
+      "preferredAction": "review_original_discrepancy_without_changing_canonical_record_or_household_shopping_estimate"
     },
     {
       "lotteryId": 40,
@@ -237,5 +243,104 @@
     "approvalRequiredForSourceCorrections": true,
     "approvalRequiredForHouseholdAdaptations": true,
     "approvalRequiredForMerge": true
+  },
+  "historicalSourceComparisonBatch": {
+    "batchId": "phase-v1.2-original-image-191-195-with-190",
+    "originalImageEvidenceId": "vault-191-original-image",
+    "inspectionDate": "2026-10-20",
+    "imageSha256": "a4fd5048f4d596984c2c1fe08abf76ae7b72ee94a9f3aefe90dc51b480184d41",
+    "directSourceImageCompared": true,
+    "counts": {
+      "historicalRecipes": 6,
+      "sourceIngredientRows": 53,
+      "vaultIngredientRows": 44,
+      "matchedIngredientRows": 43,
+      "sourceRowsMissingFromVault": 10,
+      "vaultRowsNotInSource": 1
+    },
+    "originalMethodStepsVisible": false,
+    "originalAttributionDisplay": "@easystepsrecipes (visible in image, author identity not independently confirmed)",
+    "canonicalRecordEdits": 0,
+    "publicationApprovals": 0,
+    "comparisons": [
+      {
+        "historicalNumber": 190,
+        "canonicalRecipeId": "VK-DIN-SALISBURY-MUSHROOMGRAVY-001",
+        "sourceIngredientRows": 10,
+        "vaultIngredientRows": 0,
+        "matchedRows": 0,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "30 minutes",
+        "discrepancyCode": "CANONICAL_INGREDIENT_BODY_EMPTY",
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Prepare separate approval-gated restoration of ten source ingredients; obtain exact original method"
+      },
+      {
+        "historicalNumber": 191,
+        "canonicalRecipeId": "VK-DIN-SAUSAGEPOTATO-FOILPACKETS-001",
+        "sourceIngredientRows": 9,
+        "vaultIngredientRows": 10,
+        "matchedRows": 9,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "35 minutes",
+        "discrepancyCode": "VAULT_EXTRA_PAPRIKA_1_TSP",
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Decide paprika-original vs separately labeled household addition; obtain complete original method"
+      },
+      {
+        "historicalNumber": 192,
+        "canonicalRecipeId": "VK-DIN-CHICKENBACONRANCH-PASTABAKE-001",
+        "sourceIngredientRows": 9,
+        "vaultIngredientRows": 9,
+        "matchedRows": 9,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "30 minutes",
+        "discrepancyCode": null,
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Review addition of source-documented yield; locate original full directions"
+      },
+      {
+        "historicalNumber": 193,
+        "canonicalRecipeId": "VK-DIN-FRIEDPORK-BACONGRAVY-001",
+        "sourceIngredientRows": 8,
+        "vaultIngredientRows": 8,
+        "matchedRows": 8,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "25 minutes",
+        "discrepancyCode": null,
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Review source yield; recover methods; keep distinct from Country Fried Pork original"
+      },
+      {
+        "historicalNumber": 194,
+        "canonicalRecipeId": "VK-DIN-GARLICBUTTER-STEAKPOTATOES-001",
+        "sourceIngredientRows": 7,
+        "vaultIngredientRows": 7,
+        "matchedRows": 7,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "30 minutes",
+        "discrepancyCode": null,
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Review source yield; obtain exact original directions"
+      },
+      {
+        "historicalNumber": 195,
+        "canonicalRecipeId": "VK-DIN-SLOWCOOKER-BEEFSTEW-001",
+        "sourceIngredientRows": 10,
+        "vaultIngredientRows": 10,
+        "matchedRows": 10,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "8 hours",
+        "discrepancyCode": null,
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Review source yield; do not infer slow-cooker LOW setting from caption"
+      }
+    ]
   }
 }
