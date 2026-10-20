@@ -40,7 +40,7 @@ function setup({links={},publications={},shoppingTemplates=shopping,partialTempl
   switchTab:id=>opened.push(id),
   foodWarsMeta:foodWarsMeta||(()=>null)
  });
- vm.runInContext(publicationsSource.replace('const RECIPE_PUBLICATIONS=Object.freeze({});','const RECIPE_PUBLICATIONS=Object.freeze(mockPublications);')+'\n'+viewer,ctx);
+ vm.runInContext(publicationsSource.replace(/const RECIPE_PUBLICATIONS=Object\.freeze\(\{[\s\S]*?\n\}\);/,'const RECIPE_PUBLICATIONS=Object.freeze(mockPublications);')+'\n'+viewer,ctx);
  const render=id=>vm.runInContext('recipeViewRender('+id+')',ctx);
  const open=(id,origin)=>vm.runInContext('recipeOpen('+id+','+JSON.stringify(origin)+')',ctx);
  const text=()=>{const traverse=e=>[e.textContent||'',...e.children.flatMap(traverse)];return dom.recipeContent.children.flatMap(traverse).join('\n')};
@@ -158,11 +158,16 @@ test('winner, weekly menu and library all expose recipe navigation without chang
  assert.equal(list.children[2].children.filter(c=>c.tag==='button').length,0,'flex night no recipe link');
  assert.equal(scheduled.schedule[0],5,'viewing does not mutate saved week');
 });
-test('public bundle contains no recipe source publications; app and offline asset wiring are complete',()=>{
+test('only the approved household manuscript is publicly linked; assets and offline wiring remain correct',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
- assert.deepEqual(Object.keys(publications),[]);
+ assert.deepEqual(Object.keys(publications),['vk-pub-taco-casserole-manuscript-001']);
+ const approved=publications['vk-pub-taco-casserole-manuscript-001'];
+ assert.equal(approved.publicationAuthorization,'approved-for-public-web');
+ assert.match(approved.versionType,/household manuscript.*not source-verified original/i);
+ assert.match(approved.sourceStatus,/NOT been independently verified/);
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.deepEqual(Object.keys(links),[]);
+ assert.deepEqual(Object.keys(links),['5']);
+ assert.equal(links[5].recipeVersionId,approved.recipeVersionId);
  assert.equal(meals.length,84);
  const html=read('index.html'),sw=read('sw.js');
  for(const asset of ['recipe-publications.js','recipe-viewer.js']){
