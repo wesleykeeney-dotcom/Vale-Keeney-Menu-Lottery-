@@ -1,5 +1,14 @@
 # Vale-Keeney Menu Lottery
 
+## Governing application development directive
+
+**[Master Application Development Directive v1.1 (AGENTS.md)](AGENTS.md)** governs Codex, ChatGPT and human development of this repository. The intended product is a **family interactive cookbook and menu lottery integrated with pantry, groceries, digital coupons, retailer deal comparison and securely handled loyalty memberships**—not merely a dinner randomizer.
+
+Supporting references: [Product Vision](docs/PRODUCT_VISION.md) · [Recipe and Savings Data Contract](docs/RECIPE_DATA_CONTRACT.md) · [QA and Release Gates](docs/RELEASE_GATES.md).
+
+These are **design and development requirements**, not a claim that a recipe viewer, coupon finder, digital wallet, retailer integrations or price optimizer are currently implemented. The authoritative source-faithful recipe archive stays private and must not be copied into this public repo without a reviewed publication authorization.
+
+
 A mobile-first static Progressive Web App for dinner lottery, saved weekly schedule, household grocery checklist and pantry-first suggestions. Hosted on GitHub Pages, no server or login.
 
 **Accepted production release:** v0.8, commit `970515b`, offline cache v12; production deployed and Garbage Bread mapping confirmed on Android.  
