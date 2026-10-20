@@ -160,13 +160,13 @@ test('winner, weekly menu and library all expose recipe navigation without chang
 });
 test('only the approved household manuscript is publicly linked; assets and offline wiring remain correct',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
- assert.deepEqual(Object.keys(publications),['vk-pub-taco-casserole-manuscript-001']);
+ assert.deepEqual(Object.keys(publications),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-taco-casserole-manuscript-001']);
  const approved=publications['vk-pub-taco-casserole-manuscript-001'];
  assert.equal(approved.publicationAuthorization,'approved-for-public-web');
  assert.match(approved.versionType,/household manuscript.*not source-verified original/i);
  assert.match(approved.sourceStatus,/NOT been independently verified/);
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.deepEqual(Object.keys(links),['5']);
+ assert.deepEqual(Object.keys(links),['3','5']);
  assert.equal(links[5].recipeVersionId,approved.recipeVersionId);
  assert.equal(meals.length,84);
  const html=read('index.html'),sw=read('sw.js');
