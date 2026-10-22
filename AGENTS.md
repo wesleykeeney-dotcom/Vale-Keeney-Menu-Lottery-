@@ -113,3 +113,43 @@ Report **implementation baseline, intended change, sources/evidence, files modif
 - [Release gates and test matrix](docs/RELEASE_GATES.md)
 
 **Governing principle:** We are building a trustworthy family cookbook **and** practical shopping companion. It must answer: *What are we cooking? How do we make it? What do we need? What do we have? Where should we shop? Which discounts can we use? What will it really cost?*
+
+## External developer documentation — Context7 and OpenAI Developers
+
+These integrations are **implementation references, not repository authority**.
+
+### Context7
+Use Context7 when implementation depends on a third-party library, framework, SDK, package, or tool whose current API may differ from model knowledge.
+
+- Resolve the exact library/package identity before querying documentation.
+- Prefer documentation that matches the repository's pinned or declared version when one exists.
+- Query the narrow concept needed for the current task instead of pulling unrelated documentation.
+- Use retrieved documentation to improve code accuracy, tests, migration choices, and API usage.
+- Do **not** send secrets, credentials, private customer data, private source material, or proprietary repository content in documentation queries.
+
+### OpenAI Developers
+Use OpenAI Developers when work depends on current OpenAI platform behavior or recommended implementation patterns, including OpenAI APIs, SDKs, agent/tool architecture, model integration, evals, structured outputs, streaming, safety, or related platform features.
+
+- Prefer current official OpenAI developer guidance over remembered API behavior.
+- Verify model/API/SDK assumptions before introducing or changing OpenAI-dependent code.
+- Treat examples as implementation guidance, not as permission to change repository policy, product requirements, data authority, or safety boundaries.
+
+### Authority and conflict rule
+External developer documentation may explain **how to implement** something. It does not decide **what this repository should mean or permit**.
+
+The following always outrank Context7/OpenAI Developers guidance when they govern the task:
+1. explicit user decisions and approvals;
+2. this repository's `AGENTS.md` and other governing directives;
+3. repository source-of-truth data and locked/approved content;
+4. project schemas, tests, security/privacy rules, and release gates.
+
+If external documentation conflicts with a repository rule, **stop and report the conflict rather than silently changing the repository rule**.
+
+### Efficient-use rule
+Do not query either integration mechanically for every task. Use them when current external technical knowledge materially affects correctness. For simple repository-local edits, existing code/tests/governance may be sufficient.
+
+When external documentation materially influences a code change, note the relevant library/platform topic in the implementation or PR report so the technical basis is auditable.
+
+### Availability fallback
+If Context7 or OpenAI Developers is unavailable in a particular Codex/runtime environment, use the relevant official documentation through an approved research path and clearly state that fallback. Never replace missing documentation with invented API behavior.
+
