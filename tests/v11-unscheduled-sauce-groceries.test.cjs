@@ -6,8 +6,8 @@ const path=require('node:path');
 const vm=require('node:vm');
 const root=path.join(__dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
-function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3]}={}){
- const storage={},opened=[];
+function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3],initialStorage={}}={}){
+ const storage={...initialStorage},opened=[];
  const node=(tag,cls,text)=>({tag,cls,textContent:text??'',value:'',children:[],
    append(...args){this.children.push(...args)},replaceChildren(...args){this.children=[...args]},
    setAttribute(key,val){this[key]=val},focus(){}});
@@ -118,4 +118,63 @@ test('recipe preview checkmarks, Add, and Clear never alter saved weekly grocery
  assert.equal(rotel.children[0].checked,true,'original saved weekly checkbox remains selected');
  assert.equal(a.storage['vk-grocery-v03'],weeklyStateBefore);
  assert.equal(a.run('groceryPreviewChecked.size'),0,'return clears temporary checkmarks');
+});
+
+
+test('selected sauce is pantry-filtered in weekly groceries and recipe preview',()=>{
+ const savedPantry=JSON.stringify({items:['marinara sauce']});
+ const savedGroceries=JSON.stringify({checked:['rotel'],extras:[{name:'Weekly manual extra'}],pantry:[]});
+ const a=mockApp({
+  schedule:[3,-1,-1,-1,-1,-1,-1],
+  selected:[],
+  initialStorage:{'vk-pantry-v04':savedPantry,'vk-grocery-v03':savedGroceries}
+ });
+ a.recipe();
+ const selector=a.dom.recipeContent.children.find(x=>x.cls==='recipe-option').children.find(x=>x.tag==='select');
+ selector.value='Marinara sauce';
+ selector.onchange();
+
+ const assertPantryFiltered=()=>{
+  const children=a.dom.groceryContent.children;
+  const pantryIndex=children.findIndex(x=>x.textContent==='Already have — pantry');
+  assert.notEqual(pantryIndex,-1,'selected sauce should appear in the pantry section');
+  assert.match(a.textFor(children[pantryIndex+1]),/Marinara sauce — 2 Tbsp/);
+  const shoppingRows=children.filter(x=>x.cls==='grocery-item').map(x=>a.textFor(x)).join('\n');
+  assert.doesNotMatch(shoppingRows,/Marinara sauce/,'pantry sauce must not appear among items to buy');
+ };
+ a.groceries();
+ assertPantryFiltered();
+
+ const shop=a.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent));
+ assert.ok(shop);
+ shop.onclick();
+ assertPantryFiltered();
+ assert.deepEqual(a.state.schedule,[3,-1,-1,-1,-1,-1,-1]);
+ assert.equal(a.storage['vk-pantry-v04'],savedPantry);
+ assert.equal(a.storage['vk-grocery-v03'],savedGroceries);
+});
+
+test('existing pantry and weekly grocery records survive current app initialization and recipe preview',()=>{
+ const savedPantry='{"items":["marinara sauce","bread"]}';
+ const savedGroceries='{"checked":["rotel"],"extras":[{"name":"Weekly manual extra"}],"pantry":[]}';
+ const a=mockApp({
+  schedule:[5,-1,-1,-1,-1,-1,-1],
+  selected:[3],
+  initialStorage:{'vk-pantry-v04':savedPantry,'vk-grocery-v03':savedGroceries}
+ });
+ assert.deepEqual(JSON.parse(a.storage['vk-pantry-v04']),{items:['marinara sauce','bread']});
+ assert.equal(a.storage['vk-grocery-v03'],savedGroceries);
+
+ a.recipe();
+ const shop=a.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent));
+ assert.ok(shop);
+ shop.onclick();
+ a.run('groceryRender()');
+ a.run('pantryRender()');
+ a.run('groceryReturnToWeekly()');
+
+ assert.equal(a.storage['vk-pantry-v04'],savedPantry,'opening recipe shopping must not rewrite saved pantry data');
+ assert.equal(a.storage['vk-grocery-v03'],savedGroceries,'preview and return must not rewrite saved weekly grocery data');
+ assert.deepEqual(a.state.schedule,[5,-1,-1,-1,-1,-1,-1]);
+ assert.match(read('sw.js'),/vk-lottery-v17/);
 });
