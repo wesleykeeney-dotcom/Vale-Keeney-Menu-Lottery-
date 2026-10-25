@@ -40,7 +40,7 @@ function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3],initialStorage={},
  }
  for(const file of ['recipe-links.js','recipe-publications.js','pantry.js','grocery.js','pantry-priority.js','recipe-viewer.js'])
   vm.runInContext(read(file),ctx,{filename:file});
- const run=expression=>vm.runInContext(expression,ctx);
+
  const textFor=element=>[element.textContent||'',...element.children.flatMap(textFor)].join('\n');
  return {ctx,storage,opened,dom,state,run,textFor,
   recipe:()=>{run('recipeViewRender(3)');return textFor(dom.recipeContent)},
