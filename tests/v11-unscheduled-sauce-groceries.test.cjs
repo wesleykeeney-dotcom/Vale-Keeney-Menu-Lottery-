@@ -42,7 +42,7 @@ function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3],initialStorage={},
   vm.runInContext(read(file),ctx,{filename:file});
 
  const textFor=element=>[element.textContent||'',...element.children.flatMap(textFor)].join('\n');
- return {ctx,storage,opened,dom,state,run,textFor,
+ return {ctx,storage,opened,dom,state:bootApp?null:ctx.state,run,textFor,
   recipe:()=>{run('recipeViewRender(3)');return textFor(dom.recipeContent)},
   groceries:()=>{run('groceryRender()');return textFor(dom.groceryContent)}};
 }
