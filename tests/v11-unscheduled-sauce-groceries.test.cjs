@@ -226,6 +226,6 @@ test('real app startup restores and preserves saved menu, pantry, and weekly gro
  assert.equal(a.storage['vk-dinner-lottery-v1'],savedMenu,'app startup and preview must not rewrite the saved weekly menu');
  assert.equal(a.storage['vk-pantry-v04'],savedPantry,'app startup and preview must not rewrite saved pantry data');
  assert.equal(a.storage['vk-grocery-v03'],savedGroceries,'preview and return must not rewrite saved weekly grocery data');
- assert.match(a.textFor(a.dom.groceryContent),/Rotel — 1 \\(14.5 oz\\) can/);
+ assert.ok(a.textFor(a.dom.groceryContent).includes('Rotel — 1 (14.5 oz) can'));
  assert.match(a.textFor(a.dom.groceryContent),/Weekly manual extra/);
 });
