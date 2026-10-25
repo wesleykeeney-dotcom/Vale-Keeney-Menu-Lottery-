@@ -6,21 +6,39 @@ const path=require('node:path');
 const vm=require('node:vm');
 const root=path.join(__dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
-function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3],initialStorage={}}={}){
+function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3],initialStorage={},bootApp=false}={}){
  const storage={...initialStorage},opened=[];
- const node=(tag,cls,text)=>({tag,cls,textContent:text??'',value:'',children:[],
+ const node=(tag,cls,text)=>{
+  const el={tag,cls,className:cls||'',textContent:text??'',value:'',children:[],
    append(...args){this.children.push(...args)},replaceChildren(...args){this.children=[...args]},
-   setAttribute(key,val){this[key]=val},focus(){}});
+   setAttribute(key,val){this[key]=val},focus(){}};
+  Object.defineProperty(el,'className',{get(){return this.cls||''},set(value){this.cls=value}});
+  return el;
+ };
  const dom={recipeTitle:node('h3'),recipeContent:node('div'),recipeBack:node('button'),
-   groceryContent:node('div'),groceryAdd:node('button'),groceryExtra:node('input'),groceryClear:node('button'),
-   pantryContent:node('div'),pantrySuggestions:node('div')};
- const state={schedule:[...schedule]};
- const ctx=vm.createContext({node,state,document:{getElementById:id=>dom[id]||null},
+  groceryContent:node('div'),groceryAdd:node('button'),groceryExtra:node('input'),groceryClear:node('button'),
+  pantryContent:node('div'),pantrySuggestions:node('div')};
+ const ctx=vm.createContext({
+  ...(bootApp?{}:{state:{schedule:[...schedule]}}),node,
+  document:{
+   getElementById:id=>dom[id]||(dom[id]=node('div')),
+   createElement:tag=>node(tag),
+   querySelectorAll:()=>[]
+  },
   localStorage:{getItem:key=>storage[key]??null,setItem:(key,val)=>{storage[key]=val}},
   validId:id=>Number.isInteger(id)&&id>=0&&id<84,
-  allIds:()=>[...selected],name:id=>id===3?'Pepperoni Pizza Grilled Cheese':id===5?'Taco Casserole':'Meal '+id,
-  foodWarsMeta:()=>null,switchTab:id=>opened.push(id)});
- for(const file of ['meals.js','recipe-links.js','recipe-publications.js','pantry.js','grocery.js','pantry-priority.js','recipe-viewer.js'])
+  allIds:()=>[...selected],
+  name:id=>id===3?'Pepperoni Pizza Grilled Cheese':id===5?'Taco Casserole':'Meal '+id,
+  foodWarsMeta:()=>null,switchTab:id=>opened.push(id),
+  window:{scrollTo(){}},navigator:{},location:{protocol:'file:'}
+ });
+ const run=expression=>vm.runInContext(expression,ctx);
+ if(bootApp){
+  for(const file of ['meals.js','food-wars.js','app.js'])vm.runInContext(read(file),ctx,{filename:file});
+ }else{
+  vm.runInContext(read('meals.js'),ctx,{filename:'meals.js'});
+ }
+ for(const file of ['recipe-links.js','recipe-publications.js','pantry.js','grocery.js','pantry-priority.js','recipe-viewer.js'])
   vm.runInContext(read(file),ctx,{filename:file});
  const run=expression=>vm.runInContext(expression,ctx);
  const textFor=element=>[element.textContent||'',...element.children.flatMap(textFor)].join('\n');
@@ -177,4 +195,37 @@ test('existing pantry and weekly grocery records survive current app initializat
  assert.equal(a.storage['vk-grocery-v03'],savedGroceries,'preview and return must not rewrite saved weekly grocery data');
  assert.deepEqual(a.state.schedule,[5,-1,-1,-1,-1,-1,-1]);
  assert.match(read('sw.js'),/vk-lottery-v17/);
+});
+
+test('real app startup restores and preserves saved menu, pantry, and weekly groceries through recipe preview',()=>{
+ const savedMenu='{"target":5,"budget":125,"selected":[3],"locked":[],"revealed":false,"weekDate":"2026-10-26","schedule":[5,-1,-1,-1,-1,-1,-1],"savedAt":"2026-10-23T12:00:00.000Z"}';
+ const savedPantry='{"items":["marinara sauce","bread"]}';
+ const savedGroceries='{"checked":["rotel"],"extras":[{"name":"Weekly manual extra"}],"pantry":[]}';
+ const a=mockApp({
+  bootApp:true,
+  initialStorage:{
+   'vk-dinner-lottery-v1':savedMenu,
+   'vk-pantry-v04':savedPantry,
+   'vk-grocery-v03':savedGroceries
+  }
+ });
+ assert.deepEqual(Array.from(a.run('state.schedule')),[5,-1,-1,-1,-1,-1,-1]);
+ assert.deepEqual(Array.from(a.run('allIds()')),[3]);
+ assert.deepEqual(Array.from(a.run('groceryWeekIds()')),[5]);
+
+ a.recipe();
+ const shop=a.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent));
+ assert.ok(shop);
+ shop.onclick();
+ assert.equal(a.run('groceryPreviewRecipeId'),3);
+ const showWeekly=a.dom.groceryContent.children.find(x=>x.tag==='button'&&/Show weekly groceries/.test(x.textContent));
+ assert.ok(showWeekly);
+ showWeekly.onclick();
+
+ assert.deepEqual(Array.from(a.run('state.schedule')),[5,-1,-1,-1,-1,-1,-1]);
+ assert.equal(a.storage['vk-dinner-lottery-v1'],savedMenu,'app startup and preview must not rewrite the saved weekly menu');
+ assert.equal(a.storage['vk-pantry-v04'],savedPantry,'app startup and preview must not rewrite saved pantry data');
+ assert.equal(a.storage['vk-grocery-v03'],savedGroceries,'preview and return must not rewrite saved weekly grocery data');
+ assert.match(a.textFor(a.dom.groceryContent),/Rotel — 1 \\(14.5 oz\\) can/);
+ assert.match(a.textFor(a.dom.groceryContent),/Weekly manual extra/);
 });
