@@ -214,6 +214,14 @@ test('real app startup restores and preserves saved menu, pantry, and weekly gro
  assert.deepEqual(Array.from(a.run('groceryWeekIds()')),[5]);
 
  a.recipe();
+ const selector=a.dom.recipeContent.children.find(x=>x.cls==='recipe-option').children.find(x=>x.tag==='select');
+ assert.equal(selector.value,'Pizza sauce');
+ selector.value='Marinara sauce';
+ selector.onchange();
+ assert.ok(a.textFor(a.dom.recipeContent).includes('Marinara sauce — 2 Tbsp'));
+ assert.ok(!a.textFor(a.dom.recipeContent).includes('Pizza sauce — 2 Tbsp'));
+ assert.ok(!a.groceries().includes('Marinara sauce — 2 Tbsp'),'unscheduled sauce must stay out of weekly groceries');
+
  const shop=a.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent));
  assert.ok(shop);
  shop.onclick();
@@ -228,4 +236,20 @@ test('real app startup restores and preserves saved menu, pantry, and weekly gro
  assert.equal(a.storage['vk-grocery-v03'],savedGroceries,'preview and return must not rewrite saved weekly grocery data');
  assert.ok(a.textFor(a.dom.groceryContent).includes('Rotel — 1 (14.5 oz) can'));
  assert.match(a.textFor(a.dom.groceryContent),/Weekly manual extra/);
+
+ const restarted=mockApp({bootApp:true,initialStorage:a.storage});
+ restarted.recipe();
+ const restoredSelector=restarted.dom.recipeContent.children.find(x=>x.cls==='recipe-option').children.find(x=>x.tag==='select');
+ assert.equal(restoredSelector.value,'Marinara sauce','real app restart must restore the saved recipe variant');
+ assert.ok(restarted.textFor(restarted.dom.recipeContent).includes('Marinara sauce — 2 Tbsp'));
+ assert.ok(!restarted.textFor(restarted.dom.recipeContent).includes('Pizza sauce — 2 Tbsp'));
+ assert.ok(!restarted.groceries().includes('Marinara sauce — 2 Tbsp'),'restored unscheduled sauce must stay out of weekly groceries');
+ const shopAgain=restarted.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent));
+ assert.ok(shopAgain);
+ shopAgain.onclick();
+ assert.ok(restarted.textFor(restarted.dom.groceryContent).includes('Marinara sauce — 2 Tbsp'));
+ assert.deepEqual(Array.from(restarted.run('state.schedule')),[5,-1,-1,-1,-1,-1,-1]);
+ assert.equal(restarted.storage['vk-dinner-lottery-v1'],savedMenu);
+ assert.equal(restarted.storage['vk-pantry-v04'],savedPantry);
+ assert.equal(restarted.storage['vk-grocery-v03'],savedGroceries);
 });
