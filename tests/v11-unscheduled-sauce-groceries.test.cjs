@@ -253,3 +253,39 @@ test('real app startup restores and preserves saved menu, pantry, and weekly gro
  assert.equal(restarted.storage['vk-pantry-v04'],savedPantry);
  assert.equal(restarted.storage['vk-grocery-v03'],savedGroceries);
 });
+
+
+test('weekly groceries combine scheduled published recipes with selected sauce and pantry while ignoring stale lottery picks',()=>{
+ const savedMenu=JSON.stringify({
+  target:5,budget:125,selected:[15],locked:[],revealed:false,
+  weekDate:'2026-10-26',schedule:[3,5,-1,-1,-1,-1,-1],savedAt:'2026-10-23T12:00:00.000Z'
+ });
+ const savedPantry=JSON.stringify({items:['marinara sauce']});
+ const a=mockApp({bootApp:true,initialStorage:{
+  'vk-dinner-lottery-v1':savedMenu,
+  'vk-pantry-v04':savedPantry
+ }});
+ assert.deepEqual(Array.from(a.run('allIds()')),[15],'fixture retains a stale lottery pick');
+ assert.deepEqual(Array.from(a.run('groceryWeekIds()')),[3,5],'weekly groceries follow the two scheduled meals');
+
+ a.recipe();
+ const selector=a.dom.recipeContent.children.find(x=>x.cls==='recipe-option').children.find(x=>x.tag==='select');
+ assert.ok(selector);
+ selector.value='Marinara sauce';
+ selector.onchange();
+
+ const weekly=a.groceries();
+ assert.match(weekly,/Bread — 4 slices/,'scheduled Pepperoni Pizza Grilled Cheese remains included');
+ assert.match(weekly,/Rotel — 1 \(14\.5 oz\) can/,'scheduled Taco Casserole remains included');
+ assert.match(weekly,/Ground beef — 2 lb/,'the second scheduled recipe contributes its ingredients');
+ assert.match(weekly,/Already have — pantry/);
+ assert.match(weekly,/Marinara sauce — 2 Tbsp/,'selected sauce quantity remains visible as on-hand');
+ assert.doesNotMatch(weekly,/Pizza sauce — 2 Tbsp/,'unselected alternative must not leak into the list');
+ assert.doesNotMatch(weekly,/Mini pizza crust|Mini Pizza Night/,'stale lottery pick must not enter weekly groceries');
+ const pantryHeading=a.dom.groceryContent.children.findIndex(x=>x.textContent==='Already have — pantry');
+ assert.notEqual(pantryHeading,-1);
+ assert.match(a.textFor(a.dom.groceryContent.children[pantryHeading+1]),/Marinara sauce — 2 Tbsp/);
+ const buyRows=a.dom.groceryContent.children.filter(x=>x.cls==='grocery-item').map(x=>a.textFor(x)).join('\n');
+ assert.doesNotMatch(buyRows,/Marinara sauce/,'pantry item is not listed as a purchase');
+ assert.deepEqual(Array.from(a.run('state.schedule')),[3,5,-1,-1,-1,-1,-1]);
+});
