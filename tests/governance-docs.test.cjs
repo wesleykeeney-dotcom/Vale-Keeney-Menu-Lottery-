@@ -46,5 +46,5 @@ test('recipe sync keeps the 84 lottery IDs and updates the offline runtime cache
  const meals=read('meals.js');
  const n=[...meals.matchAll(/^\s*"([^"]+)"[,\r\n]/gm)].length;
  assert.equal(n,84,'lottery remains 84 options');
- assert.match(read('sw.js'),/vk-lottery-v18/,'recipe sync ships with its updated offline cache');
+ assert.match(read('sw.js'),/vk-lottery-v19/,'recipe sync ships with its updated offline cache');
 });
