@@ -2,6 +2,21 @@
 // Catalog linkage is deliberately opt-in. A title match does not establish a verified source recipe.
 // Populate only after a Cooking Vault record has been reviewed and approved.
 const RECIPE_LINKS=Object.freeze({
+ // Lottery #1: owner-approved household breakfast taco text from the Oct 19–25 weekly packet.
+ 0:Object.freeze({
+  publicationId:'vk-pub-breakfast-tacos-household-001',
+  recipeVersionId:'VK-HH-BREAKFAST-TACOS-001'
+ }),
+ // Lottery #2: separate household weeknight adaptation of the archived pasta-bake ingredients.
+ 1:Object.freeze({
+  publicationId:'vk-pub-chicken-bacon-ranch-weeknight-001',
+  recipeVersionId:'VK-HH-CHICKEN-BACON-RANCH-PASTABAKE-001'
+ }),
+ // Lottery #17: owner-approved convenience formulation, not the unverified saved original.
+ 16:Object.freeze({
+  publicationId:'vk-pub-slow-cooker-chicken-gravy-convenience-001',
+  recipeVersionId:'VK-HH-SLOW-COOKER-CHICKEN-GRAVY-001'
+ }),
  // Lottery #4: owner-approved household manuscript, original image not verified.
  3:Object.freeze({
   publicationId:'vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001',
