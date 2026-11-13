@@ -44,7 +44,7 @@ test('owner-approved #4 is a distinct two-sandwich household manuscript, never v
  assert.equal(record.ingredients.length,7);
  assert.equal(record.steps.length,3);
  assert.equal(t.run('MEALS.length'),84);
- assert.equal(Object.keys(t.run('RECIPE_LINKS')).length,5);
+ assert.equal(Object.keys(t.run('RECIPE_LINKS')).length,9);
  assert.equal(t.run('approvedRecipeForLottery(52)'),null,'foil packets remain without a public cooking method');
 });
 test('seven manuscript ingredients, three documented steps, six shopping items; garlic powder remains optional',()=>{
