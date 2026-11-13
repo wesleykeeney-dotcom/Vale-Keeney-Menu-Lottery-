@@ -11,8 +11,8 @@ These are **design and development requirements**, not a claim that a recipe vie
 
 A mobile-first static Progressive Web App for dinner lottery, saved weekly schedule, household grocery checklist and pantry-first suggestions. Hosted on GitHub Pages, no server or login.
 
-**Deployed production:** v1.1.1 grocery-scope hotfix merged to `main` (offline cache **v17**); live Pages deployment and Android acceptance remain to be confirmed. The app has 84 immutable lottery choices, nine full shopping templates, three partial templates, and two owner-approved household recipe publications (#4 and #6). The coupon finder and membership wallet are roadmap items, not deployed capabilities.  
-**In development:** v1.2 household recipe sync (draft PR #20), which adds owner-approved household versions for #1 Breakfast Tacos, #2 Chicken Bacon Ranch Pasta, and #17 Chicken & Gravy. The app derives each recipe card and grocery rows from the same version. This depends on private Cooking Vault PR #53; neither PR is merged or deployed.
+**Current production baseline:** v1.2 household recipe sync is merged to `main`; the app has 84 immutable lottery choices, 11 complete shopping templates, three partial templates, and five owner-approved recipe publications. Pages deployment completed after the merge. The coupon finder and membership wallet remain roadmap items.  
+**In development:** draft PR for exact Vault sync of lottery #81–84. It adds four owner-approved source-verified ingredient lists to the lottery and shopping planner, while keeping their abbreviated methods marked not cooking-ready. If merged, complete shopping coverage increases from 11 to 15 of 84; #12, #18 and #50 remain partial.
 
 ## v1.1.1 unscheduled recipe shopping fix — merged, production acceptance pending
 
