@@ -166,7 +166,7 @@ test('only the approved household manuscript is publicly linked; assets and offl
  assert.match(approved.versionType,/household manuscript.*not source-verified original/i);
  assert.match(approved.sourceStatus,/NOT been independently verified/);
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.deepEqual(Object.keys(links),['3','5']);
+ assert.deepEqual(Object.keys(links),['0','1','3','5','16']);
  assert.equal(links[5].recipeVersionId,approved.recipeVersionId);
  assert.equal(meals.length,84);
  const html=read('index.html'),sw=read('sw.js');
