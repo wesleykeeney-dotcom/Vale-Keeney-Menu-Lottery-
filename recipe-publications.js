@@ -129,7 +129,7 @@ const RECIPE_PUBLICATIONS=Object.freeze({
    'Heat corn if using. Spoon chicken and gravy over mashed potatoes and serve.'
   ]),
   notes:'Soup and gravy packet brands differ; follow their directions as needed. Corn is optional. Butter and milk amounts are not fixed in the packet.',
-  shoppingNote:'Convenience formulation for lottery #17. The 4–6 serving yield is the packet's planning estimate; it is not scaled to five.',
+  shoppingNote:"Convenience formulation for lottery #17. The 4–6 serving yield is the packet's planning estimate; it is not scaled to five.",
   sourceNote:'Owner-authorized household convenience version. Do not present it as the historical family recipe or as source-image verified.'
  }),
  'vk-pub-taco-casserole-manuscript-001':Object.freeze({
