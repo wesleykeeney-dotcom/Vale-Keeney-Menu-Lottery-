@@ -15,7 +15,7 @@ function app(){
  const ctx=vm.createContext({document:{getElementById:id=>dom[id]||null},
   localStorage:{getItem:()=>null,setItem:()=>{}},state:{schedule:[],target:5},
   validId:id=>Number.isInteger(id)&&id>=0&&id<84,allIds:()=>[],
-  node:element,name:id=>'Meal '+id,switchTab:()=>{},foodWarsMeta:()=>null});
+  node:element,name:id=>'Meal '+id,switchTab:()=>{},foodWarsMeta:id=>id===80?{note:'Original source includes mushrooms.',mushrooms:true}:null});
  for(const file of ['meals.js','recipe-links.js','recipe-publications.js','pantry.js','grocery.js','pantry-priority.js','recipe-viewer.js']){
   vm.runInContext(read(file),ctx,{filename:file});
  }
