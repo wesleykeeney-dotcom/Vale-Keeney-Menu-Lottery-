@@ -89,10 +89,10 @@ test('an approved public recipe lacking a grocery department cannot silently rep
  assert.match(groceries,/Ground beef — 2 lb/);
  assert.doesNotMatch(groceries,/Carrots — 2/);
 });
-test('the public registry contains precisely one owner-approved household version, not an authenticated Vault reference',()=>{
+test('the public registry contains only explicitly owner-approved versions and no authenticated Vault reference',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.deepEqual(Object.keys(publications),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001']);
+ assert.deepEqual(Object.keys(publications),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001','vk-pub-foodwars-gotcha-pork-vault-001','vk-pub-foodwars-furikake-vault-001','vk-pub-foodwars-rainbow-terrine-vault-001','vk-pub-foodwars-boeuf-bourguignon-vault-001']);
  assert.deepEqual(Object.keys(links),['0','1','3','5','16','80','81','82','83']);
  assert.match(publications[links[5].publicationId].sourceStatus,/NOT been independently verified/);
  assert.match(publications[links[5].publicationId].versionType,/household manuscript/);
