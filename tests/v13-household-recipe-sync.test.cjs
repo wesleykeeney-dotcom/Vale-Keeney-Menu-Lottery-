@@ -28,7 +28,7 @@ function snapshot(){
   existing:[3,5].map(id=>({id,link:recipeLinkFor(id),record:approvedRecipeForLottery(id)}))
  });
  `;
- return JSON.parse(vm.runInNewContext(script));
+ return JSON.parse(vm.runInNewContext(script,{document:{getElementById:()=>null}}));
 }
 
 test('the approved household versions bind exact existing lottery IDs without renumbering',()=>{
