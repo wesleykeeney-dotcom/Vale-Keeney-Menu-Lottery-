@@ -158,15 +158,15 @@ test('winner, weekly menu and library all expose recipe navigation without chang
  assert.equal(list.children[2].children.filter(c=>c.tag==='button').length,0,'flex night no recipe link');
  assert.equal(scheduled.schedule[0],5,'viewing does not mutate saved week');
 });
-test('only the approved household manuscript is publicly linked; assets and offline wiring remain correct',()=>{
+test('approved recipe registry and offline wiring remain correct',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
- assert.deepEqual(Object.keys(publications),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001']);
+ assert.deepEqual(Object.keys(publications),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001','vk-pub-foodwars-gotcha-pork-vault-001','vk-pub-foodwars-furikake-vault-001','vk-pub-foodwars-rainbow-terrine-vault-001','vk-pub-foodwars-boeuf-bourguignon-vault-001']);
  const approved=publications['vk-pub-taco-casserole-manuscript-001'];
  assert.equal(approved.publicationAuthorization,'approved-for-public-web');
  assert.match(approved.versionType,/household manuscript.*not source-verified original/i);
  assert.match(approved.sourceStatus,/NOT been independently verified/);
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.deepEqual(Object.keys(links),['0','1','3','5','16']);
+ assert.deepEqual(Object.keys(links),['0','1','3','5','16','80','81','82','83']);
  assert.equal(links[5].recipeVersionId,approved.recipeVersionId);
  assert.equal(meals.length,84);
  const html=read('index.html'),sw=read('sw.js');
@@ -176,5 +176,5 @@ test('only the approved household manuscript is publicly linked; assets and offl
  }
  assert.match(html,/id="recipeContent"/);
  assert.match(html,/id="recipeTitle" tabindex="-1"/);
- assert.match(sw,/vk-lottery-v18/);
+ assert.match(sw,/vk-lottery-v19/);
 });

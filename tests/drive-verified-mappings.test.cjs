@@ -50,8 +50,8 @@ test('Taco Casserole standard shopping amounts agree with recovered Vault and co
   assert.ok(!items.some(x=>x.ingredient==='Water'),'1/2 cup tap water remains in recipe, not grocery purchase');
   assert.ok(!items.some(x=>/about 10 oz|to serve/i.test(x.amount)), 'standard mapping cannot silently use incomplete weeknight amounts');
 });
-test('similar-name variants and original Food Wars sources remain unmapped',()=>{
-  for(const id of [1,8,16,80,81,82,83])assert.equal(templates[id],undefined,'lottery #'+(id+1)+' must remain unmapped pending exact recipe check or adaptation approval');
+test('similar-name variants remain unmapped and Food Wars records are not duplicated in legacy estimates',()=>{
+  for(const id of [1,8,16,80,81,82,83])assert.equal(templates[id],undefined,'lottery #'+(id+1)+' must remain unmapped pending exact recipe check or adaptation approval; public source publications use their own registry');
   assert.match(grocery,/private Cooking Vault/);
   assert.doesNotMatch(grocery,/drive\.google\.com|docs\.google\.com/,'do not publish private archive URLs in application code');
 });

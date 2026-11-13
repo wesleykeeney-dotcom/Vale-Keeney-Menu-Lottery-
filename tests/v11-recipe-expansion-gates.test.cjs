@@ -66,12 +66,12 @@ test('source-incomplete candidates remain blocked and cannot masquerade as cook-
 });
 
 test('approved Taco Casserole #6 and existing household publications remain linked',()=>{
- assert.deepEqual(Object.keys(links),['0','1','3','5','16']);
- assert.deepEqual(Object.keys(pubs),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001']);
+ assert.deepEqual(Object.keys(links),['0','1','3','5','16','80','81','82','83']);
+ assert.deepEqual(Object.keys(pubs),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001','vk-pub-foodwars-gotcha-pork-vault-001','vk-pub-foodwars-furikake-vault-001','vk-pub-foodwars-rainbow-terrine-vault-001','vk-pub-foodwars-boeuf-bourguignon-vault-001']);
  assert.equal(pubs[links[5].publicationId].recipeVersionId,links[5].recipeVersionId);
  assert.equal(pubs[links[5].publicationId].publicationAuthorization,'approved-for-public-web');
  assert.equal(mealNames[5],'Taco Casserole');
- assert.match(read('sw.js'),/vk-lottery-v18/,'new recipe and sauce selector require a cache update');
+ assert.match(read('sw.js'),/vk-lottery-v19/,'new recipe and sauce selector require a cache update');
 });
 
 test('review documentation is linked and does not certify a historical original',()=>{

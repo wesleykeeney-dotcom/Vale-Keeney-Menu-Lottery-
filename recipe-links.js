@@ -26,6 +26,14 @@ const RECIPE_LINKS=Object.freeze({
  5:Object.freeze({
   publicationId:'vk-pub-taco-casserole-manuscript-001',
   recipeVersionId:'VK-HH-TACO-CASSEROLE-MANUSCRIPT-001'
- })
+ }),
+ // Lottery #81: exact source-verified Vault original, owner-approved for grocery sync.
+ 80:Object.freeze({publicationId:'vk-pub-foodwars-gotcha-pork-vault-001',recipeVersionId:'VK-POP-FOODWARS-GOTCHAPORK-001'}),
+ // Lottery #82: exact source-verified Vault original, owner-approved for grocery sync.
+ 81:Object.freeze({publicationId:'vk-pub-foodwars-furikake-vault-001',recipeVersionId:'VK-POP-FOODWARS-FURIKAKE-001'}),
+ // Lottery #83: exact source-verified Vault original, owner-approved for grocery sync.
+ 82:Object.freeze({publicationId:'vk-pub-foodwars-rainbow-terrine-vault-001',recipeVersionId:'VK-POP-FOODWARS-RAINBOWTERRINE-001'}),
+ // Lottery #84: exact source-verified Vault original, owner-approved for grocery sync.
+ 83:Object.freeze({publicationId:'vk-pub-foodwars-boeuf-bourguignon-vault-001',recipeVersionId:'VK-POP-FOODWARS-BOEUF-001'})
 });
 function recipeLinkFor(id){return Object.prototype.hasOwnProperty.call(RECIPE_LINKS,id)?RECIPE_LINKS[id]:null}

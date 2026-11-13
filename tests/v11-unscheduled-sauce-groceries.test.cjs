@@ -78,11 +78,11 @@ test('when #4 is scheduled or in current lottery picks its selected sauce alread
   assert.equal(a.run('groceryPreviewRecipeId'),null);
  }
 });
-test('no recipe preview can be opened for unmapped, partial or invalid lottery IDs',()=>{
+test('no recipe preview can be opened for partial or invalid lottery IDs',()=>{
  const a=mockApp();
- for(const id of [-1,84,11,17,52,83])assert.equal(a.run('groceryShowRecipe('+id+')'),false);
+ for(const id of [-1,84,11,17,52])assert.equal(a.run('groceryShowRecipe('+id+')'),false);
  assert.equal(a.run('groceryPreviewRecipeId'),null);
- assert.match(read('sw.js'),/vk-lottery-v18/);
+ assert.match(read('sw.js'),/vk-lottery-v19/);
 });
 
 test('recipe preview checkmarks, Add, and Clear never alter saved weekly grocery state',()=>{
