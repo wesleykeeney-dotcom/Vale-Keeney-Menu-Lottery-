@@ -166,7 +166,7 @@ test('approved recipe registry and offline wiring remain correct',()=>{
  assert.match(approved.versionType,/household manuscript.*not source-verified original/i);
  assert.match(approved.sourceStatus,/NOT been independently verified/);
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.deepEqual(Object.keys(links),['0','1','3','5','16','80','81','82','83']);
+ assert.deepEqual(Object.keys(links),['0','1','3','5','10','14','16','80','81','82','83']);
  assert.equal(links[5].recipeVersionId,approved.recipeVersionId);
  assert.equal(meals.length,84);
  const html=read('index.html'),sw=read('sw.js');
