@@ -31,9 +31,9 @@ function snapshot(){
  return JSON.parse(vm.runInNewContext(script,{document:{getElementById:()=>null}}));
 }
 
-test('the approved household versions bind exact existing lottery IDs without renumbering',()=>{
+test('approved household versions bind exact lottery IDs without renumbering the first 84',()=>{
  const d=snapshot();
- assert.equal(d.lotteryCount,84);
+ assert.equal(d.lotteryCount,100);
  assert.deepEqual(d.links.map(x=>x.id),[0,1,3,5,16]);
  assert.equal(d.records[0].recipeId,'VK-HH-BREAKFAST-TACOS-001');
  assert.equal(d.records[1].recipeId,'VK-HH-CHICKEN-BACON-RANCH-PASTABAKE-001');
