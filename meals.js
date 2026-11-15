@@ -84,5 +84,21 @@ const MEALS = Object.freeze([
   "Food Wars! — Gotcha! Pork Roast",
   "Food Wars! — Transforming Furikake Rice",
   "Food Wars! — Rainbow Terrine",
-  "Food Wars! — Soma’s Boeuf Bourguignon"
+  "Food Wars! — Soma’s Boeuf Bourguignon",
+  "Cheese Steak Hamburger Helper",
+  "Maple Soy Salmon",
+  "Air-Fryer Chicken Nuggets",
+  "Wesley’s Booyah",
+  "Wesley’s Kentucky Burgoo",
+  "Wesley’s Chicken & Sausage Gumbo",
+  "Pork-Rind-Crusted Chicken Parmesan",
+  "Wesley’s Tennessee Beef Bourguignon",
+  "Black Butler Curry Buns",
+  "Country Fried Pork Chops with Bacon Gravy",
+  "Tender Chicken Wrapped in Tortillas with Rich, Creamy Cheese Sauce",
+  "Garlic Parmesan Chicken Pasta Bake",
+  "Garlic-Rich Parmesan Egg-Yolk Soup",
+  "Steak with Haunted Bourbon Garlic Cream Sauce",
+  "Sweet & Spicy Honey Pepper Chicken with Creamy Macaroni Cheese",
+  "Mac and Cheese Meatloaf Casserole"
 ]);
