@@ -83,10 +83,10 @@ test('a grocery rendering error cannot block saved pantry changes or live recomm
   assert.deepEqual(JSON.parse(app.storage['vk-pantry-v04']).items,['breakfast sausage']);
 });
 
-test('refresh fix preserves source boundaries, 84 meal IDs and offline version',()=>{
-  assert.equal(meals.length,84);
+test('refresh fix preserves source boundaries, 100 meal entries and offline version',()=>{
+  assert.equal(meals.length,100);
   const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
-  assert.match(sw,/vk-lottery-v20/);
+  assert.match(sw,/vk-lottery-v21/);
   assert.match(sw,/\.\/pantry-priority\.js/);
   assert.match(pantrySource,/pantrySave\(\);if\(typeof pantryPriorityRender==='function'\)pantryPriorityRender\(\);pantryRender\(\);/);
   for(const id of [80,81,82,83])assert.equal(templates[id],undefined,'protected Food Wars source recipe #'+(id+1)+' stays unmapped');
