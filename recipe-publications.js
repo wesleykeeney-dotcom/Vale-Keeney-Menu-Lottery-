@@ -319,7 +319,7 @@ const RECIPE_PUBLICATIONS=Object.freeze({
    Object.freeze({"name":"grated garlic","amount":"1 Tbsp","department":"Produce"})
   ]),
   steps:Object.freeze([])
- })
+ }),
  'vk-pub-breakfast-for-dinner-master-cookbook-001':Object.freeze({
   publicationId:'vk-pub-breakfast-for-dinner-master-cookbook-001',
   recipeId:'VK-HH-BREAKFAST-FOR-DINNER-001',
