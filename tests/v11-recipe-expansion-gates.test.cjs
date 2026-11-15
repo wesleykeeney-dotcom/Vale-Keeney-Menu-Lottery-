@@ -14,7 +14,7 @@ const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
 test('v1.1 expansion queue is metadata-only, tied to immutable 84 lottery identities',()=>{
  assert.equal(queue.schemaVersion,1);
  assert.equal(queue.productionBaseline.lotteryCount,84);
- assert.equal(mealNames.length,84);
+ assert.equal(mealNames.length,100);
  assert.equal(queue.candidates.length,5);
  const ids=new Set();
  for(const candidate of queue.candidates){
@@ -71,7 +71,7 @@ test('approved Taco Casserole #6 and existing household publications remain link
  assert.equal(pubs[links[5].publicationId].recipeVersionId,links[5].recipeVersionId);
  assert.equal(pubs[links[5].publicationId].publicationAuthorization,'approved-for-public-web');
  assert.equal(mealNames[5],'Taco Casserole');
- assert.match(read('sw.js'),/vk-lottery-v20/,'new recipe and sauce selector require a cache update');
+ assert.match(read('sw.js'),/vk-lottery-v21/,'new recipe and sauce selector require a cache update');
 });
 
 test('review documentation is linked and does not certify a historical original',()=>{
