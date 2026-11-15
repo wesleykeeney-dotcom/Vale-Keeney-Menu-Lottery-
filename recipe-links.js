@@ -34,7 +34,7 @@ const RECIPE_LINKS=Object.freeze({
  // Lottery #83: exact source-verified Vault original, owner-approved for grocery sync.
  82:Object.freeze({publicationId:'vk-pub-foodwars-rainbow-terrine-vault-001',recipeVersionId:'VK-POP-FOODWARS-RAINBOWTERRINE-001'}),
  // Lottery #84: exact source-verified Vault original, owner-approved for grocery sync.
- 83:Object.freeze({publicationId:'vk-pub-foodwars-boeuf-bourguignon-vault-001',recipeVersionId:'VK-POP-FOODWARS-BOEUF-001'})
+ 83:Object.freeze({publicationId:'vk-pub-foodwars-boeuf-bourguignon-vault-001',recipeVersionId:'VK-POP-FOODWARS-BOEUF-001'}),
  // Lottery #11: owner-approved cookbook formulation; unspecified quantities remain explicit.
  10:Object.freeze({publicationId:'vk-pub-breakfast-for-dinner-master-cookbook-001',recipeVersionId:'VK-HH-BREAKFAST-FOR-DINNER-MASTER-COOKBOOK-001'}),
  // Lottery #15: owner-approved cookbook formulation; grocery quantities remain incomplete where undocumented.
