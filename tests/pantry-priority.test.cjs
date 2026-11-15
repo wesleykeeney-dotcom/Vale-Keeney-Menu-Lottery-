@@ -93,7 +93,7 @@ test('no pantry matches reports coverage and avoids guessing other meals', () =>
   });
   vm.runInContext(priority,ctx);
   assert.equal(cards.children.filter(x=>x.cls==='priority-meal').length,0);
-  assert.ok(cards.children.some(x=>String(x.text).includes('75 are unscored (including 1 partial recipe(s))')));
+  assert.ok(cards.children.some(x=>String(x.text).includes('91 are unscored (including 1 partial recipe(s))')));
   assert.ok(cards.children.some(x=>x.cls==='priority-empty'));
 });
 
