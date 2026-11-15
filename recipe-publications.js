@@ -319,7 +319,66 @@ const RECIPE_PUBLICATIONS=Object.freeze({
    Object.freeze({"name":"grated garlic","amount":"1 Tbsp","department":"Produce"})
   ]),
   steps:Object.freeze([])
- })
+ }),
+ 'vk-pub-breakfast-for-dinner-master-cookbook-001':Object.freeze({
+  publicationId:'vk-pub-breakfast-for-dinner-master-cookbook-001',
+  recipeId:'VK-HH-BREAKFAST-FOR-DINNER-001',
+  recipeVersionId:'VK-HH-BREAKFAST-FOR-DINNER-MASTER-COOKBOOK-001',
+  publicationAuthorization:'approved-for-public-web',
+  lotteryIds:[10],
+  title:'Sausage, Potato & Egg Breakfast Dinner',
+  versionType:'owner-approved household cookbook recipe',
+  sourceStatus:'Owner-approved recipe from Wesley’s Master Recipe Collection, September 2026 edition. This is the approved cookbook formulation; original image transcription and publisher attribution are separate evidence questions.',
+  ingredientStatus:'complete',methodStatus:'complete',householdSubstitutionsResolved:true,
+  yieldText:'Not specified',
+  ingredients:Object.freeze([
+   {name:'Breakfast sausage',amount:'1 lb',department:'Meat'},
+   {name:'Potatoes',amount:'About 2 lb, diced small',department:'Produce'},
+   {name:'Eggs',amount:'8–10',department:'Dairy'},
+   {name:'Oil or butter',amount:'As needed',department:'Pantry'},
+   {name:'Salt, pepper, and garlic powder',amount:'To taste',department:'Seasonings'},
+   {name:'Fruit',amount:'Amount not specified',department:'Produce'},
+   {name:'Cheese',amount:'Optional; amount not specified',department:'Dairy',optional:true}
+  ]),
+  steps:Object.freeze([
+   'Heat oven to 425°F. Toss potatoes with oil and seasonings; roast 25–35 minutes, flipping once.',
+   'Brown the sausage.',
+   'Scramble the eggs; add cheese if desired.',
+   'Serve with fruit.'
+  ]),
+  notes:'The cookbook does not specify yield or fruit quantity. Its sausage step does not state an internal-temperature endpoint; the source wording is preserved without adding one.',
+  shoppingNote:'Ingredient lineup is documented. Fruit quantity and the oil/butter amount remain unspecified; do not scale.',
+  sourceNote:'Owner-authorized household cookbook formulation. Approval is not a claim of publisher attribution or independent image-to-text verification.'
+ }),
+ 'vk-pub-loaded-baked-potato-bar-master-cookbook-001':Object.freeze({
+  publicationId:'vk-pub-loaded-baked-potato-bar-master-cookbook-001',
+  recipeId:'VK-HH-LOADED-BAKED-POTATO-BAR-001',
+  recipeVersionId:'VK-HH-LOADED-BAKED-POTATO-BAR-MASTER-COOKBOOK-001',
+  publicationAuthorization:'approved-for-public-web',
+  lotteryIds:[14],
+  title:'Loaded Baked Potato Bar',
+  versionType:'owner-approved household cookbook recipe',
+  sourceStatus:'Owner-approved recipe from Wesley’s Master Recipe Collection, September 2026 edition. This is the approved cookbook formulation; original image transcription and publisher attribution are separate evidence questions.',
+  ingredientStatus:'complete',methodStatus:'complete',householdSubstitutionsResolved:true,
+  yieldText:'Not specified; potato quantity is one per person',
+  ingredients:Object.freeze([
+   {name:'Large russet potatoes',amount:'1 per person',department:'Produce'},
+   {name:'Leftover chicken and/or ground beef',amount:'Amount not specified',department:'Meat'},
+   {name:'Broccoli and corn',amount:'Amount not specified',department:'Produce'},
+   {name:'Shredded cheese',amount:'Amount not specified',department:'Dairy'},
+   {name:'Sour cream and butter',amount:'Amount not specified',department:'Dairy'},
+   {name:'Tomatoes or other toppings for others',amount:'Optional; amount not specified',department:'Produce',optional:true}
+  ]),
+  steps:Object.freeze([
+   'Heat oven to 425°F.',
+   'Scrub, dry, prick, lightly oil and salt potatoes; bake 45–60 minutes.',
+   'Warm proteins and vegetables.',
+   'Split and top the potatoes. Prepare Wesley’s serving before handling raw tomato toppings.'
+  ]),
+  notes:'Protein, vegetable, cheese, sour cream, and butter amounts and yield are not specified. Tomatoes are listed only as toppings for others; prepare the owner’s serving before handling raw tomatoes.',
+  shoppingNote:'The potato requirement is one per person. Other required grocery amounts are unspecified and must not be scaled or inferred.',
+  sourceNote:'Owner-authorized household cookbook formulation. Approval is not a claim of publisher attribution or independent image-to-text verification.'
+ }),
 });
 // An approved publication must bind an explicit lottery number and recipe version.
 // Ingredient names and quantities must be valid for BOTH the recipe view and groceries.
