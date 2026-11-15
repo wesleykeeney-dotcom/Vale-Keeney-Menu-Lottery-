@@ -144,7 +144,7 @@ test('winner, weekly menu and library all expose recipe navigation without chang
  const opened=[];
  const ctx=vm.createContext({state:scheduled,node:element,
   $:id=>id==='weekList'?list:null,
-  allIds:()=>[5,11],validId:n=>Number.isInteger(n)&&n>=0&&n<84,
+  allIds:()=>[5,11],validId:n=>Number.isInteger(n)&&n>=0&&n<100,
   name:id=>meals[id],store:()=>{},groceryRender:()=>{},
   recipeOpen:(id,tab)=>opened.push([id,tab])
  });
@@ -168,7 +168,7 @@ test('approved recipe registry and offline wiring remain correct',()=>{
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
  assert.deepEqual(Object.keys(links),['0','1','3','5','10','14','16','80','81','82','83']);
  assert.equal(links[5].recipeVersionId,approved.recipeVersionId);
- assert.equal(meals.length,84);
+ assert.equal(meals.length,100);
  const html=read('index.html'),sw=read('sw.js');
  for(const asset of ['recipe-publications.js','recipe-viewer.js']){
   assert.match(html,new RegExp('src="'+asset.replace('.','\\.')+'"'));
@@ -176,5 +176,5 @@ test('approved recipe registry and offline wiring remain correct',()=>{
  }
  assert.match(html,/id="recipeContent"/);
  assert.match(html,/id="recipeTitle" tabindex="-1"/);
- assert.match(sw,/vk-lottery-v20/);
+ assert.match(sw,/vk-lottery-v21/);
 });
