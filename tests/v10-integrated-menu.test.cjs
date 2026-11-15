@@ -16,7 +16,7 @@ function app(ids){
   document:{getElementById:id=>dom[id]||null},
   localStorage:{getItem:()=>null,setItem:()=>{}},
   node:elem,state:{schedule:[...ids,...Array(7-ids.length).fill(-1)]},
-  name:id=>vm.runInContext('MEALS['+id+']',context),validId:id=>Number.isInteger(id)&&id>=0&&id<84,
+  name:id=>vm.runInContext('MEALS['+id+']',context),validId:id=>Number.isInteger(id)&&id>=0&&id<100,
   allIds:()=>ids,foodWarsMeta:()=>null,switchTab:()=>{}
  });
  for(const file of ['meals.js','recipe-links.js','recipe-publications.js','pantry.js','grocery.js','recipe-viewer.js'])
