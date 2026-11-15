@@ -24,7 +24,7 @@ function setup(pantry=[]){
   document:{getElementById:id=>dom[id]||null},
   localStorage:{getItem:key=>store[key]??null,setItem:(key,value)=>{store[key]=value}},
   state:{schedule:[5,-1,-1,-1,-1,-1,-1],target:5},
-  validId:id=>Number.isInteger(id)&&id>=0&&id<84,allIds:()=>[5],
+  validId:id=>Number.isInteger(id)&&id>=0&&id<100,allIds:()=>[5],
   node:elem,foodWarsMeta:()=>null,switchTab:()=>{},name:id=>id===5?'Taco Casserole':'Other meal '+id
  });
  const scripts=['meals.js','recipe-links.js','recipe-publications.js','pantry.js',
@@ -56,7 +56,7 @@ test('publicly approved Taco Casserole is a distinct household manuscript linked
  assert.equal(r.yieldText,null);
  assert.equal(app.get('approvedRecipeForLottery(11)'),null,'Garbage Bread remains unlinked');
  assert.ok(app.get('approvedRecipeForLottery(83)'),'owner-approved Rainbow Terrine ingredients are linked');
- assert.equal(app.get('MEALS.length'),84);
+ assert.equal(app.get('MEALS.length'),100);
  assert.equal(app.get('MEALS[5]'),'Taco Casserole');
  assert.equal(Object.keys(app.get('RECIPE_PUBLICATIONS')).length,11);
  assert.equal(Object.keys(app.get('RECIPE_LINKS')).length,11);
