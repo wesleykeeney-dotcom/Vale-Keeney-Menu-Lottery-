@@ -378,7 +378,7 @@ const RECIPE_PUBLICATIONS=Object.freeze({
   notes:'Protein, vegetable, cheese, sour cream, and butter amounts and yield are not specified. Tomatoes are listed only as toppings for others; prepare the owner’s serving before handling raw tomatoes.',
   shoppingNote:'The potato requirement is one per person. Other required grocery amounts are unspecified and must not be scaled or inferred.',
   sourceNote:'Owner-authorized household cookbook formulation. Approval is not a claim of publisher attribution or independent image-to-text verification.'
- }),,
+ }),
  'vk-pub-lottery-100-vk-din-cheesesteakhelper-001':Object.freeze({
   publicationId:'vk-pub-lottery-100-vk-din-cheesesteakhelper-001',
   recipeId:"VK-DIN-CHEESESTEAKHELPER-001",
