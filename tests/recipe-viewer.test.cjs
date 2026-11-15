@@ -160,7 +160,7 @@ test('winner, weekly menu and library all expose recipe navigation without chang
 });
 test('approved recipe registry and offline wiring remain correct',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
- assert.deepEqual(Object.keys(publications),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001','vk-pub-breakfast-for-dinner-master-cookbook-001','vk-pub-loaded-baked-potato-bar-master-cookbook-001','vk-pub-foodwars-gotcha-pork-vault-001','vk-pub-foodwars-furikake-vault-001','vk-pub-foodwars-rainbow-terrine-vault-001','vk-pub-foodwars-boeuf-bourguignon-vault-001']);
+ assert.deepEqual(Object.keys(publications),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001','vk-pub-foodwars-gotcha-pork-vault-001','vk-pub-foodwars-furikake-vault-001','vk-pub-foodwars-rainbow-terrine-vault-001','vk-pub-foodwars-boeuf-bourguignon-vault-001','vk-pub-breakfast-for-dinner-master-cookbook-001','vk-pub-loaded-baked-potato-bar-master-cookbook-001']);
  const approved=publications['vk-pub-taco-casserole-manuscript-001'];
  assert.equal(approved.publicationAuthorization,'approved-for-public-web');
  assert.match(approved.versionType,/household manuscript.*not source-verified original/i);
