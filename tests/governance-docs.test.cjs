@@ -42,9 +42,9 @@ test('wallet and release policy block public identifiers, fake claims, and silen
  assert.match(release,/No cache increment required for docs-only changes/);
 });
 
-test('recipe sync keeps the 84 lottery IDs and updates the offline runtime cache',()=>{
+test('recipe sync keeps the original lottery IDs and appends 16 choices and updates the offline runtime cache',()=>{
  const meals=read('meals.js');
  const n=[...meals.matchAll(/^\s*"([^"]+)"[,\r\n]/gm)].length;
- assert.equal(n,84,'lottery remains 84 options');
- assert.match(read('sw.js'),/vk-lottery-v20/,'recipe sync ships with its updated offline cache');
+ assert.equal(n,100,'lottery contains 100 options');
+ assert.match(read('sw.js'),/vk-lottery-v21/,'recipe sync ships with its updated offline cache');
 });
