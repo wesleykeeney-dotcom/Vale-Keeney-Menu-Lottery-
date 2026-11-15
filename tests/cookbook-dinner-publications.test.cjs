@@ -1,0 +1,23 @@
+'use strict';
+const test=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const vm=require('node:vm');
+test('owner-approved cookbook dinner versions feed the matching lottery and grocery rows',()=>{
+ const root=path.join(__dirname,'..');
+ const context={};
+ const source=['meals.js','recipe-links.js','recipe-publications.js'].map(f=>fs.readFileSync(path.join(root,f),'utf8')).join('\n');
+ const api=vm.runInNewContext(source+'\n({MEALS,RECIPE_LINKS,RECIPE_PUBLICATIONS,approvedRecipeForLottery,publishedShoppingRowsForLottery})',context);
+ const breakfast=api.approvedRecipeForLottery(10), potato=api.approvedRecipeForLottery(14);
+ assert.equal(api.MEALS[10],'Breakfast for Dinner');
+ assert.equal(api.MEALS[14],'Loaded Baked Potato Bar');
+ assert.equal(breakfast.recipeVersionId,'VK-HH-BREAKFAST-FOR-DINNER-MASTER-COOKBOOK-001');
+ assert.equal(potato.recipeVersionId,'VK-HH-LOADED-BAKED-POTATO-BAR-MASTER-COOKBOOK-001');
+ assert.equal(breakfast.ingredients.find(x=>x.name==='Fruit').amount,'Amount not specified');
+ assert.equal(potato.ingredients.find(x=>x.name==='Large russet potatoes').amount,'1 per person');
+ assert.equal(api.publishedShoppingRowsForLottery(10).length,6);
+ assert.equal(api.publishedShoppingRowsForLottery(14).length,5);
+ assert.equal(api.RECIPE_LINKS[10].recipeVersionId,breakfast.recipeVersionId);
+ assert.equal(api.RECIPE_LINKS[14].recipeVersionId,potato.recipeVersionId);
+});
