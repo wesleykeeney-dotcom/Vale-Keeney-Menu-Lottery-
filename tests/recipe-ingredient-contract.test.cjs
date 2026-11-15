@@ -33,7 +33,7 @@ function environment({record=testPublication(),linked=true,schedule=[5,-1,-1,-1,
  const ctx=vm.createContext({
   document:{getElementById:id=>nodes[id]||null},
   localStorage:{getItem:()=>null,setItem:()=>{}},
-  node:element,state:{schedule},allIds:()=>[],validId:id=>Number.isInteger(id)&&id>=0&&id<84,
+  node:element,state:{schedule},allIds:()=>[],validId:id=>Number.isInteger(id)&&id>=0&&id<100,
   name:id=>'Meal '+id,foodWarsMeta:()=>null,openTab:()=>{},switchTab:()=>{},
   publicFixtures:fixtures,
   publicLinks:linked?{5:{publicationId:'fixture-pub-6',recipeVersionId:'fixture-version-6'}}:{}
