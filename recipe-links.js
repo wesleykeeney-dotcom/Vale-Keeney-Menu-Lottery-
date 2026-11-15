@@ -38,7 +38,7 @@ const RECIPE_LINKS=Object.freeze({
  // Lottery #11: owner-approved cookbook formulation; unspecified quantities remain explicit.
  10:Object.freeze({publicationId:'vk-pub-breakfast-for-dinner-master-cookbook-001',recipeVersionId:'VK-HH-BREAKFAST-FOR-DINNER-MASTER-COOKBOOK-001'}),
  // Lottery #15: owner-approved cookbook formulation; grocery quantities remain incomplete where undocumented.
- 14:Object.freeze({publicationId:'vk-pub-loaded-baked-potato-bar-master-cookbook-001',recipeVersionId:'VK-HH-LOADED-BAKED-POTATO-BAR-MASTER-COOKBOOK-001'}),,
+ 14:Object.freeze({publicationId:'vk-pub-loaded-baked-potato-bar-master-cookbook-001',recipeVersionId:'VK-HH-LOADED-BAKED-POTATO-BAR-MASTER-COOKBOOK-001'}),
  // Lottery #85–100: owner-approved source/version publications.
  84:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-cheesesteakhelper-001",recipeVersionId:"VK-DIN-CHEESESTEAKHELPER-001"}),
  85:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-maplesoysalmon-001",recipeVersionId:"VK-DIN-MAPLESOYSALMON-001"}),
