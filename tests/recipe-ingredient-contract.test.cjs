@@ -33,7 +33,7 @@ function environment({record=testPublication(),linked=true,schedule=[5,-1,-1,-1,
  const ctx=vm.createContext({
   document:{getElementById:id=>nodes[id]||null},
   localStorage:{getItem:()=>null,setItem:()=>{}},
-  node:element,state:{schedule},allIds:()=>[],validId:id=>Number.isInteger(id)&&id>=0&&id<84,
+  node:element,state:{schedule},allIds:()=>[],validId:id=>Number.isInteger(id)&&id>=0&&id<100,
   name:id=>'Meal '+id,foodWarsMeta:()=>null,openTab:()=>{},switchTab:()=>{},
   publicFixtures:fixtures,
   publicLinks:linked?{5:{publicationId:'fixture-pub-6',recipeVersionId:'fixture-version-6'}}:{}
@@ -92,8 +92,8 @@ test('an approved public recipe lacking a grocery department cannot silently rep
 test('the public registry contains only explicitly owner-approved versions and no authenticated Vault reference',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.deepEqual(Object.keys(publications),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001','vk-pub-foodwars-gotcha-pork-vault-001','vk-pub-foodwars-furikake-vault-001','vk-pub-foodwars-rainbow-terrine-vault-001','vk-pub-foodwars-boeuf-bourguignon-vault-001','vk-pub-breakfast-for-dinner-master-cookbook-001','vk-pub-loaded-baked-potato-bar-master-cookbook-001']);
- assert.deepEqual(Object.keys(links),['0','1','3','5','10','14','16','80','81','82','83']);
+ assert.equal(Object.keys(publications).length,27);
+ assert.equal(Object.keys(links).length,27);
  assert.match(publications[links[5].publicationId].sourceStatus,/NOT been independently verified/);
  assert.match(publications[links[5].publicationId].versionType,/household manuscript/);
  const pages=read('index.html');

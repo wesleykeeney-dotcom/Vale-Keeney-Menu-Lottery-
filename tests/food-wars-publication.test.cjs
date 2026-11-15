@@ -14,7 +14,7 @@ function app(){
  const dom={recipeContent:element('div'),recipeTitle:element('h3'),recipeBack:element('button')};
  const ctx=vm.createContext({document:{getElementById:id=>dom[id]||null},
   localStorage:{getItem:()=>null,setItem:()=>{}},state:{schedule:[],target:5},
-  validId:id=>Number.isInteger(id)&&id>=0&&id<84,allIds:()=>[],
+  validId:id=>Number.isInteger(id)&&id>=0&&id<100,allIds:()=>[],
   node:element,name:id=>'Meal '+id,switchTab:()=>{},foodWarsMeta:id=>id===80?{note:'Original source includes mushrooms.',mushrooms:true}:null});
  for(const file of ['meals.js','recipe-links.js','recipe-publications.js','pantry.js','grocery.js','pantry-priority.js','recipe-viewer.js']){
   vm.runInContext(read(file),ctx,{filename:file});
@@ -25,7 +25,7 @@ function app(){
 }
 test('lottery #81–84 link only to the exact owner-approved source-verified Vault versions',()=>{
  const x=app();
- assert.equal(x.run('MEALS.length'),84);
+ assert.equal(x.run('MEALS.length'),100);
  assert.deepEqual([80,81,82,83].map(id=>x.run('approvedRecipeForLottery('+id+').recipeId')),
   ['VK-POP-FOODWARS-GOTCHAPORK-001','VK-POP-FOODWARS-FURIKAKE-001','VK-POP-FOODWARS-RAINBOWTERRINE-001','VK-POP-FOODWARS-BOEUF-001']);
  for(const id of [80,81,82,83]){
@@ -58,7 +58,7 @@ test('full ingredient lineups drive grocery templates; unknown amounts stay expl
   assert.ok(!shopping.some(row=>row[1]==='water'),'kitchen supply is not automatically purchased');
  }
  const templates=x.run('completeShoppingTemplates()');
- assert.equal(Object.keys(templates).length,17,'15 prior complete maps plus two owner-approved cookbook recipes');
+ assert.equal(Object.keys(templates).length,33,'15 prior complete maps plus two owner-approved cookbook recipes');
  for(const id of [80,81,82,83])assert.ok(templates[id]&&templates[id].length>0);
 });
 test('source summaries do not appear as cooking instructions',()=>{

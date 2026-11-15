@@ -22,11 +22,11 @@ function element(tag,cls,text){return {tag,cls,textContent:text,children:[],chec
  setAttribute(key,val){this[key]=val}
 };}
 
-test('v1.0 full, partial and unmapped catalog partitions retain 84 stable numbers',()=>{
- assert.equal(meals.length,84);
+test('v1.0 full and partial mappings retain the original 84 stable numbers within 100 choices',()=>{
+ assert.equal(meals.length,100);
  assert.equal(Object.keys(full).length,9);
  assert.deepEqual(Object.keys(partial).map(Number).sort((a,b)=>a-b),[11,17,49]);
- assert.equal(84-Object.keys(full).length-Object.keys(partial).length,72);
+ assert.equal(100-Object.keys(full).length-Object.keys(partial).length,88);
  assert.equal(meals[17],'Cowboy Casserole');
  assert.equal(meals[49],'Hamburger Potato Casserole');
  for(const key of Object.keys(partial))assert.equal(full[key],undefined,'partial record must never be counted as a complete mapping');
@@ -101,5 +101,5 @@ test('new mapping notes do not expose private Vault URLs, ingredient methods, or
  assert.match(grocery,/Original image verification remains pending/);
  assert.match(grocery,/no serving yield established/);
  const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
- assert.match(sw,/vk-lottery-v20/);
+ assert.match(sw,/vk-lottery-v21/);
 });

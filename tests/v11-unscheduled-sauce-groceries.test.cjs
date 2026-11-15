@@ -17,7 +17,7 @@ function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3]}={}){
  const state={schedule:[...schedule]};
  const ctx=vm.createContext({node,state,document:{getElementById:id=>dom[id]||null},
   localStorage:{getItem:key=>storage[key]??null,setItem:(key,val)=>{storage[key]=val}},
-  validId:id=>Number.isInteger(id)&&id>=0&&id<84,
+  validId:id=>Number.isInteger(id)&&id>=0&&id<100,
   allIds:()=>[...selected],name:id=>id===3?'Pepperoni Pizza Grilled Cheese':id===5?'Taco Casserole':'Meal '+id,
   foodWarsMeta:()=>null,switchTab:id=>opened.push(id)});
  for(const file of ['meals.js','recipe-links.js','recipe-publications.js','pantry.js','grocery.js','pantry-priority.js','recipe-viewer.js'])
@@ -80,9 +80,9 @@ test('when #4 is scheduled or in current lottery picks its selected sauce alread
 });
 test('no recipe preview can be opened for partial or invalid lottery IDs',()=>{
  const a=mockApp();
- for(const id of [-1,84,11,17,52])assert.equal(a.run('groceryShowRecipe('+id+')'),false);
+ for(const id of [-1,100,11,17,52])assert.equal(a.run('groceryShowRecipe('+id+')'),false);
  assert.equal(a.run('groceryPreviewRecipeId'),null);
- assert.match(read('sw.js'),/vk-lottery-v20/);
+ assert.match(read('sw.js'),/vk-lottery-v21/);
 });
 
 test('recipe preview checkmarks, Add, and Clear never alter saved weekly grocery state',()=>{

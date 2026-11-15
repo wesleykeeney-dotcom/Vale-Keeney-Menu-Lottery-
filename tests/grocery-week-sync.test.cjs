@@ -26,7 +26,7 @@ test('changing a scheduled dinner immediately refreshes grocery list', () => {
     state, node,
     $: name => name==='weekList' ? list : null,
     allIds: () => [7,15,19,40],
-    validId: value => Number.isInteger(value) && value >= 0 && value < 84,
+    validId: value => Number.isInteger(value) && value >= 0 && value < 100,
     name: value => 'Meal '+value,
     store: () => {saves++},
     groceryRender: () => seen.push([...state.schedule])
@@ -48,7 +48,7 @@ test('shopping list uses the weekly calendar instead of stale lottery picks', ()
   const context = {
     state: {schedule:[7,15,19,83,-1,-1,-1]},
     allIds: () => [2,40],
-    validId: value => Number.isInteger(value) && value >= 0 && value < 84
+    validId: value => Number.isInteger(value) && value >= 0 && value < 100
   };
   const ids = vm.runInNewContext(match[0] + '\ngroceryWeekIds();', context);
   assert.deepEqual(Array.from(ids), [7,15,19,83]);
@@ -66,11 +66,11 @@ test('grocery list refreshes when tab opens and discloses unmapped ingredient co
   assert.ok(!templates[82] && !templates[83], 'Food Wars ingredients are not invented');
 });
 
-test('offline v11 includes updated scripts and catalog stays at 84', () => {
+test('offline v11 includes updated scripts and catalog contains 100', () => {
   const sw = fs.readFileSync(path.join(root,'sw.js'),'utf8');
   const html = fs.readFileSync(path.join(root,'index.html'),'utf8');
-  assert.match(sw, /vk-lottery-v20/);
+  assert.match(sw, /vk-lottery-v21/);
   assert.match(sw, /\.\/grocery\.js/);
-  assert.match(html, /84 numbered dinner choices/);
+  assert.match(html, /100 numbered dinner choices/);
   assert.match(html, /src="food-wars\.js"/);
 });

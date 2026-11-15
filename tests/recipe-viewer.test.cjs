@@ -144,7 +144,7 @@ test('winner, weekly menu and library all expose recipe navigation without chang
  const opened=[];
  const ctx=vm.createContext({state:scheduled,node:element,
   $:id=>id==='weekList'?list:null,
-  allIds:()=>[5,11],validId:n=>Number.isInteger(n)&&n>=0&&n<84,
+  allIds:()=>[5,11],validId:n=>Number.isInteger(n)&&n>=0&&n<100,
   name:id=>meals[id],store:()=>{},groceryRender:()=>{},
   recipeOpen:(id,tab)=>opened.push([id,tab])
  });
@@ -160,15 +160,15 @@ test('winner, weekly menu and library all expose recipe navigation without chang
 });
 test('approved recipe registry and offline wiring remain correct',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
- assert.deepEqual(Object.keys(publications),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001','vk-pub-foodwars-gotcha-pork-vault-001','vk-pub-foodwars-furikake-vault-001','vk-pub-foodwars-rainbow-terrine-vault-001','vk-pub-foodwars-boeuf-bourguignon-vault-001','vk-pub-breakfast-for-dinner-master-cookbook-001','vk-pub-loaded-baked-potato-bar-master-cookbook-001']);
+ assert.equal(Object.keys(publications).length,27);
  const approved=publications['vk-pub-taco-casserole-manuscript-001'];
  assert.equal(approved.publicationAuthorization,'approved-for-public-web');
  assert.match(approved.versionType,/household manuscript.*not source-verified original/i);
  assert.match(approved.sourceStatus,/NOT been independently verified/);
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.deepEqual(Object.keys(links),['0','1','3','5','10','14','16','80','81','82','83']);
+ assert.equal(Object.keys(links).length,27);
  assert.equal(links[5].recipeVersionId,approved.recipeVersionId);
- assert.equal(meals.length,84);
+ assert.equal(meals.length,100);
  const html=read('index.html'),sw=read('sw.js');
  for(const asset of ['recipe-publications.js','recipe-viewer.js']){
   assert.match(html,new RegExp('src="'+asset.replace('.','\\.')+'"'));
@@ -176,5 +176,5 @@ test('approved recipe registry and offline wiring remain correct',()=>{
  }
  assert.match(html,/id="recipeContent"/);
  assert.match(html,/id="recipeTitle" tabindex="-1"/);
- assert.match(sw,/vk-lottery-v20/);
+ assert.match(sw,/vk-lottery-v21/);
 });

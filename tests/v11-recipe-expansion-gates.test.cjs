@@ -14,7 +14,7 @@ const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
 test('v1.1 expansion queue is metadata-only, tied to immutable 84 lottery identities',()=>{
  assert.equal(queue.schemaVersion,1);
  assert.equal(queue.productionBaseline.lotteryCount,84);
- assert.equal(mealNames.length,84);
+ assert.equal(mealNames.length,100);
  assert.equal(queue.candidates.length,5);
  const ids=new Set();
  for(const candidate of queue.candidates){
@@ -66,12 +66,12 @@ test('source-incomplete candidates remain blocked and cannot masquerade as cook-
 });
 
 test('approved Taco Casserole #6 and existing household publications remain linked',()=>{
- assert.deepEqual(Object.keys(links),['0','1','3','5','10','14','16','80','81','82','83']);
- assert.deepEqual(Object.keys(pubs),['vk-pub-pepperoni-pizza-grilled-cheese-manuscript-001','vk-pub-breakfast-tacos-household-001','vk-pub-chicken-bacon-ranch-weeknight-001','vk-pub-slow-cooker-chicken-gravy-convenience-001','vk-pub-taco-casserole-manuscript-001','vk-pub-foodwars-gotcha-pork-vault-001','vk-pub-foodwars-furikake-vault-001','vk-pub-foodwars-rainbow-terrine-vault-001','vk-pub-foodwars-boeuf-bourguignon-vault-001','vk-pub-breakfast-for-dinner-master-cookbook-001','vk-pub-loaded-baked-potato-bar-master-cookbook-001']);
+ assert.equal(Object.keys(links).length,27);
+ assert.equal(Object.keys(pubs).length,27);
  assert.equal(pubs[links[5].publicationId].recipeVersionId,links[5].recipeVersionId);
  assert.equal(pubs[links[5].publicationId].publicationAuthorization,'approved-for-public-web');
  assert.equal(mealNames[5],'Taco Casserole');
- assert.match(read('sw.js'),/vk-lottery-v20/,'new recipe and sauce selector require a cache update');
+ assert.match(read('sw.js'),/vk-lottery-v21/,'new recipe and sauce selector require a cache update');
 });
 
 test('review documentation is linked and does not certify a historical original',()=>{

@@ -17,7 +17,7 @@ const notes=vm.runInNewContext('('+noteMatch[1]+')',{});
 function asMap(zeroBasedId){return new Map((mapping[zeroBasedId]||[]).map(([,name,amount])=>[name,amount]));}
 
 test('lottery numbers #4 and #53 map to the correct archived recipe identity',()=>{
-  assert.equal(meals.length,84);
+  assert.equal(meals.length,100);
   assert.equal(meals[3],'Pepperoni Pizza Grilled Cheese');
   assert.equal(meals[52],'Sausage & Potato Foil Packets');
   assert.deepEqual(Object.keys(mapping).map(Number).sort((a,b)=>a-b),[0,2,3,5,7,15,19,40,52]);
@@ -80,7 +80,7 @@ test('quantity notes are displayed for selected meals without altering required 
   vm.runInContext(priority,context);
   context.mapping=mapping;
   context.pantry=['Pizza sauce'];
-  context.count=84;
+  context.count=100;
   const ranks=Array.from(vm.runInContext('pantryMealRankings(mapping,pantry,count)',context));
   const pizza=ranks.find(x=>x.id===3);
   assert.equal(pizza.total,6);
