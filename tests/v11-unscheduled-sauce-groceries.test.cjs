@@ -6,25 +6,43 @@ const path=require('node:path');
 const vm=require('node:vm');
 const root=path.join(__dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
-function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3]}={}){
- const storage={},opened=[];
- const node=(tag,cls,text)=>({tag,cls,textContent:text??'',value:'',children:[],
+function mockApp({schedule=[5,-1,-1,-1,-1,-1,-1],selected=[3],initialStorage={},bootApp=false}={}){
+ const storage={...initialStorage},opened=[];
+ const node=(tag,cls,text)=>{
+  const el={tag,cls,className:cls||'',textContent:text??'',value:'',children:[],
    append(...args){this.children.push(...args)},replaceChildren(...args){this.children=[...args]},
-   setAttribute(key,val){this[key]=val},focus(){}});
+   setAttribute(key,val){this[key]=val},focus(){}};
+  Object.defineProperty(el,'className',{get(){return this.cls||''},set(value){this.cls=value}});
+  return el;
+ };
  const dom={recipeTitle:node('h3'),recipeContent:node('div'),recipeBack:node('button'),
-   groceryContent:node('div'),groceryAdd:node('button'),groceryExtra:node('input'),groceryClear:node('button'),
-   pantryContent:node('div'),pantrySuggestions:node('div')};
- const state={schedule:[...schedule]};
- const ctx=vm.createContext({node,state,document:{getElementById:id=>dom[id]||null},
+  groceryContent:node('div'),groceryAdd:node('button'),groceryExtra:node('input'),groceryClear:node('button'),
+  pantryContent:node('div'),pantrySuggestions:node('div')};
+ const ctx=vm.createContext({
+  ...(bootApp?{}:{state:{schedule:[...schedule]}}),node,
+  document:{
+   getElementById:id=>dom[id]||(dom[id]=node('div')),
+   createElement:tag=>node(tag),
+   querySelectorAll:()=>[]
+  },
   localStorage:{getItem:key=>storage[key]??null,setItem:(key,val)=>{storage[key]=val}},
   validId:id=>Number.isInteger(id)&&id>=0&&id<84,
-  allIds:()=>[...selected],name:id=>id===3?'Pepperoni Pizza Grilled Cheese':id===5?'Taco Casserole':'Meal '+id,
-  foodWarsMeta:()=>null,switchTab:id=>opened.push(id)});
- for(const file of ['meals.js','recipe-links.js','recipe-publications.js','pantry.js','grocery.js','pantry-priority.js','recipe-viewer.js'])
-  vm.runInContext(read(file),ctx,{filename:file});
+  allIds:()=>[...selected],
+  name:id=>id===3?'Pepperoni Pizza Grilled Cheese':id===5?'Taco Casserole':'Meal '+id,
+  foodWarsMeta:()=>null,switchTab:id=>opened.push(id),
+  window:{scrollTo(){}},navigator:{},location:{protocol:'file:'}
+ });
  const run=expression=>vm.runInContext(expression,ctx);
+ if(bootApp){
+  for(const file of ['meals.js','food-wars.js','app.js'])vm.runInContext(read(file),ctx,{filename:file});
+ }else{
+  vm.runInContext(read('meals.js'),ctx,{filename:'meals.js'});
+ }
+ for(const file of ['recipe-links.js','recipe-publications.js','pantry.js','grocery.js','pantry-priority.js','recipe-viewer.js'])
+  vm.runInContext(read(file),ctx,{filename:file});
+
  const textFor=element=>[element.textContent||'',...element.children.flatMap(textFor)].join('\n');
- return {ctx,storage,opened,dom,state,run,textFor,
+ return {ctx,storage,opened,dom,state:bootApp?null:ctx.state,run,textFor,
   recipe:()=>{run('recipeViewRender(3)');return textFor(dom.recipeContent)},
   groceries:()=>{run('groceryRender()');return textFor(dom.groceryContent)}};
 }
@@ -118,4 +136,156 @@ test('recipe preview checkmarks, Add, and Clear never alter saved weekly grocery
  assert.equal(rotel.children[0].checked,true,'original saved weekly checkbox remains selected');
  assert.equal(a.storage['vk-grocery-v03'],weeklyStateBefore);
  assert.equal(a.run('groceryPreviewChecked.size'),0,'return clears temporary checkmarks');
+});
+
+
+test('selected sauce is pantry-filtered in weekly groceries and recipe preview',()=>{
+ const savedPantry=JSON.stringify({items:['marinara sauce']});
+ const savedGroceries=JSON.stringify({checked:['rotel'],extras:[{name:'Weekly manual extra'}],pantry:[]});
+ const a=mockApp({
+  schedule:[3,-1,-1,-1,-1,-1,-1],
+  selected:[],
+  initialStorage:{'vk-pantry-v04':savedPantry,'vk-grocery-v03':savedGroceries}
+ });
+ a.recipe();
+ const selector=a.dom.recipeContent.children.find(x=>x.cls==='recipe-option').children.find(x=>x.tag==='select');
+ selector.value='Marinara sauce';
+ selector.onchange();
+
+ const assertPantryFiltered=()=>{
+  const children=a.dom.groceryContent.children;
+  const pantryIndex=children.findIndex(x=>x.textContent==='Already have — pantry');
+  assert.notEqual(pantryIndex,-1,'selected sauce should appear in the pantry section');
+  assert.match(a.textFor(children[pantryIndex+1]),/Marinara sauce — 2 Tbsp/);
+  const shoppingRows=children.filter(x=>x.cls==='grocery-item').map(x=>a.textFor(x)).join('\n');
+  assert.doesNotMatch(shoppingRows,/Marinara sauce/,'pantry sauce must not appear among items to buy');
+ };
+ a.groceries();
+ assertPantryFiltered();
+
+ const shop=a.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent));
+ assert.ok(shop);
+ shop.onclick();
+ assertPantryFiltered();
+ assert.deepEqual(a.state.schedule,[3,-1,-1,-1,-1,-1,-1]);
+ assert.equal(a.storage['vk-pantry-v04'],savedPantry);
+ assert.equal(a.storage['vk-grocery-v03'],savedGroceries);
+});
+
+test('existing pantry and weekly grocery records survive current app initialization and recipe preview',()=>{
+ const savedPantry='{"items":["marinara sauce","bread"]}';
+ const savedGroceries='{"checked":["rotel"],"extras":[{"name":"Weekly manual extra"}],"pantry":[]}';
+ const a=mockApp({
+  schedule:[5,-1,-1,-1,-1,-1,-1],
+  selected:[3],
+  initialStorage:{'vk-pantry-v04':savedPantry,'vk-grocery-v03':savedGroceries}
+ });
+ assert.deepEqual(JSON.parse(a.storage['vk-pantry-v04']),{items:['marinara sauce','bread']});
+ assert.equal(a.storage['vk-grocery-v03'],savedGroceries);
+
+ a.recipe();
+ const shop=a.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent));
+ assert.ok(shop);
+ shop.onclick();
+ a.run('groceryRender()');
+ a.run('pantryRender()');
+ a.run('groceryReturnToWeekly()');
+
+ assert.equal(a.storage['vk-pantry-v04'],savedPantry,'opening recipe shopping must not rewrite saved pantry data');
+ assert.equal(a.storage['vk-grocery-v03'],savedGroceries,'preview and return must not rewrite saved weekly grocery data');
+ assert.deepEqual(a.state.schedule,[5,-1,-1,-1,-1,-1,-1]);
+ assert.match(read('sw.js'),/vk-lottery-v17/);
+});
+
+test('real app startup restores and preserves saved menu, pantry, and weekly groceries through recipe preview',()=>{
+ const savedMenu='{"target":5,"budget":125,"selected":[3],"locked":[],"revealed":false,"weekDate":"2026-10-26","schedule":[5,-1,-1,-1,-1,-1,-1],"savedAt":"2026-10-23T12:00:00.000Z"}';
+ const savedPantry='{"items":["marinara sauce","bread"]}';
+ const savedGroceries='{"checked":["rotel"],"extras":[{"name":"Weekly manual extra"}],"pantry":[]}';
+ const a=mockApp({
+  bootApp:true,
+  initialStorage:{
+   'vk-dinner-lottery-v1':savedMenu,
+   'vk-pantry-v04':savedPantry,
+   'vk-grocery-v03':savedGroceries
+  }
+ });
+ assert.deepEqual(Array.from(a.run('state.schedule')),[5,-1,-1,-1,-1,-1,-1]);
+ assert.deepEqual(Array.from(a.run('allIds()')),[3]);
+ assert.deepEqual(Array.from(a.run('groceryWeekIds()')),[5]);
+
+ a.recipe();
+ const selector=a.dom.recipeContent.children.find(x=>x.cls==='recipe-option').children.find(x=>x.tag==='select');
+ assert.equal(selector.value,'Pizza sauce');
+ selector.value='Marinara sauce';
+ selector.onchange();
+ assert.ok(a.textFor(a.dom.recipeContent).includes('Marinara sauce — 2 Tbsp'));
+ assert.ok(!a.textFor(a.dom.recipeContent).includes('Pizza sauce — 2 Tbsp'));
+ assert.ok(!a.groceries().includes('Marinara sauce — 2 Tbsp'),'unscheduled sauce must stay out of weekly groceries');
+
+ const shop=a.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent));
+ assert.ok(shop);
+ shop.onclick();
+ assert.equal(a.run('groceryPreviewRecipeId'),3);
+ const showWeekly=a.dom.groceryContent.children.find(x=>x.tag==='button'&&/Show weekly groceries/.test(x.textContent));
+ assert.ok(showWeekly);
+ showWeekly.onclick();
+
+ assert.deepEqual(Array.from(a.run('state.schedule')),[5,-1,-1,-1,-1,-1,-1]);
+ assert.equal(a.storage['vk-dinner-lottery-v1'],savedMenu,'app startup and preview must not rewrite the saved weekly menu');
+ assert.equal(a.storage['vk-pantry-v04'],savedPantry,'app startup and preview must not rewrite saved pantry data');
+ assert.equal(a.storage['vk-grocery-v03'],savedGroceries,'preview and return must not rewrite saved weekly grocery data');
+ assert.ok(a.textFor(a.dom.groceryContent).includes('Rotel — 1 (14.5 oz) can'));
+ assert.match(a.textFor(a.dom.groceryContent),/Weekly manual extra/);
+
+ const restarted=mockApp({bootApp:true,initialStorage:a.storage});
+ restarted.recipe();
+ const restoredSelector=restarted.dom.recipeContent.children.find(x=>x.cls==='recipe-option').children.find(x=>x.tag==='select');
+ assert.equal(restoredSelector.value,'Marinara sauce','real app restart must restore the saved recipe variant');
+ assert.ok(restarted.textFor(restarted.dom.recipeContent).includes('Marinara sauce — 2 Tbsp'));
+ assert.ok(!restarted.textFor(restarted.dom.recipeContent).includes('Pizza sauce — 2 Tbsp'));
+ assert.ok(!restarted.groceries().includes('Marinara sauce — 2 Tbsp'),'restored unscheduled sauce must stay out of weekly groceries');
+ const shopAgain=restarted.dom.recipeContent.children.find(x=>x.tag==='button'&&/Shop this recipe/.test(x.textContent));
+ assert.ok(shopAgain);
+ shopAgain.onclick();
+ assert.ok(restarted.textFor(restarted.dom.groceryContent).includes('Marinara sauce — 2 Tbsp'));
+ assert.deepEqual(Array.from(restarted.run('state.schedule')),[5,-1,-1,-1,-1,-1,-1]);
+ assert.equal(restarted.storage['vk-dinner-lottery-v1'],savedMenu);
+ assert.equal(restarted.storage['vk-pantry-v04'],savedPantry);
+ assert.equal(restarted.storage['vk-grocery-v03'],savedGroceries);
+});
+
+
+test('weekly groceries combine scheduled published recipes with selected sauce and pantry while ignoring stale lottery picks',()=>{
+ const savedMenu=JSON.stringify({
+  target:5,budget:125,selected:[15],locked:[],revealed:false,
+  weekDate:'2026-10-26',schedule:[3,5,-1,-1,-1,-1,-1],savedAt:'2026-10-23T12:00:00.000Z'
+ });
+ const savedPantry=JSON.stringify({items:['marinara sauce']});
+ const a=mockApp({bootApp:true,initialStorage:{
+  'vk-dinner-lottery-v1':savedMenu,
+  'vk-pantry-v04':savedPantry
+ }});
+ assert.deepEqual(Array.from(a.run('allIds()')),[15],'fixture retains a stale lottery pick');
+ assert.deepEqual(Array.from(a.run('groceryWeekIds()')),[3,5],'weekly groceries follow the two scheduled meals');
+
+ a.recipe();
+ const selector=a.dom.recipeContent.children.find(x=>x.cls==='recipe-option').children.find(x=>x.tag==='select');
+ assert.ok(selector);
+ selector.value='Marinara sauce';
+ selector.onchange();
+
+ const weekly=a.groceries();
+ assert.match(weekly,/Bread — 4 slices/,'scheduled Pepperoni Pizza Grilled Cheese remains included');
+ assert.match(weekly,/Rotel — 1 \(14\.5 oz\) can/,'scheduled Taco Casserole remains included');
+ assert.match(weekly,/Ground beef — 2 lb/,'the second scheduled recipe contributes its ingredients');
+ assert.match(weekly,/Already have — pantry/);
+ assert.match(weekly,/Marinara sauce — 2 Tbsp/,'selected sauce quantity remains visible as on-hand');
+ assert.doesNotMatch(weekly,/Pizza sauce — 2 Tbsp/,'unselected alternative must not leak into the list');
+ assert.doesNotMatch(weekly,/Mini pizza crust|Mini Pizza Night/,'stale lottery pick must not enter weekly groceries');
+ const pantryHeading=a.dom.groceryContent.children.findIndex(x=>x.textContent==='Already have — pantry');
+ assert.notEqual(pantryHeading,-1);
+ assert.match(a.textFor(a.dom.groceryContent.children[pantryHeading+1]),/Marinara sauce — 2 Tbsp/);
+ const buyRows=a.dom.groceryContent.children.filter(x=>x.cls==='grocery-item').map(x=>a.textFor(x)).join('\n');
+ assert.doesNotMatch(buyRows,/Marinara sauce/,'pantry item is not listed as a purchase');
+ assert.deepEqual(Array.from(a.run('state.schedule')),[3,5,-1,-1,-1,-1,-1]);
 });
