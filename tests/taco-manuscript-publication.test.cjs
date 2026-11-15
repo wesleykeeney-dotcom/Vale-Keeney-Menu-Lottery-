@@ -58,8 +58,8 @@ test('publicly approved Taco Casserole is a distinct household manuscript linked
  assert.ok(app.get('approvedRecipeForLottery(83)'),'owner-approved Rainbow Terrine ingredients are linked');
  assert.equal(app.get('MEALS.length'),84);
  assert.equal(app.get('MEALS[5]'),'Taco Casserole');
- assert.equal(Object.keys(app.get('RECIPE_PUBLICATIONS')).length,9);
- assert.equal(Object.keys(app.get('RECIPE_LINKS')).length,9);
+ assert.equal(Object.keys(app.get('RECIPE_PUBLICATIONS')).length,11);
+ assert.equal(Object.keys(app.get('RECIPE_LINKS')).length,11);
 });
 
 test('manuscript amounts and recipe preparation annotations are preserved line for line',()=>{
