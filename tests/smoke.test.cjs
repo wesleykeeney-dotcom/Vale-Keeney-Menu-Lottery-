@@ -8,13 +8,13 @@ const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'meals.js'), 'utf8');
 const meals = vm.runInNewContext(source + '\nMEALS;', {});
 
-test('lottery contains 84 numbered options preserving original 80', () => {
-  assert.equal(meals.length, 84);
+test('lottery contains 100 numbered options preserving original 80', () => {
+  assert.equal(meals.length, 100);
   assert.ok(meals.every(meal => typeof meal === 'string' && meal.trim().length > 0));
 });
 
 test('all meal names are unique', () => {
-  assert.equal(new Set(meals.map(meal => meal.trim().toLowerCase())).size, 84);
+  assert.equal(new Set(meals.map(meal => meal.trim().toLowerCase())).size, 100);
 });
 
 test('historical lottery numbers remain stable', () => {
