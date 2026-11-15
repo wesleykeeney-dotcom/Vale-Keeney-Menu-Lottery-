@@ -58,7 +58,7 @@ test('full ingredient lineups drive grocery templates; unknown amounts stay expl
   assert.ok(!shopping.some(row=>row[1]==='water'),'kitchen supply is not automatically purchased');
  }
  const templates=x.run('completeShoppingTemplates()');
- assert.equal(Object.keys(templates).length,17,'15 prior complete maps plus two owner-approved cookbook recipes');
+ assert.equal(Object.keys(templates).length,33,'15 prior complete maps plus two owner-approved cookbook recipes');
  for(const id of [80,81,82,83])assert.ok(templates[id]&&templates[id].length>0);
 });
 test('source summaries do not appear as cooking instructions',()=>{
