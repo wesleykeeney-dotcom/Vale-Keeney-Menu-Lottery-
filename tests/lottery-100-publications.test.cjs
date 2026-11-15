@@ -8,7 +8,7 @@ const root=path.join(__dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 
 function catalog(){
- const ctx=vm.createContext({});
+ const ctx=vm.createContext({document:{getElementById:()=>null}});
  for(const file of ['meals.js','recipe-links.js','recipe-publications.js','grocery.js']){
   vm.runInContext(read(file),ctx,{filename:file});
  }
