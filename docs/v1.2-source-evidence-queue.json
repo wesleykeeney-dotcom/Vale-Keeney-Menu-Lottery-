@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "scope": "review_only_metadata_not_recipe_publication",
+  "productionBaseline": {
+    "version": "v1.1.1",
+    "approvedMergeCommit": "8f6023cec152cf77b3fec10fee171200bb8a2ffc",
+    "lotteryCount": 84,
+    "approvedHouseholdPublicationLotteryIds": [
+      3,
+      5
+    ],
+    "androidAcceptance": "pending"
+  },
+  "canonicalAuthority": "private Vale-Keeney Cooking Vault",
+  "sourceImages": [
+    {
+      "evidenceId": "vault-191-original-image",
+      "filename": "FB_IMG_1790376440139.jpg",
+      "sha256": "a4fd5048f4d596984c2c1fe08abf76ae7b72ee94a9f3aefe90dc51b480184d41",
+      "title": "Sausage & Potato Foil Packets",
+      "evidenceStatus": "original_image_directly_inspected_fingerprint_confirmed",
+      "visibleCoverage": "six_historical_recipe_ingredient_lists_yield_and_cook_time_captions_no_method_steps",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false,
+      "directImageComparisonDate": "2026-10-20",
+      "sourceImageSource": "connected_private_drive",
+      "sourceMethodTextPresent": false
+    },
+    {
+      "evidenceId": "archived-beef-tips-crockpot",
+      "filename": "Screenshot_20241016_160842_Facebook.jpg",
+      "sha256": "31cf4a018e70a8bc83a1227ebfc9221bd66ca425025978889a44813ff2bd161e",
+      "title": "Crockpot beef tips & noodles",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_short_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    },
+    {
+      "evidenceId": "archived-breakfast-sliders",
+      "filename": "Screenshot_20241017_215801_Facebook.jpg",
+      "sha256": "2aafc95c45c3e322c7caf15b2d2731c5d8c04e90ba596acae36e894c553a4413",
+      "title": "Sausage Egg and Cheese Breakfast Sliders",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    },
+    {
+      "evidenceId": "archived-bbq-cheeseburger-casserole",
+      "filename": "Screenshot_20241030_191859_Facebook.jpg",
+      "sha256": "bff76b923f031e05cf2eb7667a71782567c9deb0f752a02854d0d1de8884d655",
+      "title": "BBQ Bacon Cheeseburger Casserole",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    },
+    {
+      "evidenceId": "archived-chicken-meatloaf",
+      "filename": "Screenshot_20241016_214121_Facebook.jpg",
+      "sha256": "73a8fd9c86f38269283ad30032408cc23dc8cf98f9e2d6b11d48c5825e2e943c",
+      "title": "Garlic Parmesan Chicken Meatloaf",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    },
+    {
+      "evidenceId": "archived-cajun-chicken-alfredo",
+      "filename": "Screenshot_20241021_221935_Facebook.jpg",
+      "sha256": "40777c727470dd2218f78c4c65613e0ffccdd581706db9ac32b6909a23027aea",
+      "title": "Slow Cooker Cajun Chicken Alfredo",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_short_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    },
+    {
+      "evidenceId": "archived-potato-casserole",
+      "filename": "Screenshot_20200403-093945_Chrome.jpg",
+      "sha256": "cba6639ba3e46a627aa0ddc95733e3d82193ffbb5d2235e66e9b4a1c8c318efe",
+      "title": "Loaded Baked Potato Casserole",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    },
+    {
+      "evidenceId": "archived-instantpot-noodle-soup",
+      "filename": "Screenshot_20200326-142224_Chrome.jpg",
+      "sha256": "923e3e20c46f2ee17a787d212d4e84f30cd438db21ecf5e6f702fee4c51331b8",
+      "title": "Instant Pot Chicken Noodle Soup",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    },
+    {
+      "evidenceId": "archived-mexican-chicken-cheese-sauce",
+      "filename": "Screenshot_20241021_222818_Facebook.jpg",
+      "sha256": "c995458f816c05798d28fda42ff1b79baaaea03be1fd2f6d3631ed6658e6a01b",
+      "title": "Mexican Chicken with Cheese Sauce",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    },
+    {
+      "evidenceId": "archived-pizza-skulls",
+      "filename": "Screenshot_20241016_223203_Facebook.jpg",
+      "sha256": "c32df9e5734b300e17d9555dd3505603825b4e03e54f1e5e22ee376cced2de35",
+      "title": "Halloween Pizza Skulls",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    },
+    {
+      "evidenceId": "archived-pork-chops-scalloped-potatoes",
+      "filename": "Screenshot_20241223_090634_Facebook.jpg",
+      "sha256": "3679a9054bab804fdbeae9a29b96829a0aeb4f91451991366f234678ae6bf12a",
+      "title": "Garlic Parmesan Pork Chops with Scalloped Potatoes",
+      "evidenceStatus": "user_supplied_original_image_examined",
+      "visibleCoverage": "ingredients_and_method",
+      "sourceBytesIncluded": false,
+      "originalToVaultComparisonApproved": false
+    }
+  ],
+  "candidates": [
+    {
+      "lotteryId": 52,
+      "displayNumber": 53,
+      "lotteryTitle": "Sausage & Potato Foil Packets",
+      "canonicalRecipeId": "VK-DIN-SAUSAGEPOTATO-FOILPACKETS-001",
+      "historicalCatalogNumber": 191,
+      "evidenceId": "vault-191-original-image",
+      "relationship": "same_historical_recipe_ingredient_discrepancy_under_review",
+      "sourceIngredientLines": 9,
+      "vaultIngredientLines": 10,
+      "quantityDiscrepancy": "Vault includes 1 tsp paprika absent from the archived graphic",
+      "reportedSourceYield": "Serves 6",
+      "reportedSourceHeadline": "35 minutes",
+      "fullOriginalMethodAvailable": false,
+      "canonicalYieldUpdated": false,
+      "householdShoppingOnly": true,
+      "cookReady": false,
+      "sourceVerificationApproved": false,
+      "publicPublicationApproved": false,
+      "nextGate": "Review exact original source and paprika conflict; recover method or obtain separate household-version approval",
+      "originalImageInspectedDirectly": true,
+      "ingredientImageMatchesVaultExcludingPaprika": true,
+      "preferredAction": "review_original_discrepancy_without_changing_canonical_record_or_household_shopping_estimate"
+    },
+    {
+      "lotteryId": 40,
+      "displayNumber": 41,
+      "lotteryTitle": "Beef Tips & Noodles",
+      "canonicalRecipeId": null,
+      "historicalCatalogNumber": null,
+      "evidenceId": "archived-beef-tips-crockpot",
+      "relationship": "distinct_mushroom_containing_crockpot_original_not_equivalent_to_household_planning_template",
+      "sourceIngredientLines": null,
+      "vaultIngredientLines": null,
+      "quantityDiscrepancy": "Screenshot uses 1 lb stew meat; 2 lb is described as a proposed next-time change, not original measurement. Egg-noodle amount unmeasured.",
+      "reportedSourceYield": null,
+      "reportedSourceHeadline": "LOW for 8 hours (specific crockpot version)",
+      "fullOriginalMethodAvailable": false,
+      "canonicalYieldUpdated": false,
+      "householdShoppingOnly": true,
+      "cookReady": false,
+      "sourceVerificationApproved": false,
+      "publicPublicationApproved": false,
+      "nextGate": "Match screenshot against its exact private Vault record and request any separate mushroom-free household formulation; do not replace planning template or publish its method"
+    }
+  ],
+  "nearTitleDoNotAutoLink": [
+    {
+      "evidenceId": "archived-breakfast-sliders",
+      "similarLotteryId": 76,
+      "similarDisplayNumber": 77,
+      "lotteryTitle": "Sausage Egg & Cheese Biscuits",
+      "disposition": "NOT_LINKED_title_or_ingredient_similarity_only",
+      "ownerApprovalToLink": false
+    },
+    {
+      "evidenceId": "archived-bbq-cheeseburger-casserole",
+      "similarLotteryId": 51,
+      "similarDisplayNumber": 52,
+      "lotteryTitle": "Bacon Cheeseburger Pasta",
+      "disposition": "NOT_LINKED_title_or_ingredient_similarity_only",
+      "ownerApprovalToLink": false
+    },
+    {
+      "evidenceId": "archived-chicken-meatloaf",
+      "similarLotteryId": 67,
+      "similarDisplayNumber": 68,
+      "lotteryTitle": "Garlic Parmesan Chicken Thighs",
+      "disposition": "NOT_LINKED_title_or_ingredient_similarity_only",
+      "ownerApprovalToLink": false
+    },
+    {
+      "evidenceId": "archived-cajun-chicken-alfredo",
+      "similarLotteryId": 22,
+      "similarDisplayNumber": 23,
+      "lotteryTitle": "Chicken Alfredo",
+      "disposition": "NOT_LINKED_title_or_ingredient_similarity_only",
+      "ownerApprovalToLink": false
+    },
+    {
+      "evidenceId": "archived-potato-casserole",
+      "similarLotteryId": 14,
+      "similarDisplayNumber": 15,
+      "lotteryTitle": "Loaded Baked Potato Bar",
+      "disposition": "NOT_LINKED_title_or_ingredient_similarity_only",
+      "ownerApprovalToLink": false
+    },
+    {
+      "evidenceId": "archived-instantpot-noodle-soup",
+      "similarLotteryId": 73,
+      "similarDisplayNumber": 74,
+      "lotteryTitle": "Creamy Chicken Noodle Soup",
+      "disposition": "NOT_LINKED_title_or_ingredient_similarity_only",
+      "ownerApprovalToLink": false
+    },
+    {
+      "evidenceId": "archived-pizza-skulls",
+      "similarLotteryId": 15,
+      "similarDisplayNumber": 16,
+      "lotteryTitle": "Mini Pizza Night",
+      "disposition": "NOT_LINKED_title_or_ingredient_similarity_only",
+      "ownerApprovalToLink": false
+    }
+  ],
+  "policy": {
+    "originalSourceBytesPublished": false,
+    "privateVaultDataCopied": false,
+    "recipeMethodsPublished": false,
+    "ingredientBodiesPublished": false,
+    "sourceLocksChanged": false,
+    "recipePublicationsCreated": false,
+    "lotteryIdsChanged": false,
+    "approvalRequiredForSourceCorrections": true,
+    "approvalRequiredForHouseholdAdaptations": true,
+    "approvalRequiredForMerge": true
+  },
+  "historicalSourceComparisonBatch": {
+    "batchId": "phase-v1.2-original-image-191-195-with-190",
+    "originalImageEvidenceId": "vault-191-original-image",
+    "inspectionDate": "2026-10-20",
+    "imageSha256": "a4fd5048f4d596984c2c1fe08abf76ae7b72ee94a9f3aefe90dc51b480184d41",
+    "directSourceImageCompared": true,
+    "counts": {
+      "historicalRecipes": 6,
+      "sourceIngredientRows": 53,
+      "vaultIngredientRows": 44,
+      "matchedIngredientRows": 43,
+      "sourceRowsMissingFromVault": 10,
+      "vaultRowsNotInSource": 1
+    },
+    "originalMethodStepsVisible": false,
+    "originalAttributionDisplay": "@easystepsrecipes (visible in image, author identity not independently confirmed)",
+    "canonicalRecordEdits": 0,
+    "publicationApprovals": 0,
+    "comparisons": [
+      {
+        "historicalNumber": 190,
+        "canonicalRecipeId": "VK-DIN-SALISBURY-MUSHROOMGRAVY-001",
+        "sourceIngredientRows": 10,
+        "vaultIngredientRows": 0,
+        "matchedRows": 0,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "30 minutes",
+        "discrepancyCode": "CANONICAL_INGREDIENT_BODY_EMPTY",
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Prepare separate approval-gated restoration of ten source ingredients; obtain exact original method"
+      },
+      {
+        "historicalNumber": 191,
+        "canonicalRecipeId": "VK-DIN-SAUSAGEPOTATO-FOILPACKETS-001",
+        "sourceIngredientRows": 9,
+        "vaultIngredientRows": 10,
+        "matchedRows": 9,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "35 minutes",
+        "discrepancyCode": "VAULT_EXTRA_PAPRIKA_1_TSP",
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Decide paprika-original vs separately labeled household addition; obtain complete original method"
+      },
+      {
+        "historicalNumber": 192,
+        "canonicalRecipeId": "VK-DIN-CHICKENBACONRANCH-PASTABAKE-001",
+        "sourceIngredientRows": 9,
+        "vaultIngredientRows": 9,
+        "matchedRows": 9,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "30 minutes",
+        "discrepancyCode": null,
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Review addition of source-documented yield; locate original full directions"
+      },
+      {
+        "historicalNumber": 193,
+        "canonicalRecipeId": "VK-DIN-FRIEDPORK-BACONGRAVY-001",
+        "sourceIngredientRows": 8,
+        "vaultIngredientRows": 8,
+        "matchedRows": 8,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "25 minutes",
+        "discrepancyCode": null,
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Review source yield; recover methods; keep distinct from Country Fried Pork original"
+      },
+      {
+        "historicalNumber": 194,
+        "canonicalRecipeId": "VK-DIN-GARLICBUTTER-STEAKPOTATOES-001",
+        "sourceIngredientRows": 7,
+        "vaultIngredientRows": 7,
+        "matchedRows": 7,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "30 minutes",
+        "discrepancyCode": null,
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Review source yield; obtain exact original directions"
+      },
+      {
+        "historicalNumber": 195,
+        "canonicalRecipeId": "VK-DIN-SLOWCOOKER-BEEFSTEW-001",
+        "sourceIngredientRows": 10,
+        "vaultIngredientRows": 10,
+        "matchedRows": 10,
+        "sourceYield": "Serves 6",
+        "sourceCookTimeCaption": "8 hours",
+        "discrepancyCode": null,
+        "sourceMethodVisible": false,
+        "canonicalYieldUpdated": false,
+        "nextGate": "Review source yield; do not infer slow-cooker LOW setting from caption"
+      }
+    ]
+  }
+}
