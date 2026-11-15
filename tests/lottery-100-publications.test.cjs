@@ -45,7 +45,7 @@ test('each new lottery slot binds one approved recipe version and grocery rows m
   assert.ok(Array.isArray(record.ingredients)&&record.ingredients.length>0);
   assert.ok(Array.isArray(record.steps)&&record.steps.length>0);
   assert.ok(record.ingredients.every(i=>typeof i.name==='string'&&i.name&&typeof i.amount==='string'&&i.amount));
-  const expected=record.ingredients.filter(i=>!i.optional&&!i.supplyOnly).map(i=>[i.department,i.name,i.amount]);
+  const expected=Array.from(record.ingredients).filter(i=>!i.optional&&!i.supplyOnly).map(i=>[i.department,i.name,i.amount]);
   const actual=Array.from(vm.runInContext('publishedShoppingRowsForLottery('+id+')',ctx),r=>Array.from(r));
   assert.deepEqual(actual,expected,'grocery rows match recipe card at lottery #'+(id+1));
  }
