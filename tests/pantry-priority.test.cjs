@@ -38,7 +38,7 @@ test('ranking is stable and ignores duplicate ingredient names and malformed inp
   vm.runInContext(priority, context);
   context.custom = {0:[['Dairy','Eggs','1 dozen'],['Dairy','eggs','6 more']], 1:[['Meat','Beef','1 lb']], 80:[],'bad':[['Other','Ghost','1']]};
   context.pantry = [' EGGS ', 'eggs', 123, null];
-  const ranked = Array.from(vm.runInContext('pantryMealRankings(custom,pantry,84)', context));
+  const ranked = Array.from(vm.runInContext('pantryMealRankings(custom,pantry,100)', context));
   assert.deepEqual(ranked.map(x=>x.id),[0,1]);
   assert.equal(ranked[0].total,1);
   assert.equal(ranked[0].have.length,1);
@@ -105,10 +105,10 @@ test('pantry-first feature loads after templates and remains wired into refreshe
   assert.ok(html.indexOf('src="pantry.js"')<html.indexOf('src="grocery.js"'));
   assert.ok(html.indexOf('src="grocery.js"')<html.indexOf('src="pantry-priority.js"'));
   assert.match(html,/id="pantrySuggestions"/);
-  assert.match(sw,/vk-lottery-v20/);
+  assert.match(sw,/vk-lottery-v21/);
   assert.match(sw,/\.\/pantry-priority\.js/);
   assert.match(app,/typeof pantryPriorityRender==='function'\)pantryPriorityRender\(\)/);
   assert.match(pantry,/typeof pantryPriorityRender==='function'\)pantryPriorityRender\(\)/);
-  assert.equal(meals.length,84,'immutable catalog remains at 84');
+  assert.equal(meals.length,100,'catalog contains 100 choices; original 84 IDs remain stable');
   assert.ok(!priority.includes('Cooking Vault recipe'), 'no source recipe transcription embedded');
 });
