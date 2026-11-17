@@ -69,7 +69,7 @@ test('grocery list refreshes when tab opens and discloses unmapped ingredient co
 test('offline v11 includes updated scripts and catalog contains 100', () => {
   const sw = fs.readFileSync(path.join(root,'sw.js'),'utf8');
   const html = fs.readFileSync(path.join(root,'index.html'),'utf8');
-  assert.match(sw, /vk-lottery-v22/);
+  assert.match(sw, /vk-lottery-v23/);
   assert.match(sw, /\.\/grocery\.js/);
   assert.match(html, /100 numbered dinner choices/);
   assert.match(html, /src="food-wars\.js"/);
