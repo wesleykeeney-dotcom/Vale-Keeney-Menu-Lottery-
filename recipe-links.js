@@ -56,5 +56,10 @@ const RECIPE_LINKS=Object.freeze({
  97:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-hauntedbourbonsteak-001",recipeVersionId:"VK-DIN-HAUNTEDBOURBONSTEAK-001"}),
  98:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-honeypepperchickenmac-001",recipeVersionId:"VK-DIN-HONEYPEPPERCHICKENMAC-001"}),
  99:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-macmeatloaf-001",recipeVersionId:"VK-DIN-MACMEATLOAF-001"})
+ // Screenshot-backed versions mapped to their matching dinner category; titles remain explicit.
+ 22:Object.freeze({publicationId:'vk-pub-cajun-chicken-alfredo-screenshot-001',recipeVersionId:'VK-HH-SLOW-COOKER-CAJUN-CHICKEN-ALFREDO-SCREENSHOT-2026-11-17'}),
+ 40:Object.freeze({publicationId:'vk-pub-beef-tips-noodles-screenshot-001',recipeVersionId:'VK-HH-CROCKPOT-BEEF-TIPS-NOODLES-SCREENSHOT-2026-11-17'}),
+ 51:Object.freeze({publicationId:'vk-pub-bbq-bacon-cheeseburger-casserole-screenshot-001',recipeVersionId:'VK-HH-BBQ-BACON-CHEESEBURGER-CASSEROLE-SCREENSHOT-2026-11-17'}),
+ 76:Object.freeze({publicationId:'vk-pub-breakfast-sliders-screenshot-001',recipeVersionId:'VK-HH-SAUSAGE-EGG-CHEESE-BREAKFAST-SLIDERS-SCREENSHOT-2026-11-17'}),
 });
 function recipeLinkFor(id){return Object.prototype.hasOwnProperty.call(RECIPE_LINKS,id)?RECIPE_LINKS[id]:null}
