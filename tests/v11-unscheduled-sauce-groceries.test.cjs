@@ -82,7 +82,7 @@ test('no recipe preview can be opened for partial or invalid lottery IDs',()=>{
  const a=mockApp();
  for(const id of [-1,100,11,17,52])assert.equal(a.run('groceryShowRecipe('+id+')'),false);
  assert.equal(a.run('groceryPreviewRecipeId'),null);
- assert.match(read('sw.js'),/vk-lottery-v22/);
+ assert.match(read('sw.js'),/vk-lottery-v23/);
 });
 
 test('recipe preview checkmarks, Add, and Clear never alter saved weekly grocery state',()=>{
