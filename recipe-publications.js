@@ -629,7 +629,7 @@ const RECIPE_PUBLICATIONS=Object.freeze({
   notes:"Vault record status: source_preserved_transcription_pending. Amounts not stated in the record are shown as Not specified.",
   shoppingNote:"Lottery #100; ingredients and amounts are reproduced from the approved Vault version. Amounts not documented remain Not specified; no scaling.",
   sourceNote:"Owner-authorized household publication; source transcription pending. Do not describe as source-verified."
- })
+ }),
  'vk-pub-cajun-chicken-alfredo-screenshot-001':Object.freeze({
   publicationId:'vk-pub-cajun-chicken-alfredo-screenshot-001',
   recipeId:'VK-HH-SLOW-COOKER-CAJUN-CHICKEN-ALFREDO-001',
