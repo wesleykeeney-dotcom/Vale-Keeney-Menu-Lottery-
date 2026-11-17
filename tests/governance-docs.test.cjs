@@ -46,5 +46,5 @@ test('recipe sync keeps the original lottery IDs and appends 16 choices and upda
  const meals=read('meals.js');
  const n=[...meals.matchAll(/^\s*"([^"]+)"[,\r\n]/gm)].length;
  assert.equal(n,100,'lottery contains 100 options');
- assert.match(read('sw.js'),/vk-lottery-v22/,'recipe sync ships with its updated offline cache');
+ assert.match(read('sw.js'),/vk-lottery-v23/,'recipe sync ships with its updated offline cache');
 });
