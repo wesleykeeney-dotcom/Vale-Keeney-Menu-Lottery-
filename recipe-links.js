@@ -56,10 +56,61 @@ const RECIPE_LINKS=Object.freeze({
  97:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-hauntedbourbonsteak-001",recipeVersionId:"VK-DIN-HAUNTEDBOURBONSTEAK-001"}),
  98:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-honeypepperchickenmac-001",recipeVersionId:"VK-DIN-HONEYPEPPERCHICKENMAC-001"}),
  99:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-macmeatloaf-001",recipeVersionId:"VK-DIN-MACMEATLOAF-001"}),
- // Screenshot-backed versions mapped to their matching dinner category; titles remain explicit.
+ // Screenshot records are published as selectable versions, NOT replacements for household lottery choices.
  22:Object.freeze({publicationId:'vk-pub-cajun-chicken-alfredo-screenshot-001',recipeVersionId:'VK-HH-SLOW-COOKER-CAJUN-CHICKEN-ALFREDO-SCREENSHOT-2026-11-17'}),
  40:Object.freeze({publicationId:'vk-pub-beef-tips-noodles-screenshot-001',recipeVersionId:'VK-HH-CROCKPOT-BEEF-TIPS-NOODLES-SCREENSHOT-2026-11-17'}),
  51:Object.freeze({publicationId:'vk-pub-bbq-bacon-cheeseburger-casserole-screenshot-001',recipeVersionId:'VK-HH-BBQ-BACON-CHEESEBURGER-CASSEROLE-SCREENSHOT-2026-11-17'}),
  76:Object.freeze({publicationId:'vk-pub-breakfast-sliders-screenshot-001',recipeVersionId:'VK-HH-SAUSAGE-EGG-CHEESE-BREAKFAST-SLIDERS-SCREENSHOT-2026-11-17'}),
 });
-function recipeLinkFor(id){return Object.prototype.hasOwnProperty.call(RECIPE_LINKS,id)?RECIPE_LINKS[id]:null}
+// The four screenshots are retained in the public publication registry, but each
+// differs from the household's existing lottery choice (ingredients or preparation).
+// #41 also contains mushrooms, unlike its current household planning template.
+// Nothing is substituted until the household deliberately selects that version.
+const RECIPE_OPT_IN_IDS=Object.freeze([22,40,51,76]);
+const RECIPE_VERSION_KEY='vk-recipe-version-v01';
+function recipeVersionPreferences(){
+ try{
+  if(typeof localStorage==='undefined')return {};
+  const stored=JSON.parse(localStorage.getItem(RECIPE_VERSION_KEY));
+  return stored&&typeof stored==='object'&&!Array.isArray(stored)?stored:{};
+ }catch{return {}}
+}
+function recipeSelectedVersionForLottery(id){
+ if(!RECIPE_OPT_IN_IDS.includes(id))return null;
+ const link=RECIPE_LINKS[id];
+ return recipeVersionPreferences()[String(id)]===link.recipeVersionId?link.recipeVersionId:null;
+}
+function recipeSetVersionForLottery(id,versionId){
+ if(!RECIPE_OPT_IN_IDS.includes(id)||typeof localStorage==='undefined')return false;
+ const link=RECIPE_LINKS[id];
+ if(versionId!==''&&versionId!==null&&versionId!==link.recipeVersionId)return false;
+ try{
+  const preferences=recipeVersionPreferences();
+  if(versionId)preferences[String(id)]=versionId;
+  else delete preferences[String(id)];
+  localStorage.setItem(RECIPE_VERSION_KEY,JSON.stringify(preferences));
+  return true;
+ }catch{return false}
+}
+function recipeVariantOptionsForLottery(id){
+ if(!RECIPE_OPT_IN_IDS.includes(id)||typeof RECIPE_PUBLICATIONS==='undefined')return null;
+ const link=RECIPE_LINKS[id],record=RECIPE_PUBLICATIONS[link.publicationId];
+ if(!record||record.publicationAuthorization!=='approved-for-public-web'||
+    record.recipeVersionId!==link.recipeVersionId)return null;
+ return [
+  {value:'',label:MEALS[id]+' — existing lottery choice (no reviewed recipe linked)'},
+  {value:link.recipeVersionId,label:record.title+' — screenshot alternative'+(id===40?' (contains mushrooms)':'')+
+   (record.methodStatus==='incomplete'?' (method incomplete)':'')}
+ ];
+}
+function recipeSelectedVariantTitleForLottery(id){
+ const versionId=recipeSelectedVersionForLottery(id);
+ if(!versionId||typeof RECIPE_PUBLICATIONS==='undefined')return null;
+ const link=RECIPE_LINKS[id],record=RECIPE_PUBLICATIONS[link.publicationId];
+ return record&&record.recipeVersionId===versionId?record.title:null;
+}
+function recipeLinkFor(id){
+ if(!Object.prototype.hasOwnProperty.call(RECIPE_LINKS,id))return null;
+ if(RECIPE_OPT_IN_IDS.includes(id)&&!recipeSelectedVersionForLottery(id))return null;
+ return RECIPE_LINKS[id];
+}
