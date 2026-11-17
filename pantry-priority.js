@@ -54,6 +54,7 @@ function pantryPriorityRender() {
     const row = node('div','priority-meal');
     const details = node('div','priority-details');
     details.append(node('strong',null,MEALS[meal.id]));
+    if(typeof recipeSelectedVariantTitleForLottery==='function'&&recipeSelectedVariantTitleForLottery(meal.id))details.append(node('p','subtle','Selected screenshot version: '+recipeSelectedVariantTitleForLottery(meal.id)));
     details.append(node('p','subtle',meal.have.length+' of '+meal.total+' mapped grocery items on hand • '+meal.missing.length+' still needed'));
     details.append(node('p','subtle','On hand: '+meal.have.join(', ')));
     details.append(node('p','subtle','Still needed: '+(meal.missing.length ? meal.missing.join(', ') : 'none of the mapped items')));
