@@ -630,6 +630,132 @@ const RECIPE_PUBLICATIONS=Object.freeze({
   shoppingNote:"Lottery #100; ingredients and amounts are reproduced from the approved Vault version. Amounts not documented remain Not specified; no scaling.",
   sourceNote:"Owner-authorized household publication; source transcription pending. Do not describe as source-verified."
  })
+ 'vk-pub-cajun-chicken-alfredo-screenshot-001':Object.freeze({
+  publicationId:'vk-pub-cajun-chicken-alfredo-screenshot-001',
+  recipeId:'VK-HH-SLOW-COOKER-CAJUN-CHICKEN-ALFREDO-001',
+  recipeVersionId:'VK-HH-SLOW-COOKER-CAJUN-CHICKEN-ALFREDO-SCREENSHOT-2026-11-17',
+  publicationAuthorization:'approved-for-public-web',
+  lotteryIds:[22],
+  title:'Slow Cooker Cajun Chicken Alfredo',
+  versionType:'owner-approved screenshot transcription (Cajun Alfredo version)',
+  sourceStatus:'Ingredient list and visible instructions transcribed against the owner-supplied Meatdad Family screenshot. This is a separate Cajun Alfredo version, not a Vault-canonical Chicken Alfredo recipe.',
+  ingredientStatus:'complete',methodStatus:'incomplete',householdSubstitutionsResolved:true,
+  yieldText:'Not specified',
+  ingredients:Object.freeze([
+   {name:'Olive oil',amount:'1 Tbsp',department:'Pantry'},
+   {name:'Chicken breasts',amount:'1 lb',department:'Meat'},
+   {name:'Smoked sausage, sliced into 1-inch pieces',amount:'1 lb',department:'Meat'},
+   {name:'Heavy cream',amount:'3 cups',department:'Dairy'},
+   {name:'Low-sodium chicken broth',amount:'4 cups',department:'Canned & Jarred'},
+   {name:'Butter',amount:'4 Tbsp',department:'Dairy'},
+   {name:'Coarse Cajun seasoning',amount:'2 Tbsp',department:'Seasonings'},
+   {name:'Garlic cloves, smashed',amount:'2 cloves',department:'Produce'},
+   {name:'Uncooked penne pasta',amount:'1 lb',department:'Pasta'},
+   {name:'Hot water',amount:'1/2 cup',supplyOnly:true},
+   {name:'Freshly shredded Parmesan cheese',amount:'8 oz (about 2 1/2 cups)',department:'Dairy'},
+   {name:'Kosher salt',amount:'1/2 tsp stated in visible method',department:'Seasonings'},
+   {name:'Black pepper',amount:'Several turns, amount not specified',department:'Seasonings'},
+   {name:'Garlic powder',amount:'A sprinkle, amount not specified',department:'Seasonings'}
+  ]),
+  steps:Object.freeze([
+   'Pat chicken breasts dry and season with salt, pepper, and a sprinkle of garlic powder. Heat olive oil over high heat and quickly sear chicken breasts on both sides.',
+   'Add chicken breasts, sausage, heavy cream, chicken broth, butter, garlic cloves, 1/2 teaspoon kosher salt, Cajun seasoning, and several turns of freshly ground black pepper to the slow cooker.'
+  ]),
+  notes:'The screenshot ends after the ingredients are added to the slow cooker. Remaining cook time, when to add the pasta and Parmesan, and final cooking instructions are not visible; this version is not marked cook-ready.',
+  shoppingNote:'Lottery #23. Source amounts are shown as written. Water is listed in the recipe but excluded from groceries as a kitchen supply.',
+  sourceNote:'Owner-supplied screenshot transcription; the visible screenshot is the transcription reference.'
+ }),
+
+ 'vk-pub-beef-tips-noodles-screenshot-001':Object.freeze({
+  publicationId:'vk-pub-beef-tips-noodles-screenshot-001',
+  recipeId:'VK-HH-CROCKPOT-BEEF-TIPS-NOODLES-SCREENSHOT-001',
+  recipeVersionId:'VK-HH-CROCKPOT-BEEF-TIPS-NOODLES-SCREENSHOT-2026-11-17',
+  publicationAuthorization:'approved-for-public-web',
+  lotteryIds:[40],
+  title:'Crockpot Beef Tips & Noodles — Screenshot Version',
+  versionType:'owner-approved screenshot transcription',
+  sourceStatus:'Ingredient list and instructions transcribed and checked against the owner-supplied Crockpot Recipes And… screenshot. This is a distinct screenshot version; no Vault-canonical recipe is replaced.',
+  ingredientStatus:'complete',methodStatus:'complete',householdSubstitutionsResolved:true,
+  yieldText:'Not specified',
+  ingredients:Object.freeze([
+   {name:'Stew meat',amount:'1 lb',department:'Meat'},
+   {name:'Lipton onion soup mix',amount:'1 packet',department:'Seasonings'},
+   {name:'Brown gravy mix',amount:'1 packet',department:'Seasonings'},
+   {name:'Cream of mushroom soup',amount:'1 can (10.5 oz)',department:'Canned & Jarred'},
+   {name:'Mushrooms',amount:'1 small can',department:'Canned & Jarred'},
+   {name:'Beef broth',amount:'1 can’s worth; volume not specified',department:'Canned & Jarred',preparation:'The post says it was measured using the empty cream-of-mushroom can.'},
+   {name:'Egg noodles',amount:'Not specified',department:'Pasta'}
+  ]),
+  steps:Object.freeze([
+   'Put all ingredients except the noodles in the crockpot and mix.',
+   'Cook on LOW for 8 hours. Cook the noodles when the beef mixture is done; serve with the noodles.'
+  ]),
+  notes:'Contains cream of mushroom soup and canned mushrooms. The post says the author would use 2 lb meat next time with the same measurements; the documented recipe amount remains 1 lb.',
+  shoppingNote:'Lottery #41. Egg-noodle quantity and broth volume are not specified; no amount is inferred.',
+  sourceNote:'Owner-supplied screenshot transcription; quantities and method reflect the visible post.'
+ }),
+
+ 'vk-pub-bbq-bacon-cheeseburger-casserole-screenshot-001':Object.freeze({
+  publicationId:'vk-pub-bbq-bacon-cheeseburger-casserole-screenshot-001',
+  recipeId:'VK-HH-BBQ-BACON-CHEESEBURGER-CASSEROLE-001',
+  recipeVersionId:'VK-HH-BBQ-BACON-CHEESEBURGER-CASSEROLE-SCREENSHOT-2026-11-17',
+  publicationAuthorization:'approved-for-public-web',
+  lotteryIds:[51],
+  title:'BBQ Bacon Cheeseburger Casserole',
+  versionType:'owner-approved screenshot transcription (casserole version)',
+  sourceStatus:'Ingredient list and instructions transcribed against the owner-supplied Savory Eats & Sweets screenshot. This is a distinct casserole version associated with the Bacon Cheeseburger Pasta lottery choice.',
+  ingredientStatus:'complete',methodStatus:'complete',householdSubstitutionsResolved:true,
+  yieldText:'Not specified',
+  ingredients:Object.freeze([
+   {name:'Ground beef',amount:'1 lb',department:'Meat'},
+   {name:'Bacon, cooked and crumbled',amount:'4 slices',department:'Meat'},
+   {name:'Barbecue sauce',amount:'1 cup',department:'Pantry'},
+   {name:'Shredded cheese',amount:'2 cups',department:'Dairy'},
+   {name:'Cooked pasta',amount:'4 cups; type not specified',department:'Pasta'}
+  ]),
+  steps:Object.freeze([
+   'Preheat oven to 350°F (175°C).',
+   'Brown the ground beef, then mix in barbecue sauce, bacon, and cooked pasta.',
+   'In a baking dish, layer the mixture with cheese on top. Bake for 20 minutes until the cheese is bubbly.'
+  ]),
+  notes:'The screenshot does not specify pasta type, yield, or the cooking time for the pasta.',
+  shoppingNote:'Lottery #52. Four cups is the documented amount of cooked pasta; no dry-pasta conversion is inferred.',
+  sourceNote:'Owner-supplied screenshot transcription; no unlisted ingredient or quantity has been added.'
+ }),
+
+ 'vk-pub-breakfast-sliders-screenshot-001':Object.freeze({
+  publicationId:'vk-pub-breakfast-sliders-screenshot-001',
+  recipeId:'VK-HH-SAUSAGE-EGG-CHEESE-BREAKFAST-SLIDERS-001',
+  recipeVersionId:'VK-HH-SAUSAGE-EGG-CHEESE-BREAKFAST-SLIDERS-SCREENSHOT-2026-11-17',
+  publicationAuthorization:'approved-for-public-web',
+  lotteryIds:[76],
+  title:'Sausage Egg and Cheese Breakfast Sliders',
+  versionType:'owner-approved screenshot transcription (slider version)',
+  sourceStatus:'Ingredient list and instructions transcribed against the owner-supplied Tasty Recipes & Nutrition screenshot. This is a distinct slider version associated with the Sausage Egg & Cheese Biscuits lottery choice.',
+  ingredientStatus:'complete',methodStatus:'complete',householdSubstitutionsResolved:true,
+  yieldText:'12 sliders',
+  ingredients:Object.freeze([
+   {name:'Ground pork breakfast sausage',amount:'24 oz (2 breakfast sausage rolls, such as Jimmy Dean)',department:'Meat'},
+   {name:'Hawaiian buns or other slider buns',amount:'12',department:'Bakery'},
+   {name:'Large eggs, scrambled',amount:'8',department:'Dairy'},
+   {name:'Pepper jack cheese',amount:'6 slices',department:'Dairy'},
+   {name:'American cheese',amount:'8 slices',department:'Dairy'},
+   {name:'Butter, melted',amount:'1/2 cup',department:'Dairy'},
+   {name:'Maple syrup',amount:'1/4 cup',department:'Pantry'}
+  ]),
+  steps:Object.freeze([
+   'Preheat oven to 350°F.',
+   'Warm a large skillet over medium heat. Form the sausage into 12 patties slightly larger than one dinner roll. Cook until completely cooked through.',
+   'Using a serrated knife, cut the rolls in half lengthwise without separating them. Place the bottom half in a 7x10-inch or 9x13-inch baking dish.',
+   'Spoon scrambled eggs onto the bottom rolls and top with pepper jack. Place sausage patties on top, add American cheese, then replace the top buns.',
+   'Combine melted butter and maple syrup. Brush over the tops of the rolls, letting the sauce drip down the sides and into the bottom; use the entire amount.',
+   'Bake for 15–20 minutes, until the cheese is bubbly and melted.',
+   'Serve. The post also says the sliders can be prepared a day ahead and reheated in the oven before serving.'
+  ]),
+  notes:'The screenshot lists 24 ounces of ground pork sausage and describes it as two breakfast sausage rolls. The source does not provide a separate safe-temperature endpoint.',
+  shoppingNote:'Lottery #77. Ingredients and quantities reflect the screenshot; no scaling is applied.',
+  sourceNote:'Owner-supplied screenshot transcription; the visible screenshot is the transcription reference.'
+ })
 });
 // An approved publication must bind an explicit lottery number and recipe version.
 // Ingredient names and quantities must be valid for BOTH the recipe view and groceries.
