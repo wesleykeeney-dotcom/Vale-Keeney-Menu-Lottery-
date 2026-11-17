@@ -176,5 +176,5 @@ test('approved recipe registry and offline wiring remain correct',()=>{
  }
  assert.match(html,/id="recipeContent"/);
  assert.match(html,/id="recipeTitle" tabindex="-1"/);
- assert.match(sw,/vk-lottery-v22/);
+ assert.match(sw,/vk-lottery-v23/);
 });
