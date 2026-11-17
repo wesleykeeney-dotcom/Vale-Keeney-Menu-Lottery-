@@ -89,7 +89,7 @@ function groceryRender(){
  const root=document.getElementById('groceryContent');if(!root)return;root.replaceChildren();
  // If a user switches back to the unlinked lottery choice, discard the now
  // invalid single-recipe preview; never show a different recipe's shopping list.
- if(groceryPreviewRecipeId!==null&&
+ if(typeof groceryPreviewRecipeId!=='undefined'&&groceryPreviewRecipeId!==null&&
     (typeof publishedShoppingRowsForLottery!=='function'||!publishedShoppingRowsForLottery(groceryPreviewRecipeId))){
   groceryPreviewRecipeId=null;
   groceryPreviewChecked=new Set();
