@@ -18,8 +18,34 @@ function recipeViewRender(id){
  title.textContent=MEALS[id];root.replaceChildren();
  const add=(tag,cls,text)=>{const n=node(tag,cls,text);root.append(n);return n};
  add('p','subtle','Lottery #'+(id+1));
+ const variants=typeof recipeVariantOptionsForLottery==='function'?recipeVariantOptionsForLottery(id):null;
+ if(variants){
+  const label=node('label','recipe-option','Recipe version: ');
+  const select=node('select','recipe-choice-select');
+  select.setAttribute('aria-label','Recipe version for '+MEALS[id]);
+  for(const option of variants){
+   const item=node('option',null,option.label);
+   item.value=option.value;
+   select.append(item);
+  }
+  select.value=typeof recipeSelectedVersionForLottery==='function'?(recipeSelectedVersionForLottery(id)||''):'';
+  select.onchange=()=>{
+   if(typeof recipeSetVersionForLottery==='function'&&recipeSetVersionForLottery(id,select.value)){
+    recipeViewRender(id);
+    if(typeof render==='function')render();
+    else{
+     if(typeof groceryRender==='function')groceryRender();
+     if(typeof pantryPriorityRender==='function')pantryPriorityRender();
+    }
+    if(typeof pantryRender==='function')pantryRender();
+   }
+  };
+  label.append(select);root.append(label);
+  add('p','recipe-caution','Screenshot recipes are optional alternatives to the original lottery choice. Choosing one changes its ingredient source in weekly groceries and pantry suggestions, but does not change the lottery number or saved menu. Selecting the original restores its existing shopping template, if any.');
+ }
  const record=approvedRecipeForLottery(id);
  if(record){
+  add('h4','grocery-dept','Selected recipe: '+record.title);
   add('p','subtle','Approved public recipe version: '+record.recipeVersionId+' • '+record.versionType);
   if(record.sourceStatus)add('p','subtle','Evidence: '+record.sourceStatus);
   if(record.yieldText)add('p','subtle','Documented yield: '+record.yieldText);

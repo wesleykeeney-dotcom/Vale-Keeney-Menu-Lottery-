@@ -87,6 +87,13 @@ function groceryReturnToWeekly(){
 }
 function groceryRender(){
  const root=document.getElementById('groceryContent');if(!root)return;root.replaceChildren();
+ // If a user switches back to the unlinked lottery choice, discard the now
+ // invalid single-recipe preview; never show a different recipe's shopping list.
+ if(typeof groceryPreviewRecipeId!=='undefined'&&groceryPreviewRecipeId!==null&&
+    (typeof publishedShoppingRowsForLottery!=='function'||!publishedShoppingRowsForLottery(groceryPreviewRecipeId))){
+  groceryPreviewRecipeId=null;
+  groceryPreviewChecked=new Set();
+ }
  const scopeRecipe=typeof groceryPreviewRecipeId!=='undefined'&&groceryPreviewRecipeId!==null&&validId(groceryPreviewRecipeId)?groceryPreviewRecipeId:null;
  const ids=scopeRecipe===null?groceryWeekIds():[scopeRecipe];
  // Weekly edit controls remain visible but disabled while previewing a recipe.
@@ -117,6 +124,10 @@ function groceryRender(){
    (partial.length?'Partial recipes: '+partial.map(id=>name(id)).join(', ')+'. Choose any variable fillings yourself and add them manually. ':'')+
    ((missing.length||partial.length)?'This is not a complete grocery list.':'All selected meals have household planning templates; check quantities before shopping.'));
  root.append(notice);
+ for(const id of ids){
+  const selectedTitle=typeof recipeSelectedVariantTitleForLottery==='function'?recipeSelectedVariantTitleForLottery(id):null;
+  if(selectedTitle)root.append(node('p','recipe-caution','Lottery #'+(id+1)+' ('+name(id)+') is using the selected screenshot recipe: '+selectedTitle+'. Its documented ingredient amounts determine these groceries.'));
+ }
  for(const id of ids)if(!published.get(id)&&SHOPPING_RECIPE_NOTES[id])root.append(node('p','subtle',SHOPPING_RECIPE_NOTES[id]));
  const items=new Map();
  for(const id of ids)for(const [department,ingredient,amount] of (published.get(id)||SHOPPING_TEMPLATES[id]||SHOPPING_PARTIAL_TEMPLATES[id]||[])){

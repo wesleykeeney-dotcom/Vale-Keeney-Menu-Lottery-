@@ -66,12 +66,12 @@ test('source-incomplete candidates remain blocked and cannot masquerade as cook-
 });
 
 test('approved Taco Casserole #6 and existing household publications remain linked',()=>{
- assert.equal(Object.keys(links).length,27);
- assert.equal(Object.keys(pubs).length,27);
+ assert.equal(Object.keys(links).length,31);
+ assert.equal(Object.keys(pubs).length,31);
  assert.equal(pubs[links[5].publicationId].recipeVersionId,links[5].recipeVersionId);
  assert.equal(pubs[links[5].publicationId].publicationAuthorization,'approved-for-public-web');
  assert.equal(mealNames[5],'Taco Casserole');
- assert.match(read('sw.js'),/vk-lottery-v21/,'new recipe and sauce selector require a cache update');
+ assert.match(read('sw.js'),/vk-lottery-v23/,'new recipe and sauce selector require a cache update');
 });
 
 test('review documentation is linked and does not certify a historical original',()=>{
