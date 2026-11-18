@@ -160,13 +160,13 @@ test('winner, weekly menu and library all expose recipe navigation without chang
 });
 test('approved recipe registry and offline wiring remain correct',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
- assert.equal(Object.keys(publications).length,31);
+ assert.equal(Object.keys(publications).length,32);
  const approved=publications['vk-pub-taco-casserole-manuscript-001'];
  assert.equal(approved.publicationAuthorization,'approved-for-public-web');
  assert.match(approved.versionType,/household manuscript.*not source-verified original/i);
  assert.match(approved.sourceStatus,/NOT been independently verified/);
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.equal(Object.keys(links).length,31);
+ assert.equal(Object.keys(links).length,32);
  assert.equal(links[5].recipeVersionId,approved.recipeVersionId);
  assert.equal(meals.length,100);
  const html=read('index.html'),sw=read('sw.js');
@@ -176,5 +176,5 @@ test('approved recipe registry and offline wiring remain correct',()=>{
  }
  assert.match(html,/id="recipeContent"/);
  assert.match(html,/id="recipeTitle" tabindex="-1"/);
- assert.match(sw,/vk-lottery-v23/);
+ assert.match(sw,/vk-lottery-v24/);
 });
