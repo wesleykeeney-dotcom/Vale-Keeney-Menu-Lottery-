@@ -56,6 +56,9 @@ const RECIPE_LINKS=Object.freeze({
  97:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-hauntedbourbonsteak-001",recipeVersionId:"VK-DIN-HAUNTEDBOURBONSTEAK-001"}),
  98:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-honeypepperchickenmac-001",recipeVersionId:"VK-DIN-HONEYPEPPERCHICKENMAC-001"}),
  99:Object.freeze({publicationId:"vk-pub-lottery-100-vk-din-macmeatloaf-001",recipeVersionId:"VK-DIN-MACMEATLOAF-001"}),
+ // Lottery #31: expressly owner-selected default — Slow Cooker Pepperoni Pizza Burgers.
+ // Version is separate from the broad lottery label; original source evidence remains pending.
+ 30:Object.freeze({publicationId:'vk-pub-pizza-burgers-slow-cooker-default-001',recipeVersionId:'VK-DIN-SLOWCOOKER-PIZZABURGER-001'}),
  // Screenshot records are published as selectable versions, NOT replacements for household lottery choices.
  22:Object.freeze({publicationId:'vk-pub-cajun-chicken-alfredo-screenshot-001',recipeVersionId:'VK-HH-SLOW-COOKER-CAJUN-CHICKEN-ALFREDO-SCREENSHOT-2026-11-17'}),
  40:Object.freeze({publicationId:'vk-pub-beef-tips-noodles-screenshot-001',recipeVersionId:'VK-HH-CROCKPOT-BEEF-TIPS-NOODLES-SCREENSHOT-2026-11-17'}),

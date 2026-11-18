@@ -92,8 +92,8 @@ test('an approved public recipe lacking a grocery department cannot silently rep
 test('the public registry contains only explicitly owner-approved versions and no authenticated Vault reference',()=>{
  const publications=vm.runInNewContext(read('recipe-publications.js')+'\nRECIPE_PUBLICATIONS;');
  const links=vm.runInNewContext(read('recipe-links.js')+'\nRECIPE_LINKS;');
- assert.equal(Object.keys(publications).length,31);
- assert.equal(Object.keys(links).length,31);
+ assert.equal(Object.keys(publications).length,32);
+ assert.equal(Object.keys(links).length,32);
  assert.match(publications[links[5].publicationId].sourceStatus,/NOT been independently verified/);
  assert.match(publications[links[5].publicationId].versionType,/household manuscript/);
  const pages=read('index.html');

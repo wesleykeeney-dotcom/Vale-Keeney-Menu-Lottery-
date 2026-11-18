@@ -723,6 +723,36 @@ const RECIPE_PUBLICATIONS=Object.freeze({
   sourceNote:'Owner-supplied screenshot transcription; no unlisted ingredient or quantity has been added.'
  }),
 
+ 'vk-pub-pizza-burgers-slow-cooker-default-001':Object.freeze({
+  publicationId:'vk-pub-pizza-burgers-slow-cooker-default-001',
+  recipeId:'VK-DIN-SLOWCOOKER-PIZZABURGER-001',
+  recipeVersionId:'VK-DIN-SLOWCOOKER-PIZZABURGER-001',
+  publicationAuthorization:'approved-for-public-web',
+  lotteryIds:[30],
+  title:'Slow Cooker Pepperoni Pizza Burgers',
+  versionType:'owner-designated default version (recovered archived recipe)',
+  sourceStatus:'Source-preserved archived formulation. The original source image has not been independently rechecked and publisher identity is not established. Household owner designated this exact version for Pizza Burgers #31 on November 18, 2026.',
+  ingredientStatus:'complete',methodStatus:'complete',householdSubstitutionsResolved:true,
+  yieldText:'8 burgers',
+  ingredients:Object.freeze([
+   {name:'Ground beef',amount:'2 lb',department:'Meat'},
+   {name:'Pizza sauce',amount:'30 oz',department:'Canned & Jarred'},
+   {name:'Pepperoni, halved',amount:'1/2 cup',department:'Meat'},
+   {name:'Shredded mozzarella',amount:'1 cup',department:'Dairy'},
+   {name:'Mozzarella slices',amount:'8 slices',department:'Dairy'},
+   {name:'Rolls',amount:'8',department:'Bakery'}
+  ]),
+  steps:Object.freeze([
+   'Brown and drain ground beef.',
+   'Combine beef, sauce and pepperoni in slow cooker; cook on LOW 3 hours.',
+   'Add shredded mozzarella for final 30 minutes.',
+   'Serve on rolls with sliced mozzarella.'
+  ]),
+  notes:'These amounts and four cooking stages come from the recovered archived formulation, not an independently rechecked original image. Do not infer additional cooking time, yield, or publisher attribution.',
+  shoppingNote:'Lottery #31 now uses this owner-selected default version for the recipe card, weekly groceries and pantry. Source yields eight burgers; do not automatically scale to five servings.',
+  sourceNote:'Owner expressly chose this version as the default. This public publication does not change the Cooking Vault canonical record, status, lock or source-verification fields.'
+ }),
+
  'vk-pub-breakfast-sliders-screenshot-001':Object.freeze({
   publicationId:'vk-pub-breakfast-sliders-screenshot-001',
   recipeId:'VK-HH-SAUSAGE-EGG-CHEESE-BREAKFAST-SLIDERS-001',
