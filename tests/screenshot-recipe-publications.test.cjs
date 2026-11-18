@@ -37,7 +37,7 @@ test('100 lottery choices and existing linked records are preserved; screenshots
  assert.equal(run(ctx,'MEALS.length'),100);
  assert.equal(run(ctx,'Object.keys(RECIPE_LINKS).length'),32,'27 original links, four opt-in versions, and one new default publication');
  assert.equal(run(ctx,'Object.keys(RECIPE_PUBLICATIONS).length'),32);
- assert.equal(run(ctx,'Array.from({length:100},(_,id)=>approvedRecipeForLottery(id)).filter(Boolean).length'),27);
+ assert.equal(run(ctx,'Array.from({length:100},(_,id)=>approvedRecipeForLottery(id)).filter(Boolean).length'),28);
  for(const [id,meal] of screenshotRecipes){
   assert.equal(run(ctx,'MEALS['+id+']'),meal);
   assert.equal(run(ctx,'approvedRecipeForLottery('+id+')'),null);
