@@ -2,6 +2,11 @@
 // Household planning templates are estimates, not source-faithful recipe transcriptions.
 // Keyed by immutable zero-based lottery ID. Unmapped meals are explicitly reported.
 const SHOPPING_TEMPLATES = Object.freeze({
+  // Shopping lists transcribed from archived recipe photos.
+  30: [["Meat","Ground beef","2 lb"],["Canned & Jarred","Pizza sauce","30 oz (two 15 oz jars)"],["Meat","Sliced pepperoni","1/2 cup"],["Dairy","Shredded mozzarella","1 cup"],["Dairy","Sliced mozzarella","8 slices"],["Bakery","Rolls","8"]],
+  31: [["Meat","Ground beef","1 lb (450 g)"],["Produce","Onion","1 small"],["Produce","Garlic","2 cloves"],["Canned & Jarred","Beef broth","2 cups (500 mL)"],["Dairy","Heavy cream","1 cup (240 mL)"],["Canned & Jarred","Diced tomatoes","1 can (14.5 oz)"],["Pasta","Shell pasta","2 cups (200 g)"],["Dairy","Shredded cheddar","1 cup (100 g)"],["Oils","Olive oil","1 Tbsp"],["Seasonings","Dried basil","1 tsp"],["Seasonings","Dried oregano","1 tsp"],["Seasonings","Salt","to taste"],["Seasonings","Black pepper","to taste"]],
+  44: [["Meat","Pork roast","4 lb"],["Seasonings","Garlic powder","1 tsp"],["Produce","Onion","1"],["Seasonings","Onion powder","1/2 tsp"],["Beverages","Dr Pepper","1 can"],["Seasonings","Salt","to taste"],["Seasonings","Black pepper","to taste"],["Canned & Jarred","BBQ sauce","3/4 cup"],["Bakery","Buns","count unspecified"],["Seasonings","Paprika","2 tsp"]],
+  79: [["Pasta","Large pasta shells","20"],["Meat","Lean ground beef","1 lb"],["Dairy","Ricotta","1 cup"],["Dairy","Shredded mozzarella","1 cup (listed total)"],["Dairy","Grated Pecorino Romano","1/2 cup"],["Dairy","Eggs","1 large"],["Canned & Jarred","Tomato basil sauce","2 cups"],["Seasonings","Dried oregano","1 tsp"],["Produce","Garlic","2 cloves"],["Seasonings","Salt","to taste"],["Seasonings","Black pepper","to taste"],["Produce","Fresh parsley","for garnish; amount unspecified"]],
   // Photo-confirmed required ingredients for lottery #7, #9, #38 and #69.
   6: [["Prepared Foods","Prepared macaroni and cheese","2 cups"],["Meat","Cooked bacon","4 slices"],["Bakery","Small flour tortillas","12"],["Dairy","Shredded cheddar cheese","1 cup"],["Oils","Cooking spray","amount unspecified"]],
   8: [["Meat","Sirloin steak","2 lb"],["Oils","Olive oil","1 Tbsp"],["Seasonings","Black pepper","1/2 tsp"],["Seasonings","Salt","1/2 tsp"],["Dairy","Unsalted butter","1/4 cup"],["Produce","Garlic","5 cloves"],["Seasonings","Italian seasoning","1/2 tsp"],["Produce","Fresh parsley","1 Tbsp"]],
@@ -51,6 +56,10 @@ const SHOPPING_PARTIAL_TEMPLATES=Object.freeze({
 });
 // Per-recipe quantity context is informational; optional ingredients are not auto-added to required buys.
 const SHOPPING_RECIPE_NOTES=Object.freeze({
+  30: "Slow Cooker Pepperoni Pizza Burgers, eight servings. Both photo cards agree on all six quantities.",
+  31: "Creamy Beef Shells skillet version, four servings. Optional parsley is excluded from required shopping.",
+  44: "Slow Cooker Dr Pepper Pulled Pork sandwich version. The photo does not specify a bun count or yield.",
+  79: "Creamy Ricotta Beef Stuffed Shells, six servings. The ingredient panel lists 1 cup mozzarella divided. The directions use a full cup in the filling and also call for a topping, with no additional amount stated.",
   6: "Photo ingredient list, six servings. The source does not specify when to add the cheddar.",
   8: "Photo ingredient list. Directions and yield are not shown.",
   37: "Photo ingredient list. Optional breadcrumbs: 1/2 cup. Directions and yield are not shown.",
