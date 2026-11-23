@@ -2,6 +2,11 @@
 // Household planning templates are estimates, not source-faithful recipe transcriptions.
 // Keyed by immutable zero-based lottery ID. Unmapped meals are explicitly reported.
 const SHOPPING_TEMPLATES = Object.freeze({
+  // Photo-confirmed required ingredients for lottery #7, #9, #38 and #69.
+  6: [["Prepared Foods","Prepared macaroni and cheese","2 cups"],["Meat","Cooked bacon","4 slices"],["Bakery","Small flour tortillas","12"],["Dairy","Shredded cheddar cheese","1 cup"],["Oils","Cooking spray","amount unspecified"]],
+  8: [["Meat","Sirloin steak","2 lb"],["Oils","Olive oil","1 Tbsp"],["Seasonings","Black pepper","1/2 tsp"],["Seasonings","Salt","1/2 tsp"],["Dairy","Unsalted butter","1/4 cup"],["Produce","Garlic","5 cloves"],["Seasonings","Italian seasoning","1/2 tsp"],["Produce","Fresh parsley","1 Tbsp"]],
+  37: [["Pasta","Elbow macaroni","12 oz"],["Dairy","Shredded cheddar cheese","2 cups"],["Dairy","Mozzarella cheese","1 cup"],["Dairy","Milk","1 cup"],["Dairy","Heavy cream","1/2 cup"],["Dairy","Butter","3 Tbsp"],["Baking","All-purpose flour","3 Tbsp"],["Seasonings","Garlic powder","1 tsp"],["Seasonings","Salt","1/2 tsp"],["Seasonings","Black pepper","1/2 tsp"]],
+  68: [["Oils","Olive oil","1 Tbsp"],["Produce","Onion","1"],["Produce","Celery","2 ribs"],["Produce","Bell peppers","2"],["Seasonings","Salt","amount unspecified"],["Seasonings","Black pepper","amount unspecified"],["Produce","Garlic paste","1 Tbsp"],["Meat","Chicken","1 lb"],["Seasonings","Paprika","1/4 tsp"],["Meat","Andouille sausage","1 lb"],["Canned & Jarred","Tomato paste","2 Tbsp"],["Canned & Jarred","Chicken broth","2 cups"],["Canned & Jarred","Crushed tomatoes","15 oz"],["Pantry","Rice","1 cup"],["Seasonings","Cajun seasoning","1 tsp"]],
   // Household ingredient lists from the Oct 19–25 Drive packet and the recovered private Cooking Vault.
   // Kitchen Test Draft & Vault agree on Taco Casserole's fuller amounts; original source-image comparison remains pending.
   // These are shopping templates, not protected source-faithful recipe transcriptions.
@@ -46,6 +51,10 @@ const SHOPPING_PARTIAL_TEMPLATES=Object.freeze({
 });
 // Per-recipe quantity context is informational; optional ingredients are not auto-added to required buys.
 const SHOPPING_RECIPE_NOTES=Object.freeze({
+  6: "Photo ingredient list, six servings. The source does not specify when to add the cheddar.",
+  8: "Photo ingredient list. Directions and yield are not shown.",
+  37: "Photo ingredient list. Optional breadcrumbs: 1/2 cup. Directions and yield are not shown.",
+  68: "Photo ingredient list, six servings. Optional shrimp has no stated quantity.",
   3:'Pepperoni Pizza Grilled Cheese: archived quantities yield 2 sandwiches, not 5 servings. Optional garlic: 1 tsp (type unspecified), not included in required shopping.',
   52:'Sausage & Potato Foil Packets: archived yield is unspecified; do not assume quantities cover five people.',
   11:'Garbage Bread — PARTIAL ingredient list: one pizza dough + about 1 lb ground beef makes one loaf. Choose the cheese, fillings, and seasoning you want and add them to the grocery list manually. The family source intentionally leaves these amounts open.',
