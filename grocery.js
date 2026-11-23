@@ -2,6 +2,7 @@
 // Household planning templates are estimates, not source-faithful recipe transcriptions.
 // Keyed by immutable zero-based lottery ID. Unmapped meals are explicitly reported.
 const SHOPPING_TEMPLATES = Object.freeze({
+  58: [["Bakery","Large flour tortillas","4"],["Meat","Cooked chicken breasts","2"],["Dairy","Shredded cheddar cheese","1 cup"],["Canned & Jarred","Hot sauce","1/4 cup (adjust to taste)"],["Canned & Jarred","Ranch dressing","2 Tbsp"],["Oils","Cooking spray or olive oil","for greasing"]],
   // Shopping lists transcribed from archived recipe photos.
   30: [["Meat","Ground beef","2 lb"],["Canned & Jarred","Pizza sauce","30 oz (two 15 oz jars)"],["Meat","Sliced pepperoni","1/2 cup"],["Dairy","Shredded mozzarella","1 cup"],["Dairy","Sliced mozzarella","8 slices"],["Bakery","Rolls","8"]],
   31: [["Meat","Ground beef","1 lb (450 g)"],["Produce","Onion","1 small"],["Produce","Garlic","2 cloves"],["Canned & Jarred","Beef broth","2 cups (500 mL)"],["Dairy","Heavy cream","1 cup (240 mL)"],["Canned & Jarred","Diced tomatoes","1 can (14.5 oz)"],["Pasta","Shell pasta","2 cups (200 g)"],["Dairy","Shredded cheddar","1 cup (100 g)"],["Oils","Olive oil","1 Tbsp"],["Seasonings","Dried basil","1 tsp"],["Seasonings","Dried oregano","1 tsp"],["Seasonings","Salt","to taste"],["Seasonings","Black pepper","to taste"]],
@@ -39,6 +40,8 @@ const SHOPPING_TEMPLATES = Object.freeze({
 // Partial templates include only confirmed fixed ingredients. Never advertise them as complete
 // or score them in pantry-first recommendations. Variable choices stay manual.
 const SHOPPING_PARTIAL_TEMPLATES=Object.freeze({
+  4: [["Meat","Chicken tenders","1 lb (about 8–10 pieces)"],["Meat","Cooked bacon","8 slices"],["Baking","Brown sugar","1/2 cup"],["Seasonings","Paprika","1 tsp"],["Seasonings","Garlic powder","1/2 tsp"],["Seasonings","Onion powder","1/2 tsp"],["Seasonings","Salt","1/2 tsp"],["Seasonings","Black pepper","1/4 tsp"],["Oils","Cooking spray or oil","for greasing"]],
+  60: [["Frozen","Frozen meatballs","1 lb"],["Canned & Jarred","Grape jelly","1 cup"],["Canned & Jarred","BBQ sauce","1 cup"],["Canned & Jarred","Soy sauce","1 Tbsp"],["Seasonings","Garlic powder","1 tsp"],["Seasonings","Onion powder","1/2 tsp"]],
   // #12 Garbage Bread: locked VK-FAM-GARBAGEBREAD-001 family formulation.
   // Method specifies one pizza dough for one loaf, with about one pound of ground beef.
   // Cheese and other fillings are "as desired" and MUST be added to groceries manually.
@@ -56,6 +59,9 @@ const SHOPPING_PARTIAL_TEMPLATES=Object.freeze({
 });
 // Per-recipe quantity context is informational; optional ingredients are not auto-added to required buys.
 const SHOPPING_RECIPE_NOTES=Object.freeze({
+  4: "Partial: Bacon Brown Sugar Chicken Tenders, four servings. The photo covers the chicken only; add your fries separately.",
+  58: "Air Fryer Hot Chicken and Cheese Wraps, four servings. The photo specifies hot sauce without naming a type.",
+  60: "Partial: Slow Cooker Grape Jelly Meatballs with BBQ sauce, six servings. The photo covers the filling only; add your slider buns separately.",
   30: "Slow Cooker Pepperoni Pizza Burgers, eight servings. Both photo cards agree on all six quantities.",
   31: "Creamy Beef Shells skillet version, four servings. Optional parsley is excluded from required shopping.",
   44: "Slow Cooker Dr Pepper Pulled Pork sandwich version. The photo does not specify a bun count or yield.",
